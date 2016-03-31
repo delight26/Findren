@@ -19,8 +19,13 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value = "noticeList")
-	public String HelloWorld(HttpServletRequest request) {
+	public String noticeList(HttpServletRequest request) {
 		nService.noticeList(request);
 		return "Notice/noticeList";
+	}
+	
+	@RequestMapping(value = "noticeWrite")
+	public String noticeWrite(){
+		return "Notice/noticeWrite";
 	}
 }
