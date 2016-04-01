@@ -9,4 +9,6 @@ public interface NoticeDao {
 	public Integer getNoticeBoardCount();
 	
 	public List<NoticeBoard> getNoticeBoardList(int startRow, int PAGE_SIZE);
+	
+	public void insertNoticeBoard(NoticeBoard nb);
 }

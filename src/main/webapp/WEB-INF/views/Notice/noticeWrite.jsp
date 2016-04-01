@@ -29,13 +29,22 @@ $(function(){
 						},
 						fCreator: "createSEditor2"
 					});
-});
+					$("#savebutton").click(function(){
+				        //id가 smarteditor인 textarea에 에디터에서 대입
+				        oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
+				         
+				        // 이부분에 에디터 validation 검증
+				         
+				        //폼 submit
+				        $("#frm").submit();
+				    });
+				});
 </script>
 <meta charset="utf-8">
 <title>Insert title here</title>
 </head>
 <body>
-<form action="/submit" method="post" id="frm">
+<form id="frm" action="noticeWriteResult" method="post" enctype="multipart/form-data">
 	<table>
 		<tr>
 			<td>옵션</td>
@@ -65,8 +74,8 @@ $(function(){
 			<td><input type="file" name="file2"/></td>
 		</tr>
 	</table>
-		<input type="button" id="savebutton" value="서버전송" />
-		<input type="button" id="savebutton" value="취소" />
+		<input type="button" id="savebutton" value="작성완료" />
+		<input type="button" id="cancel" value="취소" />
 </form>
 </body>
 </html>

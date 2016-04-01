@@ -35,16 +35,6 @@
 								<td>${ notice.notice_No }</td>
 									<c:if test="${ notice.notice_Title.length() > 20 }">
 								<td>
-<<<<<<< HEAD
-									<a href="getNoticeContent?no=${ notice.notice_No }&pageNum=${ currentPage }">
-									${ notice.notice_Title.substring(0, 21) }... 
-									</a>
-								</td>
-									</c:if>
-								<c:if test="${ notice.notice_Title.length() <= 20 }">
-								<td>
-									<a href="getNoticeContent?no=${ notice.notice_No }&pageNum=${ currentPage }">
-=======
 									<a href="noticeContent?no=${ notice.notice_No }&pageNum=${ currentPage }">
 									${ notice.notice_Title.substring(0, 21) }... 
 									</a>
@@ -53,7 +43,6 @@
 								<c:if test="${ notice.notice_Title.length() <= 20 }">
 								<td>
 									<a href="noticeContent?no=${ notice.notice_No }&pageNum=${ currentPage }">
->>>>>>> refs/remotes/origin/Junbum
 										${ notice.notice_Title } 
 									</a>
 								</td>
