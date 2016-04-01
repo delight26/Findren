@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,31 +11,31 @@ $(function(){
 					nhn.husky.EZCreator.createInIFrame({
 						oAppRef: oEditors,
 						elPlaceHolder: "ir1",
-						//SmartEditor2Skin.html ÆÄÀÏÀÌ Á¸ÀçÇÏ´Â °æ·Î
+						//SmartEditor2Skin.html íŒŒì¼ì´ ì¡´ì¬í•˜ëŠ” ê²½ë¡œ
 						sSkinURI: "resources/editor/SmartEditor2Skin.html",	
 						htParams : {
-							// Åø¹Ù »ç¿ë ¿©ºÎ (true:»ç¿ë/ false:»ç¿ëÇÏÁö ¾ÊÀ½)
+							// íˆ´ë°” ì‚¬ìš© ì—¬ë¶€ (true:ì‚¬ìš©/ false:ì‚¬ìš©í•˜ì§€ ì•ŠìŒ)
 							bUseToolbar : true,				
-							// ÀÔ·ÂÃ¢ Å©±â Á¶Àı¹Ù »ç¿ë ¿©ºÎ (true:»ç¿ë/ false:»ç¿ëÇÏÁö ¾ÊÀ½)
+							// ì…ë ¥ì°½ í¬ê¸° ì¡°ì ˆë°” ì‚¬ìš© ì—¬ë¶€ (true:ì‚¬ìš©/ false:ì‚¬ìš©í•˜ì§€ ì•ŠìŒ)
 							bUseVerticalResizer : true,		
-							// ¸ğµå ÅÇ(Editor | HTML | TEXT) »ç¿ë ¿©ºÎ (true:»ç¿ë/ false:»ç¿ëÇÏÁö ¾ÊÀ½)
+							// ëª¨ë“œ íƒ­(Editor | HTML | TEXT) ì‚¬ìš© ì—¬ë¶€ (true:ì‚¬ìš©/ false:ì‚¬ìš©í•˜ì§€ ì•ŠìŒ)
 							bUseModeChanger : true,			
 							fOnBeforeUnload : function(){
 								
 							}
 						}, 
 						fOnAppLoad : function(){
-							//±âÁ¸ ÀúÀåµÈ ³»¿ëÀÇ text ³»¿ëÀ» ¿¡µğÅÍ»ó¿¡ »Ñ·ÁÁÖ°íÀÚ ÇÒ¶§ »ç¿ë
+							//ê¸°ì¡´ ì €ì¥ëœ ë‚´ìš©ì˜ text ë‚´ìš©ì„ ì—ë””í„°ìƒì— ë¿Œë ¤ì£¼ê³ ì í• ë•Œ ì‚¬ìš©
 						},
 						fCreator: "createSEditor2"
 					});
 					$("#savebutton").click(function(){
-				        //id°¡ smarteditorÀÎ textarea¿¡ ¿¡µğÅÍ¿¡¼­ ´ëÀÔ
+				        //idê°€ smarteditorì¸ textareaì— ì—ë””í„°ì—ì„œ ëŒ€ì…
 				        oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 				         
-				        // ÀÌºÎºĞ¿¡ ¿¡µğÅÍ validation °ËÁõ
+				        // ì´ë¶€ë¶„ì— ì—ë””í„° validation ê²€ì¦
 				         
-				        //Æû submit
+				        //í¼ submit
 				        $("#frm").submit();
 				    });
 				});
@@ -47,35 +47,35 @@ $(function(){
 <form id="frm" action="noticeWriteResult" method="post" enctype="multipart/form-data">
 	<table>
 		<tr>
-			<td>¿É¼Ç</td>
-			<td><input type="checkbox" value="notice" name="type">°øÁö</td>
+			<td>ì˜µì…˜</td>
+			<td><input type="checkbox" value="notice" name="type">ê³µì§€</td>
 		</tr>
 		<tr>
-			<td>Á¦¸ñ</td>
+			<td>ì œëª©</td>
 			<td><input type="text" name="title"/></td>
 		</tr>
    	<tr>
-   	<td>³»¿ë</td>
+   	<td>ë‚´ìš©</td>
    	<td style="width:766px; height:412px;"><textarea name="content" id="ir1" rows="10" cols="100"></textarea></td>
 		<tr>
-			<td>¸µÅ© 1</td>
+			<td>ë§í¬ 1</td>
 			<td><input type="text" name="link1"/></td>
 		</tr>
 		<tr>
-			<td>¸µÅ© 2</td>
+			<td>ë§í¬ 2</td>
 			<td><input type="text" name="link2"/></td>
 		</tr>
 		<tr>
-			<td>ÆÄÀÏ 1</td>
+			<td>íŒŒì¼ 1</td>
 			<td><input type="file" name="file1"/></td>
 		</tr>
 		<tr>
-			<td>ÆÄÀÏ 2</td>
+			<td>íŒŒì¼ 2</td>
 			<td><input type="file" name="file2"/></td>
 		</tr>
 	</table>
-		<input type="button" id="savebutton" value="ÀÛ¼º¿Ï·á" />
-		<input type="button" id="cancel" value="Ãë¼Ò" />
+		<input type="button" id="savebutton" value="ì‘ì„±ì™„ë£Œ" />
+		<input type="button" id="cancel" value="ì·¨ì†Œ" />
 </form>
 </body>
 </html>

@@ -11,4 +11,12 @@ public interface NoticeDao {
 	public List<NoticeBoard> getNoticeBoardList(int startRow, int PAGE_SIZE);
 	
 	public void insertNoticeBoard(NoticeBoard nb);
+	
+	public void noticeWatchUpdate(int watch, int no);
+	
+	public NoticeBoard noticeContent(int no);
+	
+	public Integer noticeNextNo(int no);
+	
+	public Integer noticePreNo(int no);
 }

@@ -40,4 +40,29 @@ public class NoticeController {
 		nService.noticeWriteResult(request, path);
 		return "redirect:noticeList";
 	}
+	@RequestMapping(value="noticeContent")
+	public String noticeContent(HttpServletRequest request){
+		nService.noticeContent(request);
+		return "Notice/noticeContent";
+	}
+	@RequestMapping(value="noticenext")
+	public String noticeNext(HttpServletRequest request){
+		nService.noticeNext(request);
+		if (request.getAttribute("nb") == null) {
+			request.setAttribute("message", "최신글 입니다.");
+			request.setAttribute("returnUrl", "javascript:history.back()");
+			return "alertAndRedirect";
+		}
+		return "Notice/noticeContent";
+	}
+	@RequestMapping(value="noticepre")
+	public String noticePre(HttpServletRequest request){
+		nService.noticePre(request);
+		if (request.getAttribute("nb") == null) {
+			request.setAttribute("message", "마지막글 입니다.");
+			request.setAttribute("returnUrl", "javascript:history.back()");
+			return "alertAndRedirect";
+		}
+		return "Notice/noticeContent";
+	}
 }

@@ -26,9 +26,9 @@ public class NoticeDaoImpl implements NoticeDao {
 
 	@Override
 	public Integer getNoticeBoardCount() {
-		SqlParameterSource boardparam = new MapSqlParameterSource("board_notice", "board_notice");
+		SqlParameterSource noticeparam = new MapSqlParameterSource("board_notice", "board_notice");
 		String sql = "select count(*) from board_notice";
-		return namedParameterJdbcTemplate.queryForObject(sql, boardparam, Integer.class);
+		return namedParameterJdbcTemplate.queryForObject(sql, noticeparam, Integer.class);
 	}
 
 	@Override
@@ -45,5 +45,36 @@ public class NoticeDaoImpl implements NoticeDao {
 		String sql = "insert into board_notice values(0, :notice_Title, :notice_Writer, :notice_Content, :notice_File1, :notice_File2, :notice_Link1,"
 				+ ":notice_Link2, 0, :notice_WriteDate, :notice_Type)";
 		namedParameterJdbcTemplate.update(sql, noticeparam);
+	}
+	
+	@Override
+	public void noticeWatchUpdate(int watch, int no) {
+		SqlParameterSource noticeparam = new MapSqlParameterSource("watch", watch).addValue("no", no);
+		String sql = "update board_notice set notice_watch = :watch where notice_no = :no";
+		namedParameterJdbcTemplate.update(sql, noticeparam);
+		
+	}
+	
+	@Override
+	public NoticeBoard noticeContent(int no) {
+		SqlParameterSource noticeparam = new MapSqlParameterSource("no", no);
+		String sql = "select * from board_notice where notice_no = :no";
+		return namedParameterJdbcTemplate.query(sql, noticeparam, dm.getNoticeBoardRMRSE());
+	}
+	
+	@Override
+	public Integer noticeNextNo(int no) {
+		SqlParameterSource noticeparam = new MapSqlParameterSource("no", no);
+		String sql = "SELECT max(notice_no) FROM board_notice nb WHERE notice_no < :no;";
+		return namedParameterJdbcTemplate.queryForObject(
+				sql, noticeparam, Integer.class);
+	}
+	
+	@Override
+	public Integer noticePreNo(int no) {
+		SqlParameterSource noticeparam = new MapSqlParameterSource("no", no);
+		String sql = "SELECT min(notice_no) FROM board_notice nb WHERE notice_no > :no;";
+		return namedParameterJdbcTemplate.queryForObject(
+				sql, noticeparam, Integer.class);
 	}
 }

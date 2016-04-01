@@ -11,4 +11,10 @@ public interface NoticeService {
 	public void noticeList(HttpServletRequest request);
 
 	public void noticeWriteResult(MultipartHttpServletRequest request, String path) throws IllegalStateException, IOException;
+	
+	public void noticeContent(HttpServletRequest request);
+	
+	public void noticeNext(HttpServletRequest request);
+	
+	public void noticePre(HttpServletRequest request);
 }
