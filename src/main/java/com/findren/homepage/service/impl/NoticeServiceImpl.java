@@ -75,14 +75,26 @@ public class NoticeServiceImpl implements NoticeService {
 		String content = request.getParameter("content");
 		String link1 = request.getParameter("link1");
 		String link2 = request.getParameter("link2");
-
+		
+		if(link1.substring(0,7).equals("http://")){
+			link1 = link1.substring(7);
+		}
+		
+		if(link1.substring(0,7).equals("http://")){
+			link1 = link1.substring(7);
+		}
+		
+		if(type == null){
+			type = "normal";
+		}
+		
 		NoticeBoard nb = new NoticeBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
 		nb.setNotice_Type(type);
 		nb.setNotice_Title(title);
-		nb.setNotice_Writer("admin");
+		nb.setNotice_Writer("중국인찾기");
 		nb.setNotice_Content(content);
 		nb.setNotice_WriteDate(time);
 		nb.setNotice_Link1(link1);
@@ -123,8 +135,8 @@ public class NoticeServiceImpl implements NoticeService {
 			String realFileNm2 = "";
 			SimpleDateFormat formatter2 = new SimpleDateFormat("yyyyMMddHHmmss");
 			String today2 = formatter2.format(new java.util.Date());
-			realFileNm2 = today2 + UUID.randomUUID().toString()
-					+ multipartFile2.getOriginalFilename().substring(multipartFile2.getOriginalFilename().lastIndexOf("."));
+			realFileNm2 = today2 + UUID.randomUUID().toString() + multipartFile2.getOriginalFilename()
+					.substring(multipartFile2.getOriginalFilename().lastIndexOf("."));
 			String rlFileNm2 = realFileNm2;
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
@@ -156,13 +168,13 @@ public class NoticeServiceImpl implements NoticeService {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
 		int watch = Integer.valueOf(request.getParameter("watch"));
-		
+
 		NDao.noticeWatchUpdate(watch + 1, no);
 		NoticeBoard nb = NDao.noticeContent(no);
 		request.setAttribute("nb", nb);
 		request.setAttribute("pageNum", pageNum);
 	}
-	
+
 	@Override
 	public void noticeNext(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
@@ -177,7 +189,7 @@ public class NoticeServiceImpl implements NoticeService {
 			request.setAttribute("nb", nb);
 		}
 	}
-	
+
 	@Override
 	public void noticePre(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
@@ -191,6 +203,120 @@ public class NoticeServiceImpl implements NoticeService {
 			request.setAttribute("pageNum", pageNum);
 			request.setAttribute("nb", nb);
 		}
+	}
+
+	@Override
+	public void noticeDelete(HttpServletRequest request) {
+		String [] check = request.getParameterValues("check");
+		for(int i =0; i< check.length; i++){			
+			NDao.noticeDelete(Integer.parseInt(check[i]));
+		}
+	}
+	
+	@Override
+	public void noticeUpdate(HttpServletRequest request) {
+		int no = Integer.valueOf(request.getParameter("no"));
 		
+		NoticeBoard nb = NDao.noticeContent(no);
+		
+		request.setAttribute("nb", nb);
+	}
+	
+	@Override
+	public void noticeUpdateResult(MultipartHttpServletRequest request, String path)
+			throws IllegalStateException, IOException {
+		request.setCharacterEncoding("utf-8");
+		MultipartFile multipartFile1 = request.getFile("file1");
+		MultipartFile multipartFile2 = request.getFile("file2");
+		String type = request.getParameter("type");
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		String link1 = request.getParameter("link1");
+		String link2 = request.getParameter("link2");
+		int no = Integer.valueOf(request.getParameter("no"));
+		System.out.println(link1.substring(0,6));
+		if(link1.substring(0,6).equals("http://")){
+			link1 = link1.substring(7);
+			System.out.println(link1);
+		}
+		if(type == null){
+			type = "normal";
+		}
+		
+		NoticeBoard nb = new NoticeBoard();
+
+		Timestamp time = new Timestamp(System.currentTimeMillis());
+		
+		nb.setNotice_No(no);
+		nb.setNotice_Type(type);
+		nb.setNotice_Title(title);
+		nb.setNotice_Writer("중국인찾기");
+		nb.setNotice_Content(content);
+		nb.setNotice_WriteDate(time);
+		nb.setNotice_Link1(link1);
+		nb.setNotice_Link2(link2);
+
+		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
+			String filename_ext1 = multipartFile1.getOriginalFilename()
+					.substring(multipartFile1.getOriginalFilename().lastIndexOf(".") + 1);
+			filename_ext1 = filename_ext1.toLowerCase();
+			String realFileNm1 = "";
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+			String today1 = formatter.format(new java.util.Date());
+			realFileNm1 = today1 + UUID.randomUUID().toString() + multipartFile1.getOriginalFilename()
+					.substring(multipartFile1.getOriginalFilename().lastIndexOf("."));
+			String rlFileNm1 = realFileNm1;
+			File file1 = new File(path, rlFileNm1);
+			multipartFile1.transferTo(file1);
+
+			String filename_ext2 = multipartFile2.getOriginalFilename()
+					.substring(multipartFile2.getOriginalFilename().lastIndexOf(".") + 1);
+			filename_ext2 = filename_ext2.toLowerCase();
+			String realFileNm2 = "";
+			SimpleDateFormat formatter2 = new SimpleDateFormat("yyyyMMddHHmmss");
+			String today2 = formatter2.format(new java.util.Date());
+			realFileNm2 = today2 + UUID.randomUUID().toString() + multipartFile2.getOriginalFilename()
+					.substring(multipartFile2.getOriginalFilename().lastIndexOf("."));
+			String rlFileNm2 = realFileNm2;
+			File file2 = new File(path, rlFileNm2);
+			multipartFile2.transferTo(file2);
+
+			nb.setNotice_File1(rlFileNm1);
+			nb.setNotice_File2(rlFileNm2);
+
+		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
+			String filename_ext2 = multipartFile2.getOriginalFilename()
+					.substring(multipartFile2.getOriginalFilename().lastIndexOf(".") + 1);
+			filename_ext2 = filename_ext2.toLowerCase();
+			String realFileNm2 = "";
+			SimpleDateFormat formatter2 = new SimpleDateFormat("yyyyMMddHHmmss");
+			String today2 = formatter2.format(new java.util.Date());
+			realFileNm2 = today2 + UUID.randomUUID().toString() + multipartFile2.getOriginalFilename()
+					.substring(multipartFile2.getOriginalFilename().lastIndexOf("."));
+			String rlFileNm2 = realFileNm2;
+			File file2 = new File(path, rlFileNm2);
+			multipartFile2.transferTo(file2);
+
+			nb.setNotice_File1("");
+			nb.setNotice_File2(rlFileNm2);
+
+		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
+			String filename_ext1 = multipartFile1.getOriginalFilename()
+					.substring(multipartFile1.getOriginalFilename().lastIndexOf(".") + 1);
+			filename_ext1 = filename_ext1.toLowerCase();
+			String realFileNm1 = "";
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
+			String today1 = formatter.format(new java.util.Date());
+			realFileNm1 = today1 + UUID.randomUUID().toString() + multipartFile1.getOriginalFilename()
+					.substring(multipartFile1.getOriginalFilename().lastIndexOf("."));
+			String rlFileNm1 = realFileNm1;
+			File file1 = new File(path, rlFileNm1);
+			multipartFile1.transferTo(file1);
+
+			nb.setNotice_File1(rlFileNm1);
+			nb.setNotice_File2("");
+		}
+		NDao.updateNoticeBoard(nb);
+
 	}
 }

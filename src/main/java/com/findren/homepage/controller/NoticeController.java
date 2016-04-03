@@ -65,4 +65,24 @@ public class NoticeController {
 		}
 		return "Notice/noticeContent";
 	}
+	
+	@RequestMapping(value="noticeDelete", method = RequestMethod.POST)
+	public String noticeDelete(HttpServletRequest request){
+		nService.noticeDelete(request);
+		return "redirect:noticeList";
+	}
+	
+	@RequestMapping(value="noticeUpdate")
+	public String noticeUpdate(HttpServletRequest request){
+		nService.noticeUpdate(request);
+		return "Notice/noticeUpdate";
+	}
+	
+	@RequestMapping(value="noticeUpdateResult", method = RequestMethod.POST)
+	public String noticeUpdateResult(MultipartHttpServletRequest request) throws IllegalStateException, IOException{
+		String path = request.getServletContext().getRealPath(filePath);
+		
+		nService.noticeUpdateResult(request, path);
+		return "redirect:noticeList";
+	}
 }

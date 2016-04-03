@@ -19,4 +19,8 @@ public interface NoticeDao {
 	public Integer noticeNextNo(int no);
 	
 	public Integer noticePreNo(int no);
+	
+	public void noticeDelete(int no);
+	
+	public void updateNoticeBoard(NoticeBoard nb);
 }

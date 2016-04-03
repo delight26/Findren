@@ -14,7 +14,7 @@
 			<th>제목</th>
 			<td>${ nb.notice_Title }</td>
 			<th>작성일</th>
-			<td>${ fn:substring(nb.notice_WriteDate, 0, 10) }</td>
+			<td>${ fn:substring(nb.notice_WriteDate, 0, 16) }</td>
 		</tr>
 			<tr>
 			<th>글쓴이</th>
@@ -23,6 +23,8 @@
 			<td>${ nb.notice_Watch }</td>
 		</tr>
 	</table>
+		<a href="http://${ nb.notice_Link1 }" target=_blank>${ nb.notice_Link1 }</a><br/>
+		<a href="http://${ nb.notice_Link2 }" target=_blank>${ nb.notice_Link2 }</a>
 		${ nb.notice_Content }
 	<table>
 		<tr>
@@ -34,7 +36,7 @@
 			<td><a href="noticenext?no=${nb.notice_No }&pageNum=${pageNum }">다음글</a></td>
 		</tr>
 	</table>
-	<input type="button" value="수정"/>
+	<a href = "noticeUpdate?no=${ nb.notice_No }">수정</a>
 	<input type="button" value="삭제"/>
 	<input type="button" value="복사"/>
 	<input type="button" value="이동"/>
