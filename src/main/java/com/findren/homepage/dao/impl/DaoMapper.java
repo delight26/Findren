@@ -2,12 +2,14 @@ package com.findren.homepage.dao.impl;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.findren.homepage.domain.NoticeBoard;
+
 
 public class DaoMapper {
 
@@ -21,17 +23,22 @@ public class DaoMapper {
 		@Override
 		public NoticeBoard mapRow(ResultSet rs, int rowNum) throws SQLException {
 			NoticeBoard nb = new NoticeBoard();
-			nb.setNotice_No(rs.getInt("notice_no"));
-			nb.setNotice_Title(rs.getString("notice_title"));
-			nb.setNotice_Writer(rs.getString("notice_writer"));
-			nb.setNotice_Content(rs.getString("notice_content"));
-			nb.setNotice_WriteDate(rs.getTimestamp("notice_writedate"));
-			nb.setNotice_Watch(rs.getInt("notice_Watch"));
-			nb.setNotice_Type(rs.getString("notice_Type"));
-			nb.setNotice_File1(rs.getString("notice_File1"));
-			nb.setNotice_File2(rs.getString("notice_File2"));
-			nb.setNotice_Link1(rs.getString("notice_Link1"));
-			nb.setNotice_Link2(rs.getString("notice_Link2"));
+			nb.setWr_id(rs.getInt("wr_id"));
+			nb.setWr_subject(rs.getString("wr_subject"));
+			nb.setWr_content(rs.getString("wr_content"));
+			nb.setMb_id(rs.getString("mb_id"));
+			nb.setWr_name(rs.getString("wr_name"));
+			nb.setWr_link1(rs.getString("wr_link1"));
+			nb.setWr_link2(rs.getString("wr_link2"));
+			nb.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+			nb.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+			nb.setWr_hit(rs.getInt("wr_hit"));
+			nb.setWr_datetime(rs.getTimestamp("wr_datetime"));
+			nb.setWr_file1(rs.getString("wr_file1"));
+			nb.setWr_file2(rs.getString("wr_file2"));
+			nb.setWr_ip(rs.getString("wr_ip"));
+			nb.setWr_option(rs.getString("wr_option"));
+			
 			return nb;
 		}
 		
@@ -39,17 +46,21 @@ public class DaoMapper {
 		public NoticeBoard extractData(ResultSet rs) throws SQLException, DataAccessException {
 			if(rs.next()){
 			NoticeBoard nb = new NoticeBoard();
-			nb.setNotice_No(rs.getInt("notice_no"));
-			nb.setNotice_Title(rs.getString("notice_title"));
-			nb.setNotice_Writer(rs.getString("notice_writer"));
-			nb.setNotice_Content(rs.getString("notice_content"));
-			nb.setNotice_WriteDate(rs.getTimestamp("notice_writedate"));
-			nb.setNotice_Watch(rs.getInt("notice_Watch"));
-			nb.setNotice_Type(rs.getString("notice_Type"));
-			nb.setNotice_File1(rs.getString("notice_File1"));
-			nb.setNotice_File2(rs.getString("notice_File2"));
-			nb.setNotice_Link1(rs.getString("notice_Link1"));
-			nb.setNotice_Link2(rs.getString("notice_Link2"));
+			nb.setWr_id(rs.getInt("wr_id"));
+			nb.setWr_subject(rs.getString("wr_subject"));
+			nb.setWr_content(rs.getString("wr_content"));
+			nb.setMb_id(rs.getString("mb_id"));
+			nb.setWr_name(rs.getString("wr_name"));
+			nb.setWr_link1(rs.getString("wr_link1"));
+			nb.setWr_link2(rs.getString("wr_link2"));
+			nb.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+			nb.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+			nb.setWr_hit(rs.getInt("wr_hit"));
+			nb.setWr_datetime(rs.getTimestamp("wr_datetime"));
+			nb.setWr_file1(rs.getString("wr_file1"));
+			nb.setWr_file2(rs.getString("wr_file2"));
+			nb.setWr_ip(rs.getString("wr_ip"));
+			nb.setWr_option(rs.getString("wr_option"));
 			return nb;
 			}
 			return null;

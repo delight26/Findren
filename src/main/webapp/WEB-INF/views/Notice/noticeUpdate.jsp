@@ -50,23 +50,23 @@ $(function(){
 			<td>옵션</td>
 			<td>
 				<input type="checkbox" value="notice" name="type"/>공지
-				<input type="hidden" value="${ nb.notice_No }"  name="no"/>
+				<input type="hidden" value="${ nb.wr_id }"  name="no"/>
 			</td>
 		</tr>
 		<tr>
 			<td>제목</td>
-			<td><input type="text" name="title" value="${ nb.notice_Title }"/></td>
+			<td><input type="text" name="title" value="${ nb.wr_subject }"/></td>
 		</tr>
    	<tr>
    	<td>내용</td>
-   	<td style="width:766px; height:412px;"><textarea name="content" id="ir1" rows="10" cols="100">${ nb.notice_Content }</textarea></td>
+   	<td style="width:766px; height:412px;"><textarea name="content" id="ir1" rows="10" cols="100">${ nb.wr_content }</textarea></td>
 		<tr>
 			<td>링크 1</td>
-			<td><input type="text" name="link1" value="${ nb.notice_Link1 }"/></td>
+			<td><input type="text" name="link1" value="${ nb.wr_link1 }"/></td>
 		</tr>
 		<tr>
 			<td>링크 2</td>
-			<td><input type="text" name="link2"/>${ nb.notice_Link2 }</td>
+			<td><input type="text" name="link2"/>${ nb.wr_link2 }</td>
 		</tr>
 		<tr>
 			<td>파일 1</td>

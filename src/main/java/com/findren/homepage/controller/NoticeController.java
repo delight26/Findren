@@ -3,6 +3,7 @@ package com.findren.homepage.controller;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,10 +35,10 @@ public class NoticeController {
 		return "Notice/noticeWrite";
 	}
 	@RequestMapping(value="noticeWriteResult", method = RequestMethod.POST)
-	public String noticeWriteResult(MultipartHttpServletRequest request) throws IllegalStateException, IOException{
+	public String noticeWriteResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		nService.noticeWriteResult(request, path);
+		nService.noticeWriteResult(request, path, session);
 		return "redirect:noticeList";
 	}
 	@RequestMapping(value="noticeContent")
@@ -49,7 +50,7 @@ public class NoticeController {
 	public String noticeNext(HttpServletRequest request){
 		nService.noticeNext(request);
 		if (request.getAttribute("nb") == null) {
-			request.setAttribute("message", "최신글 입니다.");
+			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
@@ -59,7 +60,7 @@ public class NoticeController {
 	public String noticePre(HttpServletRequest request){
 		nService.noticePre(request);
 		if (request.getAttribute("nb") == null) {
-			request.setAttribute("message", "마지막글 입니다.");
+			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
@@ -79,10 +80,10 @@ public class NoticeController {
 	}
 	
 	@RequestMapping(value="noticeUpdateResult", method = RequestMethod.POST)
-	public String noticeUpdateResult(MultipartHttpServletRequest request) throws IllegalStateException, IOException{
+	public String noticeUpdateResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		nService.noticeUpdateResult(request, path);
+		nService.noticeUpdateResult(request, path, session);
 		return "redirect:noticeList";
 	}
 }

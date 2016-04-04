@@ -3,82 +3,110 @@ package com.findren.homepage.domain;
 import java.sql.Timestamp;
 
 public class NoticeBoard {
-	private int notice_No;
-	private String notice_Type;
-	private String notice_Title;
-	private String notice_Writer;
-	private String notice_Content;
-	private Timestamp notice_WriteDate;
-	private int notice_Watch;
-	private String notice_Link1;
-	private String notice_Link2;
-	private String notice_File1;
-	private String notice_File2;
+	private int wr_id;
+	private String wr_subject;
+	private String wr_content;
+	private String mb_id;
+	private String wr_name;
+	private String wr_link1;
+	private String wr_link2;
+	private int wr_link1_hit;
+	private int wr_link2_hit;
+	private int wr_hit;
+	private Timestamp wr_datetime;
+	private String wr_file1;
+	private String wr_file2;
+	private String wr_ip;
+	private String wr_option;
 	
-	public int getNotice_No() {
-		return notice_No;
+	public int getWr_id() {
+		return wr_id;
 	}
-	public void setNotice_No(int notice_No) {
-		this.notice_No = notice_No;
+	public void setWr_id(int wr_id) {
+		this.wr_id = wr_id;
 	}
-	public String getNotice_Type() {
-		return notice_Type;
+	public String getWr_subject() {
+		return wr_subject;
 	}
-	public void setNotice_Type(String notice_Type) {
-		this.notice_Type = notice_Type;
+	public void setWr_subject(String wr_subject) {
+		this.wr_subject = wr_subject;
 	}
-	public String getNotice_Title() {
-		return notice_Title;
+	public String getWr_content() {
+		return wr_content;
 	}
-	public void setNotice_Title(String notice_Title) {
-		this.notice_Title = notice_Title;
+	public void setWr_content(String wr_content) {
+		this.wr_content = wr_content;
 	}
-	public String getNotice_Writer() {
-		return notice_Writer;
+	public String getMb_id() {
+		return mb_id;
 	}
-	public void setNotice_Writer(String notice_Writer) {
-		this.notice_Writer = notice_Writer;
+	public void setMb_id(String mb_id) {
+		this.mb_id = mb_id;
 	}
-	public String getNotice_Content() {
-		return notice_Content;
+	public String getWr_name() {
+		return wr_name;
 	}
-	public void setNotice_Content(String notice_Content) {
-		this.notice_Content = notice_Content;
+	public void setWr_name(String wr_name) {
+		this.wr_name = wr_name;
 	}
-	public Timestamp getNotice_WriteDate() {
-		return notice_WriteDate;
+	public String getWr_link1() {
+		return wr_link1;
 	}
-	public void setNotice_WriteDate(Timestamp notice_WriteDate) {
-		this.notice_WriteDate = notice_WriteDate;
+	public void setWr_link1(String wr_link1) {
+		this.wr_link1 = wr_link1;
 	}
-	public int getNotice_Watch() {
-		return notice_Watch;
+	public String getWr_link2() {
+		return wr_link2;
 	}
-	public void setNotice_Watch(int notice_Watch) {
-		this.notice_Watch = notice_Watch;
+	public void setWr_link2(String wr_link2) {
+		this.wr_link2 = wr_link2;
 	}
-	public String getNotice_Link1() {
-		return notice_Link1;
+	public int getWr_link1_hit() {
+		return wr_link1_hit;
 	}
-	public void setNotice_Link1(String notice_Link1) {
-		this.notice_Link1 = notice_Link1;
+	public void setWr_link1_hit(int wr_link1_hit) {
+		this.wr_link1_hit = wr_link1_hit;
 	}
-	public String getNotice_Link2() {
-		return notice_Link2;
+	public int getWr_link2_hit() {
+		return wr_link2_hit;
 	}
-	public void setNotice_Link2(String notice_Link2) {
-		this.notice_Link2 = notice_Link2;
+	public void setWr_link2_hit(int wr_link2_hit) {
+		this.wr_link2_hit = wr_link2_hit;
 	}
-	public String getNotice_File1() {
-		return notice_File1;
+	public int getWr_hit() {
+		return wr_hit;
 	}
-	public void setNotice_File1(String notice_File1) {
-		this.notice_File1 = notice_File1;
+	public void setWr_hit(int wr_hit) {
+		this.wr_hit = wr_hit;
 	}
-	public String getNotice_File2() {
-		return notice_File2;
+	public Timestamp getWr_datetime() {
+		return wr_datetime;
 	}
-	public void setNotice_File2(String notice_File2) {
-		this.notice_File2 = notice_File2;
+	public void setWr_datetime(Timestamp wr_datetime) {
+		this.wr_datetime = wr_datetime;
+	}
+	public String getWr_file1() {
+		return wr_file1;
+	}
+	public void setWr_file1(String wr_file1) {
+		this.wr_file1 = wr_file1;
+	}
+	public String getWr_file2() {
+		return wr_file2;
+	}
+	public void setWr_file2(String wr_file2) {
+		this.wr_file2 = wr_file2;
+	}
+	public String getWr_ip() {
+		return wr_ip;
+	}
+	public void setWr_ip(String wr_ip) {
+		this.wr_ip = wr_ip;
+	}
+	public String getWr_option() {
+		return wr_option;
+	}
+	public void setWr_option(String wr_option) {
+		this.wr_option = wr_option;
 	}
 }
