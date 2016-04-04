@@ -48,59 +48,59 @@ $(function(){
 					<c:if test="${ listCount > 0 }">
 					<form id="form1">
 						<c:forEach var="notice" items="${ noticeList }" varStatus="s">
-							<c:if test="${ notice.notice_Type eq 'notice' }">
+							<c:if test="${ notice.wr_option eq 'notice' }">
 							<tr>
 								<td>공지</td>
 <%-- 									<c:if test=""> --%>
 								<td>
-									<input type="checkbox" value="${ notice.notice_No }" name="check"/>
+									<input type="checkbox" value="${ notice.wr_id }" name="check"/>
 								</td>
 <%-- 									</c:if> --%>
-									<c:if test="${ notice.notice_Title.length() > 20 }">
+									<c:if test="${ notice.wr_subject.length() > 20 }">
 								<td>
-									<a href="noticeContent?no=${ notice.notice_No }&pageNum=${ currentPage }&watch=${ notice.notice_Watch }">
-									${ notice.notice_Title.substring(0, 21) }... 
+									<a href="noticeContent?no=${ notice.wr_id }&pageNum=${ currentPage }&watch=${ notice.wr_hit }">
+									${ notice.wr_subject.substring(0, 21) }... 
 									</a>
 								</td>
 									</c:if>
-								<c:if test="${ notice.notice_Title.length() <= 20 }">
+								<c:if test="${ notice.wr_subject.length() <= 20 }">
 								<td>
-									<a href="noticeContent?no=${ notice.notice_No }&pageNum=${ currentPage }&watch=${ notice.notice_Watch }">
-										${ notice.notice_Title } 
+									<a href="noticeContent?no=${ notice.wr_id }&pageNum=${ currentPage }&watch=${ notice.wr_hit }">
+										${ notice.wr_subject } 
 									</a>
 								</td>
 								</c:if>
-								<td><b>${ notice.notice_Writer }</b></td>
-								<td>${ fn:substring(notice.notice_WriteDate, 0, 10) }</td>
-								<td>${ notice.notice_Watch }</td>
+								<td><b>${ notice.wr_name }</b></td>
+								<td>${ fn:substring(notice.wr_datetime, 0, 10) }</td>
+								<td>${ notice.wr_hit }</td>
 							</tr>
 							</c:if>
 						</c:forEach>
 						<c:forEach var="notice" items="${ noticeList }" varStatus="s">
 							<tr>
-								<td>${ notice.notice_No }</td>
+								<td>${(listCount - s.index) - ( (currentPage - 1)  *  PAGE_GROUP ) }</td>
 <%-- 									<c:if test=""> --%>
 								<td>
-									<input type="checkbox" value="${ notice.notice_No }" name="check"/>
+									<input type="checkbox" value="${ notice.wr_id }" name="check"/>
 								</td>
 <%-- 									</c:if> --%>
-									<c:if test="${ notice.notice_Title.length() > 20 }">
+									<c:if test="${ notice.wr_subject.length() > 20 }">
 								<td>
-									<a href="noticeContent?no=${ notice.notice_No }&pageNum=${ currentPage }&watch=${ notice.notice_Watch }"">
-									${ notice.notice_Title.substring(0, 21) }... 
+									<a href="noticeContent?no=${ notice.wr_id }&pageNum=${ currentPage }&watch=${ notice.wr_hit }">
+									${ notice.wr_subject.substring(0, 21) }... 
 									</a>
 								</td>
 									</c:if>
-								<c:if test="${ notice.notice_Title.length() <= 20 }">
+								<c:if test="${ notice.wr_subject.length() <= 20 }">
 								<td>
-									<a href="noticeContent?no=${ notice.notice_No }&pageNum=${ currentPage }&watch=${ notice.notice_Watch }"">
-										${ notice.notice_Title } 
+									<a href="noticeContent?no=${ notice.wr_id }&pageNum=${ currentPage }&watch=${ notice.wr_hit }">
+										${ notice.wr_subject } 
 									</a>
 								</td>
 								</c:if>
-								<td><b>${ notice.notice_Writer }</b></td>
-								<td>${ fn:substring(notice.notice_WriteDate, 0, 10) }</td>
-								<td>${ notice.notice_Watch }</td>
+								<td><b>${ notice.wr_name }</b></td>
+								<td>${ fn:substring(notice.wr_datetime, 0, 10) }</td>
+								<td>${ notice.wr_hit }</td>
 							</tr>
 						</c:forEach>
 						</form>

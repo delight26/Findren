@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,7 +66,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public void noticeWriteResult(MultipartHttpServletRequest request, String path)
+	public void noticeWriteResult(MultipartHttpServletRequest request, String path, HttpSession session)
 			throws IllegalStateException, IOException {
 		request.setCharacterEncoding("utf-8");
 		MultipartFile multipartFile1 = request.getFile("file1");
@@ -75,30 +76,46 @@ public class NoticeServiceImpl implements NoticeService {
 		String content = request.getParameter("content");
 		String link1 = request.getParameter("link1");
 		String link2 = request.getParameter("link2");
-		
-		if(link1.substring(0,7).equals("http://")){
+
+		if (!link1.isEmpty() && link1.substring(0, 7).equals("http://")) {
 			link1 = link1.substring(7);
 		}
-		
-		if(link1.substring(0,7).equals("http://")){
-			link1 = link1.substring(7);
+
+		if (!link2.isEmpty() && link2.substring(0, 7).equals("http://")) {
+			link2 = link2.substring(7);
 		}
-		
-		if(type == null){
+
+		if (type == null) {
 			type = "normal";
 		}
-		
+
 		NoticeBoard nb = new NoticeBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
-		nb.setNotice_Type(type);
-		nb.setNotice_Title(title);
-		nb.setNotice_Writer("중국인찾기");
-		nb.setNotice_Content(content);
-		nb.setNotice_WriteDate(time);
-		nb.setNotice_Link1(link1);
-		nb.setNotice_Link2(link2);
+		String wr_ip = request.getHeader("X-FORWARDED-FOR");
+
+		if (wr_ip == null || wr_ip.length() == 0) {
+			wr_ip = request.getHeader("Proxy-Client-IP");
+		}
+
+		if (wr_ip == null || wr_ip.length() == 0) {
+			wr_ip = request.getHeader("WL-Proxy-Client-IP"); // 웹로직
+		}
+
+		if (wr_ip == null || wr_ip.length() == 0) {
+			wr_ip = request.getRemoteAddr();
+		}
+
+		nb.setWr_subject(title);
+		nb.setWr_content(content);
+		nb.setMb_id("admin");
+		nb.setWr_name("중국인찾기");
+		nb.setWr_link1(link1);
+		nb.setWr_link2(link2);
+		nb.setWr_datetime(time);
+		nb.setWr_ip(wr_ip);
+		nb.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -125,8 +142,8 @@ public class NoticeServiceImpl implements NoticeService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setNotice_File1(rlFileNm1);
-			nb.setNotice_File2(rlFileNm2);
+			nb.setWr_file1(rlFileNm1);
+			nb.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -141,8 +158,8 @@ public class NoticeServiceImpl implements NoticeService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setNotice_File1("");
-			nb.setNotice_File2(rlFileNm2);
+			nb.setWr_file1("");
+			nb.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -157,8 +174,8 @@ public class NoticeServiceImpl implements NoticeService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setNotice_File1(rlFileNm1);
-			nb.setNotice_File2("");
+			nb.setWr_file1(rlFileNm1);
+			nb.setWr_file2("");
 		}
 		NDao.insertNoticeBoard(nb);
 	}
@@ -184,7 +201,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 		} else {
 			NoticeBoard nb = NDao.noticeContent(nextNo);
-			NDao.noticeWatchUpdate(nb.getNotice_Watch() + 1, nextNo);
+			NDao.noticeWatchUpdate(nb.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
 			request.setAttribute("nb", nb);
 		}
@@ -199,7 +216,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 		} else {
 			NoticeBoard nb = NDao.noticeContent(nextNo);
-			NDao.noticeWatchUpdate(nb.getNotice_Watch() + 1, nextNo);
+			NDao.noticeWatchUpdate(nb.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
 			request.setAttribute("nb", nb);
 		}
@@ -207,23 +224,23 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public void noticeDelete(HttpServletRequest request) {
-		String [] check = request.getParameterValues("check");
-		for(int i =0; i< check.length; i++){			
+		String[] check = request.getParameterValues("check");
+		for (int i = 0; i < check.length; i++) {
 			NDao.noticeDelete(Integer.parseInt(check[i]));
 		}
 	}
-	
+
 	@Override
 	public void noticeUpdate(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
-		
+
 		NoticeBoard nb = NDao.noticeContent(no);
-		
+
 		request.setAttribute("nb", nb);
 	}
-	
+
 	@Override
-	public void noticeUpdateResult(MultipartHttpServletRequest request, String path)
+	public void noticeUpdateResult(MultipartHttpServletRequest request, String path, HttpSession session)
 			throws IllegalStateException, IOException {
 		request.setCharacterEncoding("utf-8");
 		MultipartFile multipartFile1 = request.getFile("file1");
@@ -234,27 +251,47 @@ public class NoticeServiceImpl implements NoticeService {
 		String link1 = request.getParameter("link1");
 		String link2 = request.getParameter("link2");
 		int no = Integer.valueOf(request.getParameter("no"));
-		System.out.println(link1.substring(0,6));
-		if(link1.substring(0,6).equals("http://")){
+
+		if (!link1.isEmpty() && link1.substring(0, 7).equals("http://")) {
 			link1 = link1.substring(7);
-			System.out.println(link1);
 		}
-		if(type == null){
+
+		if (!link2.isEmpty() && link2.substring(0, 7).equals("http://")) {
+			link2 = link2.substring(7);
+		}
+
+		if (type == null) {
 			type = "normal";
 		}
-		
+
 		NoticeBoard nb = new NoticeBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
-		
-		nb.setNotice_No(no);
-		nb.setNotice_Type(type);
-		nb.setNotice_Title(title);
-		nb.setNotice_Writer("중국인찾기");
-		nb.setNotice_Content(content);
-		nb.setNotice_WriteDate(time);
-		nb.setNotice_Link1(link1);
-		nb.setNotice_Link2(link2);
+
+		String wr_ip = request.getHeader("X-FORWARDED-FOR");
+
+		if (wr_ip == null || wr_ip.length() == 0) {
+			wr_ip = request.getHeader("Proxy-Client-IP");
+		}
+
+		if (wr_ip == null || wr_ip.length() == 0) {
+			wr_ip = request.getHeader("WL-Proxy-Client-IP"); // 웹로직
+		}
+
+		if (wr_ip == null || wr_ip.length() == 0) {
+			wr_ip = request.getRemoteAddr();
+		}
+
+		nb.setWr_id(no);
+		nb.setWr_subject(title);
+		nb.setWr_content(content);
+		nb.setMb_id("admin");
+		nb.setWr_name("중국인찾기");
+		nb.setWr_link1(link1);
+		nb.setWr_link2(link2);
+		nb.setWr_datetime(time);
+		nb.setWr_ip(wr_ip);
+		nb.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -281,8 +318,8 @@ public class NoticeServiceImpl implements NoticeService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setNotice_File1(rlFileNm1);
-			nb.setNotice_File2(rlFileNm2);
+			nb.setWr_file1(rlFileNm1);
+			nb.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -297,8 +334,8 @@ public class NoticeServiceImpl implements NoticeService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setNotice_File1("");
-			nb.setNotice_File2(rlFileNm2);
+			nb.setWr_file1("");
+			nb.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -313,8 +350,8 @@ public class NoticeServiceImpl implements NoticeService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setNotice_File1(rlFileNm1);
-			nb.setNotice_File2("");
+			nb.setWr_file1(rlFileNm1);
+			nb.setWr_file2("");
 		}
 		NDao.updateNoticeBoard(nb);
 

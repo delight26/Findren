@@ -23,4 +23,6 @@ public interface NoticeDao {
 	public void noticeDelete(int no);
 	
 	public void updateNoticeBoard(NoticeBoard nb);
+	
+	public Integer maxNum();
 }
