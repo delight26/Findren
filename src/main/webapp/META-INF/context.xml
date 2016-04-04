@@ -4,7 +4,7 @@
 			auth="Container"
 			type="javax.sql.DataSource"
 			driverClassName="com.mysql.jdbc.Driver"
-			url="jdbc:mysql://localhost:3306/findren"
+			url="jdbc:mysql://172.30.1.14:3306/findren"
 			username="Findren"
 			password="Wlfkfqud1@"			
 			factory="org.apache.commons.dbcp2.BasicDataSourceFactory"

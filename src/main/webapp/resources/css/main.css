@@ -1,0 +1,198 @@
+@CHARSET "UTF-8";
+
+@import url("http://fonts.googleapis.com/earlyaccess/nanumgothic.css");
+* { font-family:"Nanum Gothic" !important }
+
+.clear{
+	clear: both;
+}
+
+@media(min-width:768px){
+	.bodymargin{
+	margin-bottom: 10%;
+	}
+}
+
+@media(min-width:1200px){
+	.bodymargin{
+	margin-bottom: 5%;
+	}
+}
+
+/* 메인 NAV */
+.headback{
+	background: WHITE;
+}
+
+.headlogo{
+	background: WHITE;
+	padding: 1%;
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: 15px;
+	padding-left: 15px
+}
+
+/* 메인네비 로고 사진 */
+.logo{
+	width: 35%;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+
+@media(min-width:1200px){
+	.logo{
+	padding-left: 15%;
+	}
+}
+
+@media ( min-width :768px) {
+	.logoback {
+		width: 750px
+	}
+}
+
+@media ( min-width :992px) {
+	.logoback {
+		width: 970px
+	}
+}
+
+@media ( min-width :1200px) {
+	.logoback {
+		width: 1170px
+	}
+}
+
+/* 회원아이디/가입 */
+.main_message{
+	text-align: right;
+	float: right;
+}
+
+@media(min-width:1200px){
+	.main_message{
+	padding-right: 15%;
+	}
+}
+
+@media(max-width:768px){
+	.mainslide{
+		margin-top:8%; 
+	}
+}
+
+.mainslide_img{
+	width:100%;
+}
+
+/* ComINFO */
+
+.comInfo div{
+	text-align: center;
+}
+
+@media(min-width:1200px){
+	.comInfo_img_01_03 img{
+		width: 230px;
+		text-align: center;
+	}
+}
+
+@media(min-width:768px){
+	.comInfo_img_01_03 img{
+		width: 200px;
+		text-align: center;
+	}
+}
+
+@media(min-width:1200px){
+	.comInfo_img_04 img{
+		width: 90%;
+		text-align: center;
+	}
+}
+
+@media(min-width:768px){
+	.comInfo_img_04 img{
+		width: 90%;
+		text-align: center;
+	}
+}
+
+/* 위챗공중계정 소개페이지 */
+.comApp_id div{
+	float: left;
+}
+
+@media(min-width: 1200px){
+	.comApp_id_name{
+	width: 8vw;
+	}
+}
+
+@media(min-width: 768px){
+	.comApp_id_img01{
+	width: 25vw;
+	}
+}
+
+@media(min-width: 768px){
+	.comApp_id_img02{
+	width: 12em;
+	}
+}
+
+@media(min-width: 1200px){
+	.comApp_id_img01{
+	width: 11.7vw;
+	}
+}
+
+@media(min-width: 1200px){
+	 .comApp_id_img02{
+	width: 10.5vw;
+	}
+}
+
+@media(min-width: 768px){
+	.comApp_content{
+		padding-bottom: 3%;
+	}
+}
+
+@media(min-width: 1200px){
+	.comApp_content{
+		padding-bottom: 5%;
+	}
+}
+
+/* 위챗페이 소개페이지*/
+@media(min-width: 1200px){
+	.comWechatPay_name{
+	width: 8vw;
+	}
+}
+
+@media(min-width:768px){
+	.comWechatPay_id{
+		padding-top: 3%;
+	}
+}
+
+@media(min-width:1200px){
+	.comWechatPay_id{
+		padding-top: 5%;
+	}
+}
+
+/* FOOTER */
+.footer{
+	clear: left;
+	padding: 1em 0;
+	background-color: black;
+	color: #666;
+	position: fixed;
+	width:100%;
+	bottom: 0;
+}
