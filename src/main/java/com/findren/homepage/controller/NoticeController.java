@@ -24,16 +24,20 @@ public class NoticeController {
 		this.nService = nService;
 	}
 	
+	//리스트
 	@RequestMapping(value = "noticeList")
 	public String noticeList(HttpServletRequest request) {
 		nService.noticeList(request);
 		return "Notice/noticeList";
 	}
 	
+	//쓰기
 	@RequestMapping(value = "noticeWrite")
 	public String noticeWrite(){
 		return "Notice/noticeWrite";
 	}
+	
+	//쓰기결과
 	@RequestMapping(value="noticeWriteResult", method = RequestMethod.POST)
 	public String noticeWriteResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
@@ -41,11 +45,15 @@ public class NoticeController {
 		nService.noticeWriteResult(request, path, session);
 		return "redirect:noticeList";
 	}
+	
+	//보기
 	@RequestMapping(value="noticeContent")
 	public String noticeContent(HttpServletRequest request){
 		nService.noticeContent(request);
 		return "Notice/noticeContent";
 	}
+	
+	//다음글
 	@RequestMapping(value="noticenext")
 	public String noticeNext(HttpServletRequest request){
 		nService.noticeNext(request);
@@ -56,6 +64,8 @@ public class NoticeController {
 		}
 		return "Notice/noticeContent";
 	}
+	
+	//이전글
 	@RequestMapping(value="noticepre")
 	public String noticePre(HttpServletRequest request){
 		nService.noticePre(request);
@@ -67,18 +77,21 @@ public class NoticeController {
 		return "Notice/noticeContent";
 	}
 	
+	//삭제
 	@RequestMapping(value="noticeDelete", method = RequestMethod.POST)
 	public String noticeDelete(HttpServletRequest request){
 		nService.noticeDelete(request);
 		return "redirect:noticeList";
 	}
 	
+	//업데이트
 	@RequestMapping(value="noticeUpdate")
 	public String noticeUpdate(HttpServletRequest request){
 		nService.noticeUpdate(request);
 		return "Notice/noticeUpdate";
 	}
 	
+	//업데이트결과
 	@RequestMapping(value="noticeUpdateResult", method = RequestMethod.POST)
 	public String noticeUpdateResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
