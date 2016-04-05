@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -26,9 +27,10 @@ public class NoticeController {
 	
 	//리스트
 	@RequestMapping(value = "noticeList")
-	public String noticeList(HttpServletRequest request) {
+	public String noticeList(HttpServletRequest request, Model model) {
 		nService.noticeList(request);
-		return "Notice/noticeList";
+		model.addAttribute("content", "Notice/noticeList");
+		return "home";
 	}
 	
 	//쓰기

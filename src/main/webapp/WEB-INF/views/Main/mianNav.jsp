@@ -4,15 +4,19 @@
 
 
    <!-- 메인 네비 -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-	      <div class="findren headlogo">	
-	        	<div class="logoback"><a href="/Findren/findren"><img src="resources/images/logo.png" class="logo"></a></div>
-	        	<div class="main_message">
-	        		<input type="image" src="resources/images/login.png" onclick="#">
-	        		<input type="image" src="resources/images/join.png">
-	        	</div>
-	        </div>
-        <div class="container">
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+	<div class="findren headlogo">	
+		<div class="maintop">
+			<a href="/Findren/findren"><img src="resources/images/logo.png" class="logo"></a>
+			<div id="loginjoin">
+				<input class="main_msg" type="image"  src="resources/images/login.png" onclick="#">
+				<input class="main_msg" type="image" src="resources/images/join.png">
+			</div>
+		</div>
+	</div>
+	    
+	    
+        <div class="maintop">
         	
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -37,6 +41,12 @@
                             </li>
                             <li>
                                 <a href="/Findren/comMap">오시는길</a>
+                            </li>
+                            <li>
+                                <a href="/Findren/noticeList">공지사항</a>
+                            </li>
+                            <li>
+                                <a href="/Findren/comMap">보도자료</a>
                             </li>
                         </ul>
                     </li>
