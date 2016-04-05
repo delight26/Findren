@@ -7,7 +7,10 @@
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 	      <div class="findren headlogo">	
 	        	<div class="logoback"><a href="/Findren/findren"><img src="resources/images/logo.png" class="logo"></a></div>
-	        	<div class="main_message"></div>
+	        	<div class="main_message">
+	        		<input type="image" src="resources/images/login.png" onclick="#">
+	        		<input type="image" src="resources/images/join.png">
+	        	</div>
 	        </div>
         <div class="container">
         	
