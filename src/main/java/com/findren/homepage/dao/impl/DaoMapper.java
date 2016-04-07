@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.RowMapper;
 import com.findren.homepage.domain.Config;
 import com.findren.homepage.domain.NewsBoard;
 import com.findren.homepage.domain.NoticeBoard;
+import com.findren.homepage.domain.PromotionBoard;
 
 public class DaoMapper {
 
@@ -149,4 +150,59 @@ public class DaoMapper {
 				return null;
 			}
 		}
+		
+		//가맹점홍보
+				private PromotionBoardRMRSE promotionBoardRMRSE = new PromotionBoardRMRSE();
+				
+				public PromotionBoardRMRSE getPromotionBoardRMRSE() {
+					return promotionBoardRMRSE;
+				}
+				private class PromotionBoardRMRSE implements RowMapper<PromotionBoard>, ResultSetExtractor<PromotionBoard>{
+					
+					@Override
+					public PromotionBoard mapRow(ResultSet rs, int rowNum) throws SQLException {
+						PromotionBoard promotion = new PromotionBoard();
+						promotion.setWr_id(rs.getInt("wr_id"));
+						promotion.setWr_subject(rs.getString("wr_subject"));
+						promotion.setWr_content(rs.getString("wr_content"));
+						promotion.setMb_id(rs.getString("mb_id"));
+						promotion.setWr_name(rs.getString("wr_name"));
+						promotion.setWr_link1(rs.getString("wr_link1"));
+						promotion.setWr_link2(rs.getString("wr_link2"));
+						promotion.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+						promotion.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+						promotion.setWr_hit(rs.getInt("wr_hit"));
+						promotion.setWr_datetime(rs.getTimestamp("wr_datetime"));
+						promotion.setWr_file1(rs.getString("wr_file1"));
+						promotion.setWr_file2(rs.getString("wr_file2"));
+						promotion.setWr_ip(rs.getString("wr_ip"));
+						promotion.setWr_option(rs.getString("wr_option"));
+						
+						return promotion;
+					}
+					
+					@Override
+					public PromotionBoard extractData(ResultSet rs) throws SQLException, DataAccessException {
+						if(rs.next()){
+						PromotionBoard promotion = new PromotionBoard();
+						promotion.setWr_id(rs.getInt("wr_id"));
+						promotion.setWr_subject(rs.getString("wr_subject"));
+						promotion.setWr_content(rs.getString("wr_content"));
+						promotion.setMb_id(rs.getString("mb_id"));
+						promotion.setWr_name(rs.getString("wr_name"));
+						promotion.setWr_link1(rs.getString("wr_link1"));
+						promotion.setWr_link2(rs.getString("wr_link2"));
+						promotion.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+						promotion.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+						promotion.setWr_hit(rs.getInt("wr_hit"));
+						promotion.setWr_datetime(rs.getTimestamp("wr_datetime"));
+						promotion.setWr_file1(rs.getString("wr_file1"));
+						promotion.setWr_file2(rs.getString("wr_file2"));
+						promotion.setWr_ip(rs.getString("wr_ip"));
+						promotion.setWr_option(rs.getString("wr_option"));
+						return promotion;
+						}
+						return null;
+					}
+				}
 }
