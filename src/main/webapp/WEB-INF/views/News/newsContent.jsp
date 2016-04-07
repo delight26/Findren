@@ -21,7 +21,7 @@ text-align: center;
 			</h1>
 			<ol class="breadcrumb">
 				<li>회사소개</li>
-				<li class="active">공지사항</li>
+				<li class="active">보도자료</li>
 			</ol>
 		</div>
 	</div>
@@ -35,15 +35,15 @@ text-align: center;
 				<a href="/Findren/comMainCustomer" class="list-group-item">주요고객군</a>
 				<a href="/Findren/comMap" class="list-group-item">오시는길</a>
 				<a href="/Findren/noticeList" class="list-group-item active">공지사항</a>
-				<a href="/Findren/newsList" class="list-group-item">보도자료</a>
+				<a href="/Findren/news" class="list-group-item">보도자료</a>
 			</div>
 		</div>
 		<!-- 공지사항 이름 -->
 		<div class="col-md-9">
-			<h2><img src="resources/images/notice_01.png"></h2>
+			<h2><img src="resources/images/news_01.png"></h2>
 		</div>
 		
-		<div class="findrenNotice col-md-9">
+		<div class="findrenNews col-md-9">
 			<table class="table">
 		<tr>
 			<th>제목</th>
@@ -65,20 +65,20 @@ text-align: center;
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" style="text-align: left;"><a href="noticepre?no=${nb.wr_id }&pageNum=${pageNum }">이전글</a></td>
-			<td colspan="2" style="text-align: right;"><a href="noticenext?no=${nb.wr_id }&pageNum=${pageNum }">다음글</a></td>
+			<td colspan="2" style="text-align: left;"><a href="newspre?no=${nb.wr_id }&pageNum=${pageNum }">이전글</a></td>
+			<td colspan="2" style="text-align: right;"><a href="newsnext?no=${nb.wr_id }&pageNum=${pageNum }">다음글</a></td>
 		</tr>
 	</table>
 	
 			<div style="text-align: center;">
-				<input type="button" class="btn btn-default" value="수정" onclick="location.href='noticeUpdate?no=${ nb.wr_id }'"/>
-				<input type="button" class="btn btn-default" value="삭제" onclick="location.href='noticeDelete'"/>
+				<input type="button" class="btn btn-default" value="수정" onclick="location.href='newsUpdate?no=${ nb.wr_id }'"/>
+				<input type="button" class="btn btn-default" value="삭제" onclick="location.href='newsDelete'"/>
 				<input type="button" class="btn btn-default" value="복사"/>
 				<input type="button" class="btn btn-default" value="이동"/>
 				
-				<input type="button" class="btn btn-default" value="목록" onclick="location.href='noticeList?pageNum=${pageNum }'"/>
+				<input type="button" class="btn btn-default" value="목록" onclick="location.href='newsList?pageNum=${pageNum }'"/>
 				<input type="button" class="btn btn-default" value="답변"/>
-				<input type="button" class="btn btn-default"value="글쓰기" onclick="location.href='noticeWrite'"/>
+				<input type="button" class="btn btn-default"value="글쓰기" onclick="location.href='newsWrite'"/>
 			</div>
 		</div>
 	</div>

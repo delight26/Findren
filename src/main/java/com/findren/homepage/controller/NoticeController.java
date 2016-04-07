@@ -35,8 +35,9 @@ public class NoticeController {
 	
 	//쓰기
 	@RequestMapping(value = "noticeWrite")
-	public String noticeWrite(){
-		return "Notice/noticeWrite";
+	public String noticeWrite(Model model){
+		model.addAttribute("content", "Notice/noticeWrite");
+		return "home";
 	}
 	
 	//쓰기결과
@@ -50,33 +51,38 @@ public class NoticeController {
 	
 	//보기
 	@RequestMapping(value="noticeContent")
-	public String noticeContent(HttpServletRequest request){
+	public String noticeContent(HttpServletRequest request,Model model){
 		nService.noticeContent(request);
-		return "Notice/noticeContent";
+		model.addAttribute("content", "Notice/noticeContent");
+		return "home";
 	}
 	
 	//다음글
 	@RequestMapping(value="noticenext")
-	public String noticeNext(HttpServletRequest request){
+	public String noticeNext(HttpServletRequest request, Model model){
 		nService.noticeNext(request);
+		model.addAttribute("content", "Notice/noticeContent");
+		
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "Notice/noticeContent";
+		return "home";
 	}
 	
 	//이전글
 	@RequestMapping(value="noticepre")
-	public String noticePre(HttpServletRequest request){
+	public String noticePre(HttpServletRequest request, Model model){
 		nService.noticePre(request);
+		model.addAttribute("content", "Notice/noticeContent");
+		
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "Notice/noticeContent";
+		return "home";
 	}
 	
 	//삭제
@@ -88,9 +94,10 @@ public class NoticeController {
 	
 	//업데이트
 	@RequestMapping(value="noticeUpdate")
-	public String noticeUpdate(HttpServletRequest request){
+	public String noticeUpdate(HttpServletRequest request, Model model){
 		nService.noticeUpdate(request);
-		return "Notice/noticeUpdate";
+		model.addAttribute("content", "Notice/noticeUpdate");
+		return "home";
 	}
 	
 	//업데이트결과
