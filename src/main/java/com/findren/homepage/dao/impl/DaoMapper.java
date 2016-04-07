@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
+
 import com.findren.homepage.domain.Config;
 import com.findren.homepage.domain.NewsBoard;
 import com.findren.homepage.domain.NoticeBoard;
@@ -150,3 +151,58 @@ public class DaoMapper {
 			}
 		}
 }
+//		//보도자료
+//		private PortfolioBoardRMRSE portfolioBoardRMRSE = new PortfolioBoardRMRSE();
+//		
+//		public PortfolioBoardRMRSE getPortfolioBoardRMRSE() {
+//			return newsPortfolioRMRSE;
+//		}
+//		private class PortfolioBoardRMRSE implements RowMapper<NewsBoard>, ResultSetExtractor<NewsBoard>{
+//			
+//			@Override
+//			public PortfolioBoard mapRow(ResultSet rs, int rowNum) throws SQLException {
+//				PortfolioBoard fb = new PortfolioBoard();
+//				fb.setWr_id(rs.getInt("wr_id"));
+//				fb.setWr_subject(rs.getString("wr_subject"));
+//				fb.setWr_content(rs.getString("wr_content"));
+//				fb.setMb_id(rs.getString("mb_id"));
+//				fb.setWr_name(rs.getString("wr_name"));
+//				fb.setWr_link1(rs.getString("wr_link1"));
+//				fb.setWr_link2(rs.getString("wr_link2"));
+//				fb.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+//				fb.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+//				fb.setWr_hit(rs.getInt("wr_hit"));
+//				fb.setWr_datetime(rs.getTimestamp("wr_datetime"));
+//				fb.setWr_file1(rs.getString("wr_file1"));
+//				fb.setWr_file2(rs.getString("wr_file2"));
+//				fb.setWr_ip(rs.getString("wr_ip"));
+//				fb.setWr_option(rs.getString("wr_option"));
+//				
+//				return fb;
+//			}
+//			
+//			@Override
+//			public PortfolioBoard extractData(ResultSet rs) throws SQLException, DataAccessException {
+//				if(rs.next()){
+//				PortfolioBoard fb = new PortfolioBoard();
+//				fb.setWr_id(rs.getInt("wr_id"));
+//				fb.setWr_subject(rs.getString("wr_subject"));
+//				fb.setWr_content(rs.getString("wr_content"));
+//				fb.setMb_id(rs.getString("mb_id"));
+//				fb.setWr_name(rs.getString("wr_name"));
+//				fb.setWr_link1(rs.getString("wr_link1"));
+//				fb.setWr_link2(rs.getString("wr_link2"));
+//				fb.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+//				fb.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+//				fb.setWr_hit(rs.getInt("wr_hit"));
+//				fb.setWr_datetime(rs.getTimestamp("wr_datetime"));
+//				fb.setWr_file1(rs.getString("wr_file1"));
+//				fb.setWr_file2(rs.getString("wr_file2"));
+//				fb.setWr_ip(rs.getString("wr_ip"));
+//				fb.setWr_option(rs.getString("wr_option"));
+//				return fb;
+//				}
+//				return null;
+//			}
+//		}
+//}

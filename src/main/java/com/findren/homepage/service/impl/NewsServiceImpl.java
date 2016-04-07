@@ -40,7 +40,7 @@ public class NewsServiceImpl implements NewsService {
 		int currentPage = Integer.valueOf(pageNum);
 
 		int startRow = currentPage * PAGE_SIZE - PAGE_SIZE;
-		int listCount = NDao.getNoticeBoardCount();
+		int listCount = NDao.getNewsBoardCount();
 
 		if (listCount > 0) {
 			List<NewsBoard> newsList = NDao.getNewsBoardList(startRow, PAGE_SIZE);
@@ -224,9 +224,14 @@ public class NewsServiceImpl implements NewsService {
 
 	@Override
 	public void newsDelete(HttpServletRequest request) {
+		String no = request.getParameter("no");
 		String[] check = request.getParameterValues("check");
-		for (int i = 0; i < check.length; i++) {
-			NDao.newsDelete(Integer.parseInt(check[i]));
+		if(check == null){
+			NDao.newsDelete(Integer.valueOf(no));
+		} else{
+			for (int i = 0; i < check.length; i++) {
+				NDao.newsDelete(Integer.parseInt(check[i]));
+			}
 		}
 	}
 
