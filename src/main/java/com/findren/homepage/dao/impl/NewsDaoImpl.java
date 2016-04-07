@@ -27,7 +27,7 @@ public class NewsDaoImpl implements NewsDao {
 	private DaoMapper dm = new DaoMapper();
 
 	@Override
-	public Integer getNoticeBoardCount() {
+	public Integer getNewsBoardCount() {
 		newsparam = new MapSqlParameterSource("findren_write_02_board", "findren_write_02_board");
 		sql = "select count(*) from findren_write_02_board";
 		return namedParameterJdbcTemplate.queryForObject(sql, newsparam, Integer.class);

@@ -224,9 +224,14 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public void noticeDelete(HttpServletRequest request) {
+		String no = request.getParameter("no");
 		String[] check = request.getParameterValues("check");
-		for (int i = 0; i < check.length; i++) {
-			NDao.noticeDelete(Integer.parseInt(check[i]));
+		if(check == null){
+			NDao.noticeDelete(Integer.valueOf(no));
+		} else{
+			for (int i = 0; i < check.length; i++) {
+				NDao.noticeDelete(Integer.parseInt(check[i]));
+			}
 		}
 	}
 

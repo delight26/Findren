@@ -93,6 +93,13 @@ public class NewsController {
 		return "redirect:newsList";
 	}
 	
+	// 삭제
+	@RequestMapping(value = "newsOneDelete")
+	public String newsOneDelete(HttpServletRequest request) {
+		nService.newsDelete(request);
+		return "redirect:newsList";
+	}
+	
 	//업데이트
 	@RequestMapping(value="newsUpdate")
 	public String newsUpdate(HttpServletRequest request, Model model){

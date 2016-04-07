@@ -7,7 +7,7 @@ import com.findren.homepage.domain.NewsBoard;
 public interface NewsDao {
 
 	//게시판 글 수 
-	public Integer getNoticeBoardCount();
+	public Integer getNewsBoardCount();
 	
 	//리스트 페이징
 	public List<NewsBoard> getNewsBoardList(int startRow, int PAGE_SIZE);
