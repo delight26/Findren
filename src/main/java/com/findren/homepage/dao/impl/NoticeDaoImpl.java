@@ -26,14 +26,16 @@ public class NoticeDaoImpl implements NoticeDao {
 	private DaoMapper dm = new DaoMapper();
 
 	@Override
-	public Integer getNoticeBoardCount() {
+	public Integer getNoticeBoardCount() 
+	{
 		noticeparam = new MapSqlParameterSource("findren_write_01_board", "findren_write_01_board");
 		sql = "select count(*) from findren_write_01_board";
 		return namedParameterJdbcTemplate.queryForObject(sql, noticeparam, Integer.class);
 	}
 
 	@Override
-	public List<NoticeBoard> getNoticeBoardList(int startRow, int PAGE_SIZE) {
+	public List<NoticeBoard> getNoticeBoardList(int startRow, int PAGE_SIZE) 
+	{
 		noticeparam = new MapSqlParameterSource("startRow", startRow).addValue("PAGE_SIZE",
 				PAGE_SIZE);
 		sql = "select * from findren_write_01_board order by wr_datetime desc limit :startRow, :PAGE_SIZE";
