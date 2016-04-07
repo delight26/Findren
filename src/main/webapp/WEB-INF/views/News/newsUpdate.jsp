@@ -36,7 +36,7 @@ text-align: center;
 				<a href="/Findren/comMainCustomer" class="list-group-item">주요고객군</a>
 				<a href="/Findren/comMap" class="list-group-item">오시는길</a>
 				<a href="/Findren/noticeList" class="list-group-item active">공지사항</a>
-				<a href="/Findren/newsList" class="list-group-item">보도자료</a>
+				<a href="#" class="list-group-item">보도자료</a>
 			</div>
 		</div>
 		<!-- 공지사항 이름 -->
@@ -45,42 +45,42 @@ text-align: center;
 		</div>
 		
 		<div class="findrenNotice col-md-9">
-			<form id="frm" action="noticeWriteResult" method="post" enctype="multipart/form-data">
-				<table class="table">
-					<tr>
-						<td>옵션</td>
-						<td><input type="checkbox" value="notice" name="type">공지</td>
-					</tr>
-					<tr>
-						<td>제목</td>
-						<td><input type="text" name="title"/></td>
-					</tr>
-				   	<tr>
-					   	<td>내용</td>
-					   	<td style="width:766px;"><textarea name="content" id="ir1" rows="10" cols="100"></textarea></td>
-					<tr>
-						<td>링크 1</td>
-						<td><input type="text" name="link1"/></td>
-					</tr>
-					<tr>
-						<td>링크 2</td>
-						<td><input type="text" name="link2"/></td>
-					</tr>
-					<tr>
-						<td>파일 1</td>
-						<td><input type="file" name="file1"/></td>
-					</tr>
-					<tr>
-						<td>파일 2</td>
-						<td><input type="file" name="file2"/></td>
-					</tr>
-				</table>
-				
-				<div style="text-align: center;">
-					<input type="button" class="btn btn-default" id="savebutton" value="작성완료" />
-					<input type="button" class="btn btn-default" id="cancel" value="취소" />
-				</div>
-			</form>
+		<form id="frm" action="noticeUpdateResult" method="post" enctype="multipart/form-data">
+			<table class="table">
+				<tr>
+					<td>옵션</td>
+					<td>
+						<input type="checkbox" value="notice" name="type"/>공지
+						<input type="hidden" value="${ nb.wr_id }"  name="no"/>
+					</td>
+				</tr>
+				<tr>
+					<td>제목</td>
+					<td><input type="text" name="title" value="${ nb.wr_subject }"/></td>
+				</tr>
+			   	<tr>
+			   		<td>내용</td>
+			   		<td style="width:766px;"><textarea name="content" id="ir1" rows="10" cols="100">${ nb.wr_content }</textarea></td>
+				<tr>
+					<td>링크 1</td>
+					<td><input type="text" name="link1" value="${ nb.wr_link1 }"/></td>
+				</tr>
+				<tr>
+					<td>링크 2</td>
+					<td><input type="text" name="link2"/>${ nb.wr_link2 }</td>
+				</tr>
+				<tr>
+					<td>파일 1</td>
+					<td><input type="file" name="file1"/></td>
+				</tr>
+				<tr>
+					<td>파일 2</td>
+					<td><input type="file" name="file2"/></td>
+				</tr>
+			</table>
+				<input type="button" class="btn btn-default" id="savebutton" value="작성완료" />
+				<input type="button" class="btn btn-default" id="cancel" value="취소" />
+		</form>
 			
 			
 		</div>

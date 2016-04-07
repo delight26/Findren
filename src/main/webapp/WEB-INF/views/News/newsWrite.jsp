@@ -22,7 +22,7 @@ text-align: center;
 			</h1>
 			<ol class="breadcrumb">
 				<li>회사소개</li>
-				<li class="active">공지사항</li>
+				<li class="active">보도자료</li>
 			</ol>
 		</div>
 	</div>
@@ -41,16 +41,12 @@ text-align: center;
 		</div>
 		<!-- 공지사항 이름 -->
 		<div class="col-md-9">
-			<h2><img src="resources/images/notice_01.png"></h2>
+			<h2><img src="resources/images/news_01.png"></h2>
 		</div>
 		
 		<div class="findrenNotice col-md-9">
-			<form id="frm" action="noticeWriteResult" method="post" enctype="multipart/form-data">
+			<form id="frm" action="newsWriteResult" method="post" enctype="multipart/form-data">
 				<table class="table">
-					<tr>
-						<td>옵션</td>
-						<td><input type="checkbox" value="notice" name="type">공지</td>
-					</tr>
 					<tr>
 						<td>제목</td>
 						<td><input type="text" name="title"/></td>

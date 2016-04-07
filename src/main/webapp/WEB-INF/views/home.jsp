@@ -28,7 +28,11 @@
 	
 
 <!-- jQuery -->
-<script src="resources/js/jquery.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.3.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.3.js"></script>
+<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+<script type="text/javascript" src="resources/js/Board.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
 <script src="resources/js/bootstrap.min.js"></script>

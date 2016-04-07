@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <div class="container bodymargin">
 
@@ -31,6 +31,7 @@
 				<a href="/Findren/storePromotion" class="list-group-item">가맹점홍보</a>
 			</div>
 		</div>
+		
 		<!-- 회사정보 내용 -->
 		<div class="col-md-9">
 			<h2><img src="resources/images/chinaMKT_01.png"></h2>

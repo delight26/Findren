@@ -1,84 +1,88 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <script type="text/javascript" src="resources/editor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.0/jquery.js"></script>
-<script type="text/javascript">
-var oEditors = [];
-$(function(){
-					nhn.husky.EZCreator.createInIFrame({
-						oAppRef: oEditors,
-						elPlaceHolder: "ir1",
-						//SmartEditor2Skin.html 파일이 존재하는 경로
-						sSkinURI: "resources/editor/SmartEditor2Skin.html",	
-						htParams : {
-							// 툴바 사용 여부 (true:사용/ false:사용하지 않음)
-							bUseToolbar : true,				
-							// 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
-							bUseVerticalResizer : true,		
-							// 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
-							bUseModeChanger : true,			
-							fOnBeforeUnload : function(){
-								
-							}
-						}, 
-						fOnAppLoad : function(){
-							//기존 저장된 내용의 text 내용을 에디터상에 뿌려주고자 할때 사용
-						},
-						fCreator: "createSEditor2"
-					});
-					$("#savebutton").click(function(){
-				        //id가 smarteditor인 textarea에 에디터에서 대입
-				        oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
-				         
-				        // 이부분에 에디터 validation 검증
-				         
-				        //폼 submit
-				        $("#frm").submit();
-				    });
-				});
-</script>
-<meta charset="utf-8">
-<title>Insert title here</title>
-</head>
-<body>
-<form id="frm" action="noticeUpdateResult" method="post" enctype="multipart/form-data">
-	<table>
-		<tr>
-			<td>옵션</td>
-			<td>
-				<input type="checkbox" value="notice" name="type"/>공지
-				<input type="hidden" value="${ nb.wr_id }"  name="no"/>
-			</td>
-		</tr>
-		<tr>
-			<td>제목</td>
-			<td><input type="text" name="title" value="${ nb.wr_subject }"/></td>
-		</tr>
-   	<tr>
-   	<td>내용</td>
-   	<td style="width:766px; height:412px;"><textarea name="content" id="ir1" rows="10" cols="100">${ nb.wr_content }</textarea></td>
-		<tr>
-			<td>링크 1</td>
-			<td><input type="text" name="link1" value="${ nb.wr_link1 }"/></td>
-		</tr>
-		<tr>
-			<td>링크 2</td>
-			<td><input type="text" name="link2"/>${ nb.wr_link2 }</td>
-		</tr>
-		<tr>
-			<td>파일 1</td>
-			<td><input type="file" name="file1"/></td>
-		</tr>
-		<tr>
-			<td>파일 2</td>
-			<td><input type="file" name="file2"/></td>
-		</tr>
-	</table>
-		<input type="button" id="savebutton" value="작성완료" />
-		<input type="button" id="cancel" value="취소" />
-</form>
-</body>
-</html>
+<style>
+table th{
+text-align: center;
+}
+
+
+</style>
+
+<div class="container bodymargin">
+
+	<!-- 페이지 헤드라인 -->
+	<div class="row">
+		<div class="col-lg-12">
+			<h1 class="page-header">
+				&nbsp;
+			</h1>
+			<ol class="breadcrumb">
+				<li>회사소개</li>
+				<li class="active">공지사항</li>
+			</ol>
+		</div>
+	</div>
+
+	<!-- 컨텐츠 -->
+	<div class="row">
+		<!-- 사이드 리스트 -->
+		<div class="col-md-3">
+			<div class="list-group">
+				<a href="/Findren/comInfo" class="list-group-item">회사소개</a>
+				<a href="/Findren/comMainCustomer" class="list-group-item">주요고객군</a>
+				<a href="/Findren/comMap" class="list-group-item">오시는길</a>
+				<a href="/Findren/noticeList" class="list-group-item active">공지사항</a>
+				<a href="/Findren/newsList" class="list-group-item">보도자료</a>
+			</div>
+		</div>
+		<!-- 공지사항 이름 -->
+		<div class="col-md-9">
+			<h2><img src="resources/images/notice_01.png"></h2>
+		</div>
+		
+		<div class="findrenNotice col-md-9">
+		<form id="frm" action="noticeUpdateResult" method="post" enctype="multipart/form-data">
+			<table class="table">
+				<tr>
+					<td>옵션</td>
+					<td>
+						<input type="checkbox" value="notice" name="type"/>공지
+						<input type="hidden" value="${ nb.wr_id }"  name="no"/>
+					</td>
+				</tr>
+				<tr>
+					<td>제목</td>
+					<td><input type="text" name="title" value="${ nb.wr_subject }"/></td>
+				</tr>
+			   	<tr>
+			   		<td>내용</td>
+			   		<td style="width:766px;"><textarea name="content" id="ir1" rows="10" cols="100">${ nb.wr_content }</textarea></td>
+				<tr>
+					<td>링크 1</td>
+					<td><input type="text" name="link1" value="${ nb.wr_link1 }"/></td>
+				</tr>
+				<tr>
+					<td>링크 2</td>
+					<td><input type="text" name="link2"/>${ nb.wr_link2 }</td>
+				</tr>
+				<tr>
+					<td>파일 1</td>
+					<td><input type="file" name="file1"/></td>
+				</tr>
+				<tr>
+					<td>파일 2</td>
+					<td><input type="file" name="file2"/></td>
+				</tr>
+			</table>
+				<input type="button" class="btn btn-default" id="savebutton" value="작성완료" />
+				<input type="button" class="btn btn-default" id="cancel" value="취소" />
+		</form>
+			
+			
+		</div>
+	</div>
+</div>

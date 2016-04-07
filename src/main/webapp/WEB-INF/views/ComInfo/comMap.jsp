@@ -26,6 +26,8 @@
 				<a href="/Findren/comInfo" class="list-group-item">회사소개</a>
 				<a href="/Findren/comMainCustomer" class="list-group-item">주요고객군</a>
 				<a href="/Findren/comMap" class="list-group-item active">오시는길</a>
+				<a href="/Findren/noticeList" class="list-group-item">공지사항</a>
+				<a href="/Findren/newsList" class="list-group-item">보도자료</a>
 			</div>
 		</div>
 		<!-- 회사정보 내용 -->

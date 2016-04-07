@@ -54,25 +54,23 @@
 	</div>
 
 	<!-- 공식계정 -->
-	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-5">
 			<div class="col-lg-12">
 				<h2 class="page-header"><img src="resources/images/main02.png"></h2>
 			</div>
-			<div style="text-align:center;">
-				<img src="resources/images/QRwechat.png">&nbsp;&nbsp;
-				<img src="resources/images/QRweibo.png"><br><br>
-				<img src="resources/images/QRyellow.png">&nbsp;&nbsp;
-				<img src="resources/images/QRstory.png">
+			<div class="comQR" style="text-align:center;">
+				<img id="QR1" src="resources/images/QRwechat.png">&nbsp;&nbsp;
+				<img id="QR2" src="resources/images/QRweibo.png"><br><br>
+				<img id="QR1" src="resources/images/QRyellow.png">&nbsp;&nbsp;
+				<img id="QR2" src="resources/images/QRstory.png">
 			</div>
 		</div>
 	 
 	<!-- 가맹점홍보 -->
-	<div class="col-md-6">
+	<div class="col-md-7" style="margin-bottom: 5%;">
 		<div class="col-lg-12">
 			<h2 class="page-header"><img src="resources/images/main09.png"></h2>
 		</div>
-		<img class="img-responsive" src="http://placehold.it/700x450" alt="">
-	</div>
+		<div class="comProLink">ffs</div>
 	</div>
 </div>
