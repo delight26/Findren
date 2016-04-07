@@ -46,7 +46,7 @@
                                 <a href="/Findren/noticeList">공지사항</a>
                             </li>
                             <li>
-                                <a href="/Findren/comMap">보도자료</a>
+                                <a href="/Findren/newsList">보도자료</a>
                             </li>
                         </ul>
                     </li>
