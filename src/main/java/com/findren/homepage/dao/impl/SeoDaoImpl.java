@@ -28,8 +28,8 @@ public class OnlineDaoImpl implements OnlineDao {
 	@Override
 	public Integer getOnlineBoardCount() 
 	{
-		onlineparam = new MapSqlParameterSource("findren_write_01_board", "findren_write_01_board");
-		sql = "select count(*) from findren_write_01_board";
+		onlineparam = new MapSqlParameterSource("findren_write_07_board", "findren_write_07_board");
+		sql = "select count(*) from findren_write_07_board";
 		return namedParameterJdbcTemplate.queryForObject(sql, onlineparam, Integer.class);
 	}
 
@@ -38,14 +38,14 @@ public class OnlineDaoImpl implements OnlineDao {
 	{
 		onlineparam = new MapSqlParameterSource("startRow", startRow).addValue("PAGE_SIZE",
 				PAGE_SIZE);
-		sql = "select * from findren_write_01_board order by wr_datetime desc limit :startRow, :PAGE_SIZE";
+		sql = "select * from findren_write_07_board order by wr_datetime desc limit :startRow, :PAGE_SIZE";
 		return namedParameterJdbcTemplate.query(sql, onlineparam, dm.getOnlineBoardRMRSE());
 	}
 
 	@Override
 	public void insertOnlineBoard(OnlineBoard nb) {
 		onlineparam = new BeanPropertySqlParameterSource(nb);
-		sql = "insert into findren_write_01_board (wr_id, wr_subject, wr_content, mb_id, wr_name, wr_link1, wr_link2, wr_link1_hit, wr_link2_hit,"
+		sql = "insert into findren_write_07_board (wr_id, wr_subject, wr_content, mb_id, wr_name, wr_link1, wr_link2, wr_link1_hit, wr_link2_hit,"
 				+ "wr_hit, wr_datetime, wr_file1, wr_file2, wr_ip, wr_option) "
 				+ "values(0, :wr_subject, :wr_content, :mb_id, :wr_name, :wr_link1, :wr_link2, 0, 0,"
 				+ "0, :wr_datetime, :wr_file1, :wr_file2, :wr_ip, :wr_option)";
@@ -55,7 +55,7 @@ public class OnlineDaoImpl implements OnlineDao {
 	@Override
 	public void onlineWatchUpdate(int watch, int no) {
 		onlineparam = new MapSqlParameterSource("watch", watch).addValue("no", no);
-		sql = "update findren_write_01_board set wr_hit = :watch where wr_id = :no";
+		sql = "update findren_write_07_board set wr_hit = :watch where wr_id = :no";
 		namedParameterJdbcTemplate.update(sql, onlineparam);
 		
 	}
@@ -63,14 +63,14 @@ public class OnlineDaoImpl implements OnlineDao {
 	@Override
 	public OnlineBoard onlineContent(int no) {
 		onlineparam = new MapSqlParameterSource("no", no);
-		sql = "select * from findren_write_01_board where wr_id = :no";
+		sql = "select * from findren_write_07_board where wr_id = :no";
 		return namedParameterJdbcTemplate.query(sql, onlineparam, dm.getOnlineBoardRMRSE());
 	}
 	
 	@Override
 	public Integer onlineNextNo(int no) {
 		onlineparam = new MapSqlParameterSource("no", no);
-		sql = "SELECT max(wr_id) FROM findren_write_01_board nb WHERE wr_id < :no;";
+		sql = "SELECT max(wr_id) FROM findren_write_07_board nb WHERE wr_id < :no;";
 		return namedParameterJdbcTemplate.queryForObject(
 				sql, onlineparam, Integer.class);
 	}
@@ -78,7 +78,7 @@ public class OnlineDaoImpl implements OnlineDao {
 	@Override
 	public Integer onlinePreNo(int no) {
 		onlineparam = new MapSqlParameterSource("no", no);
-		sql = "SELECT min(wr_id) FROM findren_write_01_board nb WHERE wr_id > :no;";
+		sql = "SELECT min(wr_id) FROM findren_write_07_board nb WHERE wr_id > :no;";
 		return namedParameterJdbcTemplate.queryForObject(
 				sql, onlineparam, Integer.class);
 	}
@@ -86,7 +86,7 @@ public class OnlineDaoImpl implements OnlineDao {
 	@Override
 	public void onlineDelete(int no) {
 		onlineparam = new MapSqlParameterSource("no", no);
-		sql = "delete from findren_write_01_board where wr_id = :no";
+		sql = "delete from findren_write_07_board where wr_id = :no";
 		namedParameterJdbcTemplate.update(sql, onlineparam);
 	}
 	
@@ -94,13 +94,13 @@ public class OnlineDaoImpl implements OnlineDao {
 	public void updateOnlineBoard(OnlineBoard nb) {
 		onlineparam = new BeanPropertySqlParameterSource(nb);
 		if(!nb.getWr_file1().isEmpty() && !nb.getWr_file2().isEmpty()){
-			sql = "update findren_write_01_board set wr_subject = :wr_subject, wr_content = :wr_content, wr_link1 = :wr_link1, wr_link2 = :wr_link2,"
+			sql = "update findren_write_07_board set wr_subject = :wr_subject, wr_content = :wr_content, wr_link1 = :wr_link1, wr_link2 = :wr_link2,"
 				+ "wr_datetime = :wr_datetime, wr_file1 = :wr_file1, wr_file2 = :wr_file2, wr_ip = :wr_ip, wr_option = :wr_option where wr_id = :wr_id";
 		} else if(!nb.getWr_file1().isEmpty() && nb.getWr_file2().isEmpty()){
-			sql = "update findren_write_01_board set wr_subject = :wr_subject, wr_content = :wr_content, wr_link1 = :wr_link1, wr_link2 = :wr_link2,"
+			sql = "update findren_write_07_board set wr_subject = :wr_subject, wr_content = :wr_content, wr_link1 = :wr_link1, wr_link2 = :wr_link2,"
 					+ "wr_datetime = :wr_datetime, wr_file1 = :wr_file1, wr_ip = :wr_ip, wr_option = :wr_option where wr_id = :wr_id";
 		} else if(nb.getWr_file1().isEmpty() && !nb.getWr_file2().isEmpty()){
-			sql = "update findren_write_01_board set wr_subject = :wr_subject, wr_content = :wr_content, wr_link1 = :wr_link1, wr_link2 = :wr_link2,"
+			sql = "update findren_write_07_board set wr_subject = :wr_subject, wr_content = :wr_content, wr_link1 = :wr_link1, wr_link2 = :wr_link2,"
 					+ "wr_datetime = :wr_datetime, wr_file2 = :wr_file2, wr_ip = :wr_ip, wr_option = :wr_option where wr_id = :wr_id";
 		}
 		namedParameterJdbcTemplate.update(sql, onlineparam);
@@ -108,8 +108,8 @@ public class OnlineDaoImpl implements OnlineDao {
 	
 	@Override
 	public Integer maxNum() {
-		onlineparam = new MapSqlParameterSource("findren_write_01_board", "findren_write_01_board");
-		sql = "select max(wr_num) from findren_write_01_board";
+		onlineparam = new MapSqlParameterSource("findren_write_07_board", "findren_write_07_board");
+		sql = "select max(wr_num) from findren_write_07_board";
 		return namedParameterJdbcTemplate.queryForObject(sql, onlineparam, Integer.class);
 	}
 }
