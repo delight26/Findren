@@ -18,101 +18,92 @@ import com.findren.homepage.service.impl.PeopleServiceImpl;
 public class PeopleController {
 
 	@Autowired
-	private PeopleServiceImpl nService;
+	private PeopleServiceImpl pplService;
 	private static final String filePath = "/resources/file_upload/";
 
-	public void setnService(PeopleServiceImpl nService) {
-		this.nService = nService;
+	public void setpplService(PeopleServiceImpl pplService) {
+		this.pplService = pplService;
 	}
 
-	// 리스트
+	//리스트
 	@RequestMapping(value = "peopleList")
 	public String peopleList(HttpServletRequest request, Model model) {
-		nService.peopleList(request);
+		pplService.peopleList(request);
 		model.addAttribute("content", "People/peopleList");
 		return "home";
 	}
-
-	// 쓰기
+	
+	//쓰기
 	@RequestMapping(value = "peopleWrite")
-	public String peopleWrite(Model model) {
-		model.addAttribute("content", "People/peopleWrite");
+	public String peopleWrite(Model model){
+		model.addAttribute("content", "People/peopleWrite" );
 		return "home";
 	}
-
-	// 쓰기결과
-	@RequestMapping(value = "peopleWriteResult", method = RequestMethod.POST)
-	public String peopleWriteResult(MultipartHttpServletRequest request, HttpSession session)
-			throws IllegalStateException, IOException {
+	
+	//쓰기결과
+	@RequestMapping(value="peopleWriteResult", method = RequestMethod.POST)
+	public String peopleWriteResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
-
-		nService.peopleWriteResult(request, path, session);
+		
+		pplService.peopleWriteResult(request, path, session);
 		return "redirect:peopleList";
 	}
-
-	// 보기
-	@RequestMapping(value = "peopleContent")
-	public String peopleContent(HttpServletRequest request, Model model) {
-		nService.peopleContent(request);
-		return "People/peopleContent";
-	}
-
-	// 다음글
-	@RequestMapping(value = "peoplenext")
-	public String peopleNext(HttpServletRequest request, Model model) {
-		nService.peopleNext(request);
+	
+	//보기
+	@RequestMapping(value="peopleContent")
+	public String peopleContent(HttpServletRequest request, Model model){
+		pplService.peopleContent(request);
 		model.addAttribute("content", "People/peopleContent");
-
+		return "home";
+	}
+	
+	//다음글
+	@RequestMapping(value="peoplenext")
+	public String peopleNext(HttpServletRequest request, Model model){
+		pplService.peopleNext(request);
+		model.addAttribute("content", "People/peopleConetent");
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "People/peopleContent";
+		return "home";
 	}
-
-	// 이전글
-	@RequestMapping(value = "peoplepre")
-	public String peoplePre(HttpServletRequest request, Model model) {
-		nService.peoplePre(request);
-		model.addAttribute("content", "People/peopleContent");
-
+	
+	//이전글
+	@RequestMapping(value="peoplepre")
+	public String peoplePre(HttpServletRequest request, Model model){
+		pplService.peoplePre(request);
+		model.addAttribute("content", "People/peopleConetent");
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "People/peopleContent";
+		return "home";
 	}
-
-	// 삭제
-	@RequestMapping(value = "peopleDelete", method = RequestMethod.POST)
-	public String peopleDelete(HttpServletRequest request) {
-		nService.peopleDelete(request);
+	
+	//삭제
+	@RequestMapping(value="peopleDelete", method = RequestMethod.POST)
+	public String peopleDelete(HttpServletRequest request){
+		pplService.peopleDelete(request);
 		return "redirect:peopleList";
 	}
-
-	// 삭제
-	@RequestMapping(value = "peopleOneDelete")
-	public String peopleOneDelete(HttpServletRequest request) {
-		nService.peopleDelete(request);
-		return "redirect:peopleList";
+	
+	//업데이트
+	@RequestMapping(value="peopleUpdate")
+	public String peopleUpdate(HttpServletRequest request, Model model){
+		pplService.peopleUpdate(request);
+		model.addAttribute("content", "People/peopleUpdate");
+		return "home";
 	}
-
-	// 업데이트
-	@RequestMapping(value = "peopleUpdate")
-	public String peopleUpdate(HttpServletRequest request, Model model) {
-		nService.peopleUpdate(request);
-		return "People/peopleUpdate";
-	}
-
-	// 업데이트결과
-	@RequestMapping(value = "peopleUpdateResult", method = RequestMethod.POST)
-	public String peopleUpdateResult(MultipartHttpServletRequest request, HttpSession session)
-			throws IllegalStateException, IOException {
+	
+	//업데이트결과
+	@RequestMapping(value="peopleUpdateResult", method = RequestMethod.POST)
+	public String peopleUpdateResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
-
-		nService.peopleUpdateResult(request, path, session);
+		
+		pplService.peopleUpdateResult(request, path, session);
 		return "redirect:peopleList";
 	}
 }

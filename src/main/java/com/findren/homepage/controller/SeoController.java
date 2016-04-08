@@ -29,14 +29,14 @@ public class SeoController {
 	@RequestMapping(value = "seoList")
 	public String seoList(HttpServletRequest request, Model model) {
 		seoService.seoList(request);
-		model.addAttribute("content", "Seo/seoList");
+		model.addAttribute("content", "SEO/seoList");
 		return "home";
 	}
 	
 	//쓰기
 	@RequestMapping(value = "seoWrite")
 	public String seoWrite(){
-		return "Seo/seoWrite";
+		return "SEO/seoWrite";
 	}
 	
 	//쓰기결과
@@ -52,7 +52,7 @@ public class SeoController {
 	@RequestMapping(value="seoContent")
 	public String seoContent(HttpServletRequest request){
 		seoService.seoContent(request);
-		return "Seo/seoContent";
+		return "SEO/seoContent";
 	}
 	
 	//다음글
@@ -64,7 +64,7 @@ public class SeoController {
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "Seo/seoContent";
+		return "SEO/seoContent";
 	}
 	
 	//이전글
@@ -76,7 +76,7 @@ public class SeoController {
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "Seo/seoContent";
+		return "SEO/seoContent";
 	}
 	
 	//삭제
@@ -90,7 +90,7 @@ public class SeoController {
 	@RequestMapping(value="seoUpdate")
 	public String seoUpdate(HttpServletRequest request){
 		seoService.seoUpdate(request);
-		return "Seo/seoUpdate";
+		return "SEO/seoUpdate";
 	}
 	
 	//업데이트결과

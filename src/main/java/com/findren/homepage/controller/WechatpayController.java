@@ -30,14 +30,14 @@ public class WechatpayController {
 	@RequestMapping(value = "wechatpayList")
 	public String wechatpayList(HttpServletRequest request, Model model) {
 		wpService.wechatpayList(request);
-		model.addAttribute("content", "Wechatpay/wechatpayList");
+		model.addAttribute("content", "WechatPay/wechatpayList");
 		return "home";
 	}
 	
 	//쓰기
 	@RequestMapping(value = "wechatpayWrite")
 	public String wechatpayWrite(){
-		return "Wechatpay/wechatpayWrite";
+		return "WechatPay/wechatpayWrite";
 	}
 	
 	//쓰기결과
@@ -53,7 +53,7 @@ public class WechatpayController {
 	@RequestMapping(value="wechatpayContent")
 	public String wechatpayContent(HttpServletRequest request){
 		wpService.wechatpayContent(request);
-		return "Wechatpay/wechatpayContent";
+		return "WechatPay/wechatpayContent";
 	}
 	
 	//다음글
@@ -65,7 +65,7 @@ public class WechatpayController {
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "Wechatpay/wechatpayContent";
+		return "WechatPay/wechatpayContent";
 	}
 	
 	//이전글
@@ -77,7 +77,7 @@ public class WechatpayController {
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "Wechatpay/wechatpayContent";
+		return "WechatPay/wechatpayContent";
 	}
 	
 	//삭제
@@ -91,7 +91,7 @@ public class WechatpayController {
 	@RequestMapping(value="wechatpayUpdate")
 	public String wechatpayUpdate(HttpServletRequest request){
 		wpService.wechatpayUpdate(request);
-		return "Wechatpay/wechatpayUpdate";
+		return "WechatPay/wechatpayUpdate";
 	}
 	
 	//업데이트결과

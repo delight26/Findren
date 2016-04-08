@@ -29,14 +29,14 @@ public class SnsController {
 	@RequestMapping(value = "snsList")
 	public String snsList(HttpServletRequest request, Model model) {
 		snsService.snsList(request);
-		model.addAttribute("content", "Sns/snsList");
+		model.addAttribute("content", "SNS/snsList");
 		return "home";
 	}
 	
 	//쓰기
 	@RequestMapping(value = "snsWrite")
 	public String snsWrite(){
-		return "Sns/snsWrite";
+		return "SNS/snsWrite";
 	}
 	
 	//쓰기결과
@@ -52,7 +52,7 @@ public class SnsController {
 	@RequestMapping(value="snsContent")
 	public String snsContent(HttpServletRequest request){
 		snsService.snsContent(request);
-		return "Sns/snsContent";
+		return "SNS/snsContent";
 	}
 	
 	//다음글
@@ -64,7 +64,7 @@ public class SnsController {
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "Sns/snsContent";
+		return "SNS/snsContent";
 	}
 	
 	//이전글
@@ -76,7 +76,7 @@ public class SnsController {
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "Sns/snsContent";
+		return "SNS/snsContent";
 	}
 	
 	//삭제
@@ -90,7 +90,7 @@ public class SnsController {
 	@RequestMapping(value="snsUpdate")
 	public String snsUpdate(HttpServletRequest request){
 		snsService.snsUpdate(request);
-		return "Sns/snsUpdate";
+		return "SNS/snsUpdate";
 	}
 	
 	//업데이트결과

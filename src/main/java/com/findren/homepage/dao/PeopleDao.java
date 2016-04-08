@@ -13,7 +13,7 @@ public interface PeopleDao {
 	public List<PeopleBoard> getPeopleBoardList(int startRow, int PAGE_SIZE);
 	
 	//글 입력
-	public void insertPeopleBoard(PeopleBoard nb);
+	public void insertPeopleBoard(PeopleBoard people);
 	
 	//조회수
 	public void peopleWatchUpdate(int watch, int no);
@@ -31,7 +31,7 @@ public interface PeopleDao {
 	public void peopleDelete(int no);
 	
 	//업데이트
-	public void updatePeopleBoard(PeopleBoard nb);
+	public void updatePeopleBoard(PeopleBoard people);
 	
 	//게시글 최대 수
 	public Integer maxNum();

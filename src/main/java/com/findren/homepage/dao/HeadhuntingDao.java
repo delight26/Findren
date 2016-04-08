@@ -13,7 +13,7 @@ public interface HeadhuntingDao {
 	public List<HeadhuntingBoard> getHeadhuntingBoardList(int startRow, int PAGE_SIZE);
 	
 	//글 입력
-	public void insertHeadhuntingBoard(HeadhuntingBoard nb);
+	public void insertHeadhuntingBoard(HeadhuntingBoard headhunting);
 	
 	//조회수
 	public void headhuntingWatchUpdate(int watch, int no);
@@ -31,7 +31,7 @@ public interface HeadhuntingDao {
 	public void headhuntingDelete(int no);
 	
 	//업데이트
-	public void updateHeadhuntingBoard(HeadhuntingBoard nb);
+	public void updateHeadhuntingBoard(HeadhuntingBoard headhunting);
 	
 	//게시글 최대 수
 	public Integer maxNum();
