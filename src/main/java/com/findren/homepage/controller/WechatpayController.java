@@ -12,16 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.findren.homepage.service.impl.WechatpayServiceImpl;
+import com.findren.homepage.service.impl.WechatpayImpl;
+
 
 @Controller
 public class WechatpayController {
 
 	@Autowired
-	private WechatpayServiceImpl nService;
+	private WechatpayImpl nService;
 	private static final String filePath = "/resources/file_upload/";
 
-	public void setnService(WechatpayServiceImpl nService) {
+	public void setnService(WechatpayImpl nService) {
 		this.nService = nService;
 	}
 	

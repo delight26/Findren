@@ -9,11 +9,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import com.findren.homepage.dao.OnlineDao;
-import com.findren.homepage.domain.OnlineBoard;
+import com.findren.homepage.dao.WechatidDao;
+import com.findren.homepage.domain.WechatidBoard;
 
 @Repository
-public class OnlineDaoImpl implements OnlineDao {
+public class WechatidDaoImpl implements WechatidDao {
 
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -21,78 +21,78 @@ public class OnlineDaoImpl implements OnlineDao {
 	public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 	}
-	private SqlParameterSource onlineparam;
+	private SqlParameterSource Wechatidparam;
 	private String sql;
 	private DaoMapper dm = new DaoMapper();
 
 	@Override
-	public Integer getOnlineBoardCount() 
+	public Integer getWechatidBoardCount() 
 	{
-		onlineparam = new MapSqlParameterSource("findren_write_08_board", "findren_write_08_board");
+		Wechatidparam = new MapSqlParameterSource("findren_write_08_board", "findren_write_08_board");
 		sql = "select count(*) from findren_write_08_board";
-		return namedParameterJdbcTemplate.queryForObject(sql, onlineparam, Integer.class);
+		return namedParameterJdbcTemplate.queryForObject(sql, Wechatidparam, Integer.class);
 	}
 
 	@Override
-	public List<OnlineBoard> getOnlineBoardList(int startRow, int PAGE_SIZE) 
+	public List<WechatidBoard> getWechatidBoardList(int startRow, int PAGE_SIZE) 
 	{
-		onlineparam = new MapSqlParameterSource("startRow", startRow).addValue("PAGE_SIZE",
+		Wechatidparam = new MapSqlParameterSource("startRow", startRow).addValue("PAGE_SIZE",
 				PAGE_SIZE);
 		sql = "select * from findren_write_08_board order by wr_datetime desc limit :startRow, :PAGE_SIZE";
-		return namedParameterJdbcTemplate.query(sql, onlineparam, dm.getOnlineBoardRMRSE());
+		return namedParameterJdbcTemplate.query(sql, Wechatidparam, dm.getWechatidRMRSE());
 	}
 
 	@Override
-	public void insertOnlineBoard(OnlineBoard nb) {
-		onlineparam = new BeanPropertySqlParameterSource(nb);
+	public void insertWechatidBoard(WechatidBoard nb) {
+		Wechatidparam = new BeanPropertySqlParameterSource(nb);
 		sql = "insert into findren_write_08_board (wr_id, wr_subject, wr_content, mb_id, wr_name, wr_link1, wr_link2, wr_link1_hit, wr_link2_hit,"
 				+ "wr_hit, wr_datetime, wr_file1, wr_file2, wr_ip, wr_option) "
 				+ "values(0, :wr_subject, :wr_content, :mb_id, :wr_name, :wr_link1, :wr_link2, 0, 0,"
 				+ "0, :wr_datetime, :wr_file1, :wr_file2, :wr_ip, :wr_option)";
-		namedParameterJdbcTemplate.update(sql, onlineparam);
+		namedParameterJdbcTemplate.update(sql, Wechatidparam);
 	}
 	
 	@Override
-	public void onlineWatchUpdate(int watch, int no) {
-		onlineparam = new MapSqlParameterSource("watch", watch).addValue("no", no);
+	public void wechatidWatchUpdate(int watch, int no) {
+		Wechatidparam = new MapSqlParameterSource("watch", watch).addValue("no", no);
 		sql = "update findren_write_08_board set wr_hit = :watch where wr_id = :no";
-		namedParameterJdbcTemplate.update(sql, onlineparam);
+		namedParameterJdbcTemplate.update(sql, Wechatidparam);
 		
 	}
 	
 	@Override
-	public OnlineBoard onlineContent(int no) {
-		onlineparam = new MapSqlParameterSource("no", no);
+	public WechatidBoard wechatidContent(int no) {
+		Wechatidparam = new MapSqlParameterSource("no", no);
 		sql = "select * from findren_write_08_board where wr_id = :no";
-		return namedParameterJdbcTemplate.query(sql, onlineparam, dm.getOnlineBoardRMRSE());
+		return namedParameterJdbcTemplate.query(sql, Wechatidparam, dm.getWechatidRMRSE());
 	}
 	
 	@Override
-	public Integer onlineNextNo(int no) {
-		onlineparam = new MapSqlParameterSource("no", no);
+	public Integer wechatidNextNo(int no) {
+		Wechatidparam = new MapSqlParameterSource("no", no);
 		sql = "SELECT max(wr_id) FROM findren_write_08_board nb WHERE wr_id < :no;";
 		return namedParameterJdbcTemplate.queryForObject(
-				sql, onlineparam, Integer.class);
+				sql, Wechatidparam, Integer.class);
 	}
 	
 	@Override
-	public Integer onlinePreNo(int no) {
-		onlineparam = new MapSqlParameterSource("no", no);
+	public Integer wechatidPreNo(int no) {
+		Wechatidparam = new MapSqlParameterSource("no", no);
 		sql = "SELECT min(wr_id) FROM findren_write_08_board nb WHERE wr_id > :no;";
 		return namedParameterJdbcTemplate.queryForObject(
-				sql, onlineparam, Integer.class);
+				sql, Wechatidparam, Integer.class);
 	}
 	
 	@Override
-	public void onlineDelete(int no) {
-		onlineparam = new MapSqlParameterSource("no", no);
+	public void wechatidDelete(int no) {
+		Wechatidparam = new MapSqlParameterSource("no", no);
 		sql = "delete from findren_write_08_board where wr_id = :no";
-		namedParameterJdbcTemplate.update(sql, onlineparam);
+		namedParameterJdbcTemplate.update(sql, Wechatidparam);
 	}
 	
 	@Override
-	public void updateOnlineBoard(OnlineBoard nb) {
-		onlineparam = new BeanPropertySqlParameterSource(nb);
+	public void updateWechatidBoard(WechatidBoard nb) {
+		Wechatidparam = new BeanPropertySqlParameterSource(nb);
 		if(!nb.getWr_file1().isEmpty() && !nb.getWr_file2().isEmpty()){
 			sql = "update findren_write_08_board set wr_subject = :wr_subject, wr_content = :wr_content, wr_link1 = :wr_link1, wr_link2 = :wr_link2,"
 				+ "wr_datetime = :wr_datetime, wr_file1 = :wr_file1, wr_file2 = :wr_file2, wr_ip = :wr_ip, wr_option = :wr_option where wr_id = :wr_id";
@@ -103,13 +103,13 @@ public class OnlineDaoImpl implements OnlineDao {
 			sql = "update findren_write_08_board set wr_subject = :wr_subject, wr_content = :wr_content, wr_link1 = :wr_link1, wr_link2 = :wr_link2,"
 					+ "wr_datetime = :wr_datetime, wr_file2 = :wr_file2, wr_ip = :wr_ip, wr_option = :wr_option where wr_id = :wr_id";
 		}
-		namedParameterJdbcTemplate.update(sql, onlineparam);
+		namedParameterJdbcTemplate.update(sql, Wechatidparam);
 	}
 	
 	@Override
 	public Integer maxNum() {
-		onlineparam = new MapSqlParameterSource("findren_write_08_board", "findren_write_08_board");
+		Wechatidparam = new MapSqlParameterSource("findren_write_08_board", "findren_write_08_board");
 		sql = "select max(wr_num) from findren_write_08_board";
-		return namedParameterJdbcTemplate.queryForObject(sql, onlineparam, Integer.class);
+		return namedParameterJdbcTemplate.queryForObject(sql, Wechatidparam, Integer.class);
 	}
 }

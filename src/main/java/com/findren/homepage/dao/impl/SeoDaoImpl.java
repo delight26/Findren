@@ -9,11 +9,11 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import com.findren.homepage.dao.OnlineDao;
-import com.findren.homepage.domain.OnlineBoard;
+import com.findren.homepage.dao.SeoDao;
+import com.findren.homepage.domain.SeoBoard;
 
 @Repository
-public class OnlineDaoImpl implements OnlineDao {
+public class SeoDaoImpl implements SeoDao {
 
 	@Autowired
 	private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -21,78 +21,78 @@ public class OnlineDaoImpl implements OnlineDao {
 	public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
 		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 	}
-	private SqlParameterSource onlineparam;
+	private SqlParameterSource Seoparam;
 	private String sql;
 	private DaoMapper dm = new DaoMapper();
 
 	@Override
-	public Integer getOnlineBoardCount() 
+	public Integer getSeoBoardCount() 
 	{
-		onlineparam = new MapSqlParameterSource("findren_write_07_board", "findren_write_07_board");
+		Seoparam = new MapSqlParameterSource("findren_write_07_board", "findren_write_07_board");
 		sql = "select count(*) from findren_write_07_board";
-		return namedParameterJdbcTemplate.queryForObject(sql, onlineparam, Integer.class);
+		return namedParameterJdbcTemplate.queryForObject(sql, Seoparam, Integer.class);
 	}
 
 	@Override
-	public List<OnlineBoard> getOnlineBoardList(int startRow, int PAGE_SIZE) 
+	public List<SeoBoard> getSeoBoardList(int startRow, int PAGE_SIZE) 
 	{
-		onlineparam = new MapSqlParameterSource("startRow", startRow).addValue("PAGE_SIZE",
+		Seoparam = new MapSqlParameterSource("startRow", startRow).addValue("PAGE_SIZE",
 				PAGE_SIZE);
 		sql = "select * from findren_write_07_board order by wr_datetime desc limit :startRow, :PAGE_SIZE";
-		return namedParameterJdbcTemplate.query(sql, onlineparam, dm.getOnlineBoardRMRSE());
+		return namedParameterJdbcTemplate.query(sql, Seoparam, dm.getSEORMRSE());
 	}
 
 	@Override
-	public void insertOnlineBoard(OnlineBoard nb) {
-		onlineparam = new BeanPropertySqlParameterSource(nb);
+	public void insertSeoBoard(SeoBoard nb) {
+		Seoparam = new BeanPropertySqlParameterSource(nb);
 		sql = "insert into findren_write_07_board (wr_id, wr_subject, wr_content, mb_id, wr_name, wr_link1, wr_link2, wr_link1_hit, wr_link2_hit,"
 				+ "wr_hit, wr_datetime, wr_file1, wr_file2, wr_ip, wr_option) "
 				+ "values(0, :wr_subject, :wr_content, :mb_id, :wr_name, :wr_link1, :wr_link2, 0, 0,"
 				+ "0, :wr_datetime, :wr_file1, :wr_file2, :wr_ip, :wr_option)";
-		namedParameterJdbcTemplate.update(sql, onlineparam);
+		namedParameterJdbcTemplate.update(sql, Seoparam);
 	}
 	
 	@Override
-	public void onlineWatchUpdate(int watch, int no) {
-		onlineparam = new MapSqlParameterSource("watch", watch).addValue("no", no);
+	public void seoWatchUpdate(int watch, int no) {
+		Seoparam = new MapSqlParameterSource("watch", watch).addValue("no", no);
 		sql = "update findren_write_07_board set wr_hit = :watch where wr_id = :no";
-		namedParameterJdbcTemplate.update(sql, onlineparam);
+		namedParameterJdbcTemplate.update(sql, Seoparam);
 		
 	}
 	
 	@Override
-	public OnlineBoard onlineContent(int no) {
-		onlineparam = new MapSqlParameterSource("no", no);
+	public SeoBoard seoContent(int no) {
+		Seoparam = new MapSqlParameterSource("no", no);
 		sql = "select * from findren_write_07_board where wr_id = :no";
-		return namedParameterJdbcTemplate.query(sql, onlineparam, dm.getOnlineBoardRMRSE());
+		return namedParameterJdbcTemplate.query(sql, Seoparam, dm.getSEORMRSE());
 	}
 	
 	@Override
-	public Integer onlineNextNo(int no) {
-		onlineparam = new MapSqlParameterSource("no", no);
+	public Integer seoNextNo(int no) {
+		Seoparam = new MapSqlParameterSource("no", no);
 		sql = "SELECT max(wr_id) FROM findren_write_07_board nb WHERE wr_id < :no;";
 		return namedParameterJdbcTemplate.queryForObject(
-				sql, onlineparam, Integer.class);
+				sql, Seoparam, Integer.class);
 	}
 	
 	@Override
-	public Integer onlinePreNo(int no) {
-		onlineparam = new MapSqlParameterSource("no", no);
+	public Integer seoPreNo(int no) {
+		Seoparam = new MapSqlParameterSource("no", no);
 		sql = "SELECT min(wr_id) FROM findren_write_07_board nb WHERE wr_id > :no;";
 		return namedParameterJdbcTemplate.queryForObject(
-				sql, onlineparam, Integer.class);
+				sql, Seoparam, Integer.class);
 	}
 	
 	@Override
-	public void onlineDelete(int no) {
-		onlineparam = new MapSqlParameterSource("no", no);
+	public void seoDelete(int no) {
+		Seoparam = new MapSqlParameterSource("no", no);
 		sql = "delete from findren_write_07_board where wr_id = :no";
-		namedParameterJdbcTemplate.update(sql, onlineparam);
+		namedParameterJdbcTemplate.update(sql, Seoparam);
 	}
 	
 	@Override
-	public void updateOnlineBoard(OnlineBoard nb) {
-		onlineparam = new BeanPropertySqlParameterSource(nb);
+	public void updateSeoBoard(SeoBoard nb) {
+		Seoparam = new BeanPropertySqlParameterSource(nb);
 		if(!nb.getWr_file1().isEmpty() && !nb.getWr_file2().isEmpty()){
 			sql = "update findren_write_07_board set wr_subject = :wr_subject, wr_content = :wr_content, wr_link1 = :wr_link1, wr_link2 = :wr_link2,"
 				+ "wr_datetime = :wr_datetime, wr_file1 = :wr_file1, wr_file2 = :wr_file2, wr_ip = :wr_ip, wr_option = :wr_option where wr_id = :wr_id";
@@ -103,13 +103,13 @@ public class OnlineDaoImpl implements OnlineDao {
 			sql = "update findren_write_07_board set wr_subject = :wr_subject, wr_content = :wr_content, wr_link1 = :wr_link1, wr_link2 = :wr_link2,"
 					+ "wr_datetime = :wr_datetime, wr_file2 = :wr_file2, wr_ip = :wr_ip, wr_option = :wr_option where wr_id = :wr_id";
 		}
-		namedParameterJdbcTemplate.update(sql, onlineparam);
+		namedParameterJdbcTemplate.update(sql, Seoparam);
 	}
 	
 	@Override
 	public Integer maxNum() {
-		onlineparam = new MapSqlParameterSource("findren_write_07_board", "findren_write_07_board");
+		Seoparam = new MapSqlParameterSource("findren_write_07_board", "findren_write_07_board");
 		sql = "select max(wr_num) from findren_write_07_board";
-		return namedParameterJdbcTemplate.queryForObject(sql, onlineparam, Integer.class);
+		return namedParameterJdbcTemplate.queryForObject(sql, Seoparam, Integer.class);
 	}
 }
