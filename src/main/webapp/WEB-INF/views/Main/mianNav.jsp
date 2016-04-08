@@ -66,10 +66,10 @@
                                 <a href="/Findren/comJob">중국인채용</a>
                             </li>
                             <li>
-                                <a href="/Findren/comPortfolio">포트폴리오</a>
+                                <a href="/Findren/portfolioList">포트폴리오</a>
                             </li>
                             <li>
-                                <a href="/Findren/storePromotion">가맹점홍보</a>
+                                <a href="/Findren/promotionList">가맹점홍보</a>
                             </li>
                         </ul>
                     </li>
@@ -117,6 +117,9 @@
                     </li>
                     <li>
                         <a href="#">광고신청</a>
+                    </li>
+                    <li>
+                        <a href="#">근태관리</a>
                     </li>
                 </ul>
             </div>

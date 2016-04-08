@@ -2,7 +2,7 @@ package com.findren.homepage.domain;
 
 import java.sql.Timestamp;
 
-public class PortfolioBoard {
+public class Online {
 	private int wr_id;
 	private String wr_subject;
 	private String wr_content;

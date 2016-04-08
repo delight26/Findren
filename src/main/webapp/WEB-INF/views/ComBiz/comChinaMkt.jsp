@@ -27,8 +27,8 @@
 				<a href="/Findren/comOfficialAccount" class="list-group-item">위챗공중계정</a>
 				<a href="/Findren/comWechatPay" class="list-group-item">위챗페이</a>
 				<a href="/Findren/comJob" class="list-group-item">중국인채용</a>
-				<a href="/Findren/comPortfolio" class="list-group-item">포트폴리오</a>
-				<a href="/Findren/storePromotion" class="list-group-item">가맹점홍보</a>
+				<a href="/Findren/portfolioList" class="list-group-item">포트폴리오</a>
+				<a href="/Findren/promotionList" class="list-group-item">가맹점홍보</a>
 			</div>
 		</div>
 		

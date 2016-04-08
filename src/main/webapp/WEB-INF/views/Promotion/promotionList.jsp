@@ -5,16 +5,11 @@
 
 <style>
 table th, td{
-	text-align: center;
-}
-
-.fm_img{
-	width: 20px;
+text-align: center;
 }
 </style>
 
 <div class="container bodymargin">
-
 	<!-- 페이지 헤드라인 -->
 	<div class="row">
 		<div class="col-lg-12">
@@ -33,12 +28,13 @@ table th, td{
 		<!-- 사이드 리스트 -->
 		<div class="col-md-3">
 			<div class="list-group">
+			<div class="list-group">
 				<a href="/Findren/comChinaMkt" class="list-group-item">중국마케팅</a>
 				<a href="/Findren/comOfficialAccount" class="list-group-item">위챗공중계정</a>
 				<a href="/Findren/comWechatPay" class="list-group-item">위챗페이</a>
 				<a href="/Findren/comJob" class="list-group-item">중국인채용</a>
-				<a href="/Findren/portfolioList" class="list-group-item active">포트폴리오</a>
-				<a href="/Findren/promotionList" class="list-group-item">가맹점홍보</a>
+				<a href="/Findren/PotfolioList" class="list-group-item">포트폴리오</a>
+				<a href="/Findren/PotfolioList" class="list-group-item active">가맹점홍보</a>
 			</div>
 		</div>
 		<!-- 공지사항 이름 -->
@@ -46,7 +42,7 @@ table th, td{
 			<h2><img src="resources/images/portfolio_01.png"></h2>
 		</div>
 		
-		<div class="findrenNews col-md-9">
+		<div class="findrenPortfolio col-md-9">
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -54,7 +50,7 @@ table th, td{
 <%--						<c:if test=""> --%>
 						<th></th>
 <%--						/<c:if> --%>
-						<th>제목</th>
+						<th>프로젝트</th>
 						<th>글쓴이</th>
 					</tr>
 				</thead>
@@ -64,17 +60,20 @@ table th, td{
 						<c:forEach var="portfolio" items="${ portfolioList }" varStatus="s">
 							<c:if test="${ portfolio.wr_option eq 'portfolio' }">
 								<tr>
+									<td>
+										<div style="width:10vw;">${portfolio.wr_file1 }</div>
+									</td>
 									<c:if test="${ portfolio.wr_subject.length() > 20 }">
 										<td>
 											<a href="portfolioContent?no=${ portfolio.wr_id }&pageNum=${ currentPage }&watch=${ portfolio.wr_hit }">
-										<span class="pf_img"> <img src="resources/images/${portfolio.wr_file1 }"></span> ${ portfolio.wr_subject.substring(0, 21) }... 
+										${ portfolio.wr_subject.substring(0, 21) }... 
 											</a>
 										</td>
 									</c:if>
 									<c:if test="${ portfolio.wr_subject.length() <= 20 }">
 										<td>
 											<a href="portfolioContent?no=${ portfolio.wr_id }&pageNum=${ currentPage }&watch=${ portfolio.wr_hit }">
-										<span class="pf_img"> ${portfolio.wr_file1 }</span> ${ portfolio.wr_subject } 
+										${ portfolio.wr_subject } 
 											</a>
 										</td>
 									</c:if>
@@ -85,6 +84,10 @@ table th, td{
 						
 						<c:forEach var="portfolio" items="${ portfolioList }" varStatus="s">
 							<tr>
+								<td>
+								<td>
+									<div style="width:10vw;">${portfolio.wr_file1 }</div>
+								</td>
 								<td>${(listCount - s.index) - ( (currentPage - 1)  *  PAGE_GROUP ) }</td>
 								<%-- 									<c:if test=""> --%>
 								<td>
@@ -94,14 +97,14 @@ table th, td{
 							<c:if test="${ portfolio.wr_subject.length() > 20 }">
 								<td>
 									<a href="portfolioContent?no=${ portfolio.wr_id }&pageNum=${ currentPage }&watch=${ portfolio.wr_hit }">
-								<span class="pf_img"> ${portfolio.wr_file1 }</span> ${ portfolio.wr_subject.substring(0, 21) }... 
+								${ portfolio.wr_subject.substring(0, 21) }... 
 									</a>
 								</td>
 							</c:if>
 							<c:if test="${ portfolio.wr_subject.length() <= 20 }">
 								<td>
 									<a href="portfolioContent?no=${ portfolio.wr_id }&pageNum=${ currentPage }&watch=${ portfolio.wr_hit }">
-								<span class="pf_img"> ${portfolio.wr_file1 }</span> ${ portfolio.wr_subject } 
+								${ portfolio.wr_subject } 
 									</a>
 								</td>
 							</c:if>
@@ -149,5 +152,6 @@ table th, td{
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 

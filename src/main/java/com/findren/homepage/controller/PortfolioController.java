@@ -12,32 +12,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.findren.homepage.service.PortfolioService;
+import com.findren.homepage.service.impl.PortfolioServiceImpl;
 
 
 @Controller
 public class PortfolioController {
 
 	@Autowired
-	private PortfolioService nService;
+	private PortfolioServiceImpl pService;
 	private static final String filePath = "/resources/file_upload/";
 
-	public void setnService(PortfolioService nService) {
-		this.nService = nService;
+	public void setpService(PortfolioServiceImpl pService) {
+		this.pService = pService;
 	}
 	
 	//리스트
-	@RequestMapping(value = "PotfolioList")
-	public String PotfolioList(HttpServletRequest request, Model model) {
-		nService.portfolioList(request);
+	@RequestMapping(value = "portfolioList")
+	public String portfolioList(HttpServletRequest request, Model model) {
+		pService.portfolioList(request);
 		model.addAttribute("content", "Portfolio/portfolioList");
 		return "home";
 	}
 	
 	//쓰기
 	@RequestMapping(value = "portfolioWrite")
-	public String portfolioWrite(){
-		return "Portfolio/portfolioWrite";
+	public String portfolioWrite(Model model){
+		model.addAttribute("content", "Portfolio/portfolioWrite");
+		return "home";
 	}
 	
 	//쓰기결과
@@ -45,53 +46,59 @@ public class PortfolioController {
 	public String portfolioWriteResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		nService.portfolioWriteResult(request, path, session);
+		pService.portfolioWriteResult(request, path, session);
 		return "redirect:portfolioList";
 	}
 	
 	//보기
 	@RequestMapping(value="portfolioContent")
-	public String portfolioContent(HttpServletRequest request){
-		nService.portfolioContent(request);
-		return "Portfolio/portfolioContent";
+	public String portfolioContent(HttpServletRequest request,Model model){
+		pService.portfolioContent(request);
+		model.addAttribute("content", "Portfolio/portfolioContent");
+		return "home";
 	}
 	
 	//다음글
-	@RequestMapping(value="portfolionext")
-	public String portfolioNext(HttpServletRequest request){
-		nService.portfolioNext(request);
+	@RequestMapping(value="portfolioNext")
+	public String portfolioNext(HttpServletRequest request, Model model){
+		pService.portfolioNext(request);
+		model.addAttribute("content", "Portfolio/portfolioContent");
+		
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "Portfolio/portfolioContent";
+		return "home";
 	}
 	
 	//이전글
-	@RequestMapping(value="portfoliopre")
-	public String portfolioPre(HttpServletRequest request){
-		nService.portfolioPre(request);
+	@RequestMapping(value="portfolioPre")
+	public String portfolioPre(HttpServletRequest request, Model model){
+		pService.portfolioPre(request);
+		model.addAttribute("content", "Portfolio/portfolioContent");
+		
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "Portfolio/portfolioContent";
+		return "home";
 	}
 	
 	//삭제
 	@RequestMapping(value="portfolioDelete", method = RequestMethod.POST)
 	public String portfolioDelete(HttpServletRequest request){
-		nService.portfolioDelete(request);
+		pService.portfolioDelete(request);
 		return "redirect:portfolioList";
 	}
 	
 	//업데이트
 	@RequestMapping(value="portfolioUpdate")
-	public String portfolioUpdate(HttpServletRequest request){
-		nService.portfolioUpdate(request);
-		return "Portfolio/portfolioUpdate";
+	public String portfolioUpdate(HttpServletRequest request, Model model){
+		pService.portfolioUpdate(request);
+		model.addAttribute("content", "Portfolio/portfolioUpdate");
+		return "home";
 	}
 	
 	//업데이트결과
@@ -99,7 +106,7 @@ public class PortfolioController {
 	public String portfolioUpdateResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		nService.portfolioUpdateResult(request, path, session);
+		pService.portfolioUpdateResult(request, path, session);
 		return "redirect:portfolioList";
 	}
 }

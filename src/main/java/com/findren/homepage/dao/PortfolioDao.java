@@ -2,24 +2,24 @@ package com.findren.homepage.dao;
 
 import java.util.List;
 
-import com.findren.homepage.domain.PortfolioBoard;
+import com.findren.homepage.domain.Portfolio;
 
 public interface PortfolioDao {
 
 	//게시판 글 수 
-	public Integer getPortfolioBoardCount();
+	public Integer getPortfolioCount();
 	
 	//리스트 페이징
-	public List<PortfolioBoard> getPortfolioBoardList(int startRow, int PAGE_SIZE);
+	public List<Portfolio> getPortfolioList(int startRow, int PAGE_SIZE);
 	
 	//글 입력
-	public void insertPortfolioBoard(PortfolioBoard nb);
+	public void insertPortfolio(Portfolio nb);
 	
 	//조회수
 	public void portfolioWatchUpdate(int watch, int no);
 	
 	//글내용
-	public PortfolioBoard portfolioContent(int no);
+	public Portfolio portfolioContent(int no);
 	
 	//다음 글 번호
 	public Integer portfolioNextNo(int no);
@@ -31,7 +31,7 @@ public interface PortfolioDao {
 	public void portfolioDelete(int no);
 	
 	//업데이트
-	public void updatePortfolioBoard(PortfolioBoard nb);
+	public void updatePortfolio(Portfolio nb);
 	
 	//게시글 최대 수
 	public Integer maxNum();
