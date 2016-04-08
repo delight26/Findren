@@ -41,7 +41,17 @@ $(function(){
                 }
             }
         });
-         
+        $('input[name="fhm_per_nation"]').change(function(){
+        	alert(1);
+        	var fhm_per_nation = $(':input[name=fhm_per_nation]:radio:checked').val();
+        	if(fhm_per_nation == "korea"){
+        		$("#addrsearch").show();
+        		$("#addrtext").hide();
+        	}else{
+        		$("#addrsearch").hide();
+        		$("#addrtext").show();
+        	}
+        });
     });
     $("#submit").click(function(){
     	var rechaptcha = $("#rechaptcha").val();
@@ -56,8 +66,21 @@ $(function(){
     		}
     	}
     });
+    $.ajax({
+        url: "addrsearch",
+        type:"post",
+        dataType: "text",
+        success: function(responseData, statusText, xhr){
+        	var result = responseData;
+       	 $('#addrsearch').html(result);
+        },
+        error : function(xhr, statusText, responseData){
+           alert("error : " + statusText + "." + xhr.status+ "/ " + xhr.responseText);
+        },
+     });
 }); 
 </script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <body>
 	<form action = "joinPer" method = "post" id="joinform">
@@ -83,7 +106,7 @@ $(function(){
 			<td>
 				<input type = "radio" name = "fhm_per_nation" value="korea"/>한국
 				<input type = "radio" name = "fhm_per_nation" value="china"/>중국
-				<input type = "radio" name = "fhm_per_nation" value="etc"/>한국
+				<input type = "radio" name = "fhm_per_nation" value="etc"/>기타
 			</td>
 		</tr>
 		<tr>
@@ -108,6 +131,15 @@ $(function(){
 		<tr>
 			<th>핸드폰번호</th>
 			<td><input type = "tel" name = "fhm_per_cell" id="cell" required/></td>
+		</tr>
+		<tr>
+			<th>주소</th>
+			<td>
+				<textarea rows="5" cols="100" style="display:none" name="fhm_per_adress"></textarea>
+				<div id="addrsearch">
+				</div>
+			
+			</td>
 		</tr>
 		<tr>
 			<td colspan="2">

@@ -85,4 +85,10 @@ public class MemberController {
 		mService.joinPer(request);
 		return "Member/joinPer";
 	}
+	
+	//주소 ajax
+	@RequestMapping(value="addrsearch")
+	public String addrSearch(){
+		return "Member/addrSearch";
+	}
 }
