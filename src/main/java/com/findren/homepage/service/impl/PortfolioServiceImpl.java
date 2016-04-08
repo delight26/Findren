@@ -23,12 +23,12 @@ import com.findren.homepage.service.PortfolioService;
 public class PortfolioServiceImpl implements PortfolioService {
 
 	@Autowired
-	private PortfolioDao PDao;
+	private PortfolioDao PortfolioDao;
 	private static final int PAGE_SIZE = 10;
 	private static final int PAGE_GROUP = 10;
 
-	public void setPDao(PortfolioDao pDao) {
-		PDao = pDao;
+	public void setPortfolioDao(PortfolioDao portfolioDao) {
+		PortfolioDao = portfolioDao;
 	}
 
 	@Override
@@ -40,10 +40,10 @@ public class PortfolioServiceImpl implements PortfolioService {
 		int currentPage = Integer.valueOf(pageNum);
 
 		int startRow = currentPage * PAGE_SIZE - PAGE_SIZE;
-		int listCount = PDao.getPortfolioCount();
+		int listCount = PortfolioDao.getPortfolioCount();
 
 		if (listCount > 0) {
-			List<Portfolio> portfolioList = PDao.getPortfolioList(startRow, PAGE_SIZE);
+			List<Portfolio> portfolioList = PortfolioDao.getPortfolioList(startRow, PAGE_SIZE);
 
 			int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
 
@@ -137,7 +137,7 @@ public class PortfolioServiceImpl implements PortfolioService {
 			portfolio.setWr_file1("onlylogo.png");
 
 		} 
-		PDao.insertPortfolio(portfolio);
+		PortfolioDao.insertPortfolio(portfolio);
 	}
 
 	@Override
@@ -146,8 +146,8 @@ public class PortfolioServiceImpl implements PortfolioService {
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
 		int watch = Integer.valueOf(request.getParameter("watch"));
 
-		PDao.portfolioWatchUpdate(watch + 1, no);
-		Portfolio portfolio = PDao.portfolioContent(no);
+		PortfolioDao.portfolioWatchUpdate(watch + 1, no);
+		Portfolio portfolio = PortfolioDao.portfolioContent(no);
 		request.setAttribute("portfolio", portfolio);
 		request.setAttribute("pageNum", pageNum);
 	}
@@ -156,12 +156,12 @@ public class PortfolioServiceImpl implements PortfolioService {
 	public void portfolioNext(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = PDao.portfolioNextNo(no);
+		Integer nextNo = PortfolioDao.portfolioNextNo(no);
 		if (nextNo == null) {
 
 		} else {
-			Portfolio portfolio = PDao.portfolioContent(nextNo);
-			PDao.portfolioWatchUpdate(portfolio.getWr_hit() + 1, nextNo);
+			Portfolio portfolio = PortfolioDao.portfolioContent(nextNo);
+			PortfolioDao.portfolioWatchUpdate(portfolio.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
 			request.setAttribute("portfolio", portfolio);
 		}
@@ -171,12 +171,12 @@ public class PortfolioServiceImpl implements PortfolioService {
 	public void portfolioPre(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = PDao.portfolioPreNo(no);
+		Integer nextNo = PortfolioDao.portfolioPreNo(no);
 		if (nextNo == null) {
 
 		} else {
-			Portfolio portfolio = PDao.portfolioContent(nextNo);
-			PDao.portfolioWatchUpdate(portfolio.getWr_hit() + 1, nextNo);
+			Portfolio portfolio = PortfolioDao.portfolioContent(nextNo);
+			PortfolioDao.portfolioWatchUpdate(portfolio.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
 			request.setAttribute("portfolio", portfolio);
 		}
@@ -187,10 +187,10 @@ public class PortfolioServiceImpl implements PortfolioService {
 		String no = request.getParameter("no");
 		String[] check = request.getParameterValues("check");
 		if(check == null){
-			PDao.portfolioDelete(Integer.valueOf(no));
+			PortfolioDao.portfolioDelete(Integer.valueOf(no));
 		} else{
 			for (int i = 0; i < check.length; i++) {
-				PDao.portfolioDelete(Integer.parseInt(check[i]));
+				PortfolioDao.portfolioDelete(Integer.parseInt(check[i]));
 			}
 		}
 	}
@@ -199,7 +199,7 @@ public class PortfolioServiceImpl implements PortfolioService {
 	public void portfolioUpdate(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 
-		Portfolio portfolio = PDao.portfolioContent(no);
+		Portfolio portfolio = PortfolioDao.portfolioContent(no);
 
 		request.setAttribute("portfolio", portfolio);
 	}
@@ -318,7 +318,7 @@ public class PortfolioServiceImpl implements PortfolioService {
 			portfolio.setWr_file1(rlFileNm1);
 			portfolio.setWr_file2("");
 		}
-		PDao.updatePortfolio(portfolio);
+		PortfolioDao.updatePortfolio(portfolio);
 
 	}
 }

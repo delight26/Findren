@@ -23,12 +23,12 @@ import com.findren.homepage.service.NewsService;
 public class NewsServiceImpl implements NewsService {
 
 	@Autowired
-	private NewsDao NDao;
+	private NewsDao NewsDao;
 	private static final int PAGE_SIZE = 10;
 	private static final int PAGE_GROUP = 10;
 
-	public void setNDao(NewsDao nDao) {
-		NDao = nDao;
+	public void setNewsDao(NewsDao newsDao) {
+		NewsDao = newsDao;
 	}
 
 	@Override
@@ -40,10 +40,10 @@ public class NewsServiceImpl implements NewsService {
 		int currentPage = Integer.valueOf(pageNum);
 
 		int startRow = currentPage * PAGE_SIZE - PAGE_SIZE;
-		int listCount = NDao.getNewsBoardCount();
+		int listCount = NewsDao.getNewsBoardCount();
 
 		if (listCount > 0) {
-			List<NewsBoard> newsList = NDao.getNewsBoardList(startRow, PAGE_SIZE);
+			List<NewsBoard> newsList = NewsDao.getNewsBoardList(startRow, PAGE_SIZE);
 
 			int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
 
@@ -89,7 +89,7 @@ public class NewsServiceImpl implements NewsService {
 			type = "normal";
 		}
 
-		NewsBoard nb = new NewsBoard();
+		NewsBoard news = new NewsBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -107,15 +107,15 @@ public class NewsServiceImpl implements NewsService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		news.setWr_subject(title);
+		news.setWr_content(content);
+		news.setMb_id("admin");
+		news.setWr_name("중국인찾기");
+		news.setWr_link1(link1);
+		news.setWr_link2(link2);
+		news.setWr_datetime(time);
+		news.setWr_ip(wr_ip);
+		news.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -142,8 +142,8 @@ public class NewsServiceImpl implements NewsService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			news.setWr_file1(rlFileNm1);
+			news.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -158,8 +158,8 @@ public class NewsServiceImpl implements NewsService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			news.setWr_file1("");
+			news.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -174,10 +174,10 @@ public class NewsServiceImpl implements NewsService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			news.setWr_file1(rlFileNm1);
+			news.setWr_file2("");
 		}
-		NDao.insertNewsBoard(nb);
+		NewsDao.insertNewsBoard(news);
 	}
 
 	@Override
@@ -186,9 +186,9 @@ public class NewsServiceImpl implements NewsService {
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
 		int watch = Integer.valueOf(request.getParameter("watch"));
 
-		NDao.newsWatchUpdate(watch + 1, no);
-		NewsBoard nb = NDao.newsContent(no);
-		request.setAttribute("nb", nb);
+		NewsDao.newsWatchUpdate(watch + 1, no);
+		NewsBoard news = NewsDao.newsContent(no);
+		request.setAttribute("news", news);
 		request.setAttribute("pageNum", pageNum);
 	}
 
@@ -196,14 +196,14 @@ public class NewsServiceImpl implements NewsService {
 	public void newsNext(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.newsNextNo(no);
+		Integer nextNo = NewsDao.newsNextNo(no);
 		if (nextNo == null) {
 
 		} else {
-			NewsBoard nb = NDao.newsContent(nextNo);
-			NDao.newsWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			NewsBoard news = NewsDao.newsContent(nextNo);
+			NewsDao.newsWatchUpdate(news.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("news", news);
 		}
 	}
 
@@ -211,14 +211,14 @@ public class NewsServiceImpl implements NewsService {
 	public void newsPre(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.newsPreNo(no);
+		Integer nextNo = NewsDao.newsPreNo(no);
 		if (nextNo == null) {
 
 		} else {
-			NewsBoard nb = NDao.newsContent(nextNo);
-			NDao.newsWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			NewsBoard news = NewsDao.newsContent(nextNo);
+			NewsDao.newsWatchUpdate(news.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("news", news);
 		}
 	}
 
@@ -227,10 +227,10 @@ public class NewsServiceImpl implements NewsService {
 		String no = request.getParameter("no");
 		String[] check = request.getParameterValues("check");
 		if(check == null){
-			NDao.newsDelete(Integer.valueOf(no));
+			NewsDao.newsDelete(Integer.valueOf(no));
 		} else{
 			for (int i = 0; i < check.length; i++) {
-				NDao.newsDelete(Integer.parseInt(check[i]));
+				NewsDao.newsDelete(Integer.parseInt(check[i]));
 			}
 		}
 	}
@@ -239,9 +239,9 @@ public class NewsServiceImpl implements NewsService {
 	public void newsUpdate(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 
-		NewsBoard nb = NDao.newsContent(no);
+		NewsBoard news = NewsDao.newsContent(no);
 
-		request.setAttribute("nb", nb);
+		request.setAttribute("news", news);
 	}
 
 	@Override
@@ -269,7 +269,7 @@ public class NewsServiceImpl implements NewsService {
 			type = "normal";
 		}
 
-		NewsBoard nb = new NewsBoard();
+		NewsBoard news = new NewsBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -287,16 +287,16 @@ public class NewsServiceImpl implements NewsService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_id(no);
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		news.setWr_id(no);
+		news.setWr_subject(title);
+		news.setWr_content(content);
+		news.setMb_id("admin");
+		news.setWr_name("중국인찾기");
+		news.setWr_link1(link1);
+		news.setWr_link2(link2);
+		news.setWr_datetime(time);
+		news.setWr_ip(wr_ip);
+		news.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -323,8 +323,8 @@ public class NewsServiceImpl implements NewsService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			news.setWr_file1(rlFileNm1);
+			news.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -339,8 +339,8 @@ public class NewsServiceImpl implements NewsService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			news.setWr_file1("");
+			news.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -355,10 +355,10 @@ public class NewsServiceImpl implements NewsService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			news.setWr_file1(rlFileNm1);
+			news.setWr_file2("");
 		}
-		NDao.updateNewsBoard(nb);
+		NewsDao.updateNewsBoard(news);
 
 	}
 }

@@ -13,7 +13,7 @@ public interface SnsDao {
 	public List<SnsBoard> getSnsBoardList(int startRow, int PAGE_SIZE);
 	
 	//글 입력
-	public void insertSnsBoard(SnsBoard nb);
+	public void insertSnsBoard(SnsBoard sns);
 	
 	//조회수
 	public void snsWatchUpdate(int watch, int no);
@@ -31,7 +31,7 @@ public interface SnsDao {
 	public void snsDelete(int no);
 	
 	//업데이트
-	public void updateSnsBoard(SnsBoard nb);
+	public void updateSnsBoard(SnsBoard sns);
 	
 	//게시글 최대 수
 	public Integer maxNum();

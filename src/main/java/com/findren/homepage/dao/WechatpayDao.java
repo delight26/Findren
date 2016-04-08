@@ -13,7 +13,7 @@ public interface WechatpayDao {
 	public List<WechatpayBoard> getWechatpayBoardList(int startRow, int PAGE_SIZE);
 	
 	//글 입력
-	public void insertWechatpayBoard(WechatpayBoard nb);
+	public void insertWechatpayBoard(WechatpayBoard wechatpay);
 	
 	//조회수
 	public void wechatpayWatchUpdate(int watch, int no);
@@ -31,7 +31,7 @@ public interface WechatpayDao {
 	public void wechatpayDelete(int no);
 	
 	//업데이트
-	public void updateWechatpayBoard(WechatpayBoard nb);
+	public void updateWechatpayBoard(WechatpayBoard wechatpay);
 	
 	//게시글 최대 수
 	public Integer maxNum();

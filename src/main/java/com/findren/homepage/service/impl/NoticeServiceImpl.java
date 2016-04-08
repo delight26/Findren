@@ -23,12 +23,12 @@ import com.findren.homepage.service.NoticeService;
 public class NoticeServiceImpl implements NoticeService {
 
 	@Autowired
-	private NoticeDao NDao;
+	private NoticeDao NoticeDao;
 	private static final int PAGE_SIZE = 10;
 	private static final int PAGE_GROUP = 10;
 
-	public void setNDao(NoticeDao nDao) {
-		NDao = nDao;
+	public void setNoticeDao(NoticeDao noticeDao) {
+		NoticeDao = noticeDao;
 	}
 
 	@Override
@@ -40,10 +40,10 @@ public class NoticeServiceImpl implements NoticeService {
 		int currentPage = Integer.valueOf(pageNum);
 
 		int startRow = currentPage * PAGE_SIZE - PAGE_SIZE;
-		int listCount = NDao.getNoticeBoardCount();
+		int listCount = NoticeDao.getNoticeBoardCount();
 
 		if (listCount > 0) {
-			List<NoticeBoard> noticeList = NDao.getNoticeBoardList(startRow, PAGE_SIZE);
+			List<NoticeBoard> noticeList = NoticeDao.getNoticeBoardList(startRow, PAGE_SIZE);
 
 			int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
 
@@ -89,7 +89,7 @@ public class NoticeServiceImpl implements NoticeService {
 			type = "normal";
 		}
 
-		NoticeBoard nb = new NoticeBoard();
+		NoticeBoard notice = new NoticeBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -107,15 +107,15 @@ public class NoticeServiceImpl implements NoticeService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		notice.setWr_subject(title);
+		notice.setWr_content(content);
+		notice.setMb_id("admin");
+		notice.setWr_name("중국인찾기");
+		notice.setWr_link1(link1);
+		notice.setWr_link2(link2);
+		notice.setWr_datetime(time);
+		notice.setWr_ip(wr_ip);
+		notice.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -142,8 +142,8 @@ public class NoticeServiceImpl implements NoticeService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			notice.setWr_file1(rlFileNm1);
+			notice.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -158,8 +158,8 @@ public class NoticeServiceImpl implements NoticeService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			notice.setWr_file1("");
+			notice.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -174,10 +174,10 @@ public class NoticeServiceImpl implements NoticeService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			notice.setWr_file1(rlFileNm1);
+			notice.setWr_file2("");
 		}
-		NDao.insertNoticeBoard(nb);
+		NoticeDao.insertNoticeBoard(notice);
 	}
 
 	@Override
@@ -186,9 +186,9 @@ public class NoticeServiceImpl implements NoticeService {
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
 		int watch = Integer.valueOf(request.getParameter("watch"));
 
-		NDao.noticeWatchUpdate(watch + 1, no);
-		NoticeBoard nb = NDao.noticeContent(no);
-		request.setAttribute("nb", nb);
+		NoticeDao.noticeWatchUpdate(watch + 1, no);
+		NoticeBoard notice = NoticeDao.noticeContent(no);
+		request.setAttribute("notice", notice);
 		request.setAttribute("pageNum", pageNum);
 	}
 
@@ -196,14 +196,14 @@ public class NoticeServiceImpl implements NoticeService {
 	public void noticeNext(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.noticeNextNo(no);
+		Integer nextNo = NoticeDao.noticeNextNo(no);
 		if (nextNo == null) {
 
 		} else {
-			NoticeBoard nb = NDao.noticeContent(nextNo);
-			NDao.noticeWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			NoticeBoard notice = NoticeDao.noticeContent(nextNo);
+			NoticeDao.noticeWatchUpdate(notice.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("notice", notice);
 		}
 	}
 
@@ -211,14 +211,14 @@ public class NoticeServiceImpl implements NoticeService {
 	public void noticePre(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.noticePreNo(no);
+		Integer nextNo = NoticeDao.noticePreNo(no);
 		if (nextNo == null) {
 
 		} else {
-			NoticeBoard nb = NDao.noticeContent(nextNo);
-			NDao.noticeWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			NoticeBoard notice = NoticeDao.noticeContent(nextNo);
+			NoticeDao.noticeWatchUpdate(notice.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("notice", notice);
 		}
 	}
 
@@ -227,10 +227,10 @@ public class NoticeServiceImpl implements NoticeService {
 		String no = request.getParameter("no");
 		String[] check = request.getParameterValues("check");
 		if(check == null){
-			NDao.noticeDelete(Integer.valueOf(no));
+			NoticeDao.noticeDelete(Integer.valueOf(no));
 		} else{
 			for (int i = 0; i < check.length; i++) {
-				NDao.noticeDelete(Integer.parseInt(check[i]));
+				NoticeDao.noticeDelete(Integer.parseInt(check[i]));
 			}
 		}
 	}
@@ -239,9 +239,9 @@ public class NoticeServiceImpl implements NoticeService {
 	public void noticeUpdate(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 
-		NoticeBoard nb = NDao.noticeContent(no);
+		NoticeBoard notice = NoticeDao.noticeContent(no);
 
-		request.setAttribute("nb", nb);
+		request.setAttribute("notice", notice);
 	}
 
 	@Override
@@ -269,7 +269,7 @@ public class NoticeServiceImpl implements NoticeService {
 			type = "normal";
 		}
 
-		NoticeBoard nb = new NoticeBoard();
+		NoticeBoard notice = new NoticeBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -287,16 +287,16 @@ public class NoticeServiceImpl implements NoticeService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_id(no);
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		notice.setWr_id(no);
+		notice.setWr_subject(title);
+		notice.setWr_content(content);
+		notice.setMb_id("admin");
+		notice.setWr_name("중국인찾기");
+		notice.setWr_link1(link1);
+		notice.setWr_link2(link2);
+		notice.setWr_datetime(time);
+		notice.setWr_ip(wr_ip);
+		notice.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -323,8 +323,8 @@ public class NoticeServiceImpl implements NoticeService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			notice.setWr_file1(rlFileNm1);
+			notice.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -339,8 +339,8 @@ public class NoticeServiceImpl implements NoticeService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			notice.setWr_file1("");
+			notice.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -355,10 +355,10 @@ public class NoticeServiceImpl implements NoticeService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			notice.setWr_file1(rlFileNm1);
+			notice.setWr_file2("");
 		}
-		NDao.updateNoticeBoard(nb);
+		NoticeDao.updateNoticeBoard(notice);
 
 	}
 }

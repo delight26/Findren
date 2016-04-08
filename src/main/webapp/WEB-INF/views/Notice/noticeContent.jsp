@@ -72,7 +72,7 @@ text-align: center;
 	
 			<div style="text-align: center;">
 				<input type="button" class="btn btn-default" value="수정" onclick="location.href='noticeUpdate?no=${ nb.wr_id }'"/>
-				<input type="button" class="btn btn-default" value="삭제" onclick="location.href='noticeOneDelete?no=${nb.wr_id}'"/>
+				<input type="button" class="btn btn-default" id="noticeDelete" value="삭제" onclick="location.href='noticeOneDelete?no=${nb.wr_id}'"/>
 				<input type="button" class="btn btn-default" value="복사"/>
 				<input type="button" class="btn btn-default" value="이동"/>
 				

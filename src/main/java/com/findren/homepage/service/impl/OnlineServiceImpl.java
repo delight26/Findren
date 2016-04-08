@@ -23,12 +23,12 @@ import com.findren.homepage.service.OnlineService;
 public class OnlineServiceImpl implements OnlineService {
 
 	@Autowired
-	private OnlineDao NDao;
+	private OnlineDao OnlineDao;
 	private static final int PAGE_SIZE = 10;
 	private static final int PAGE_GROUP = 10;
 
-	public void setNDao(OnlineDao nDao) {
-		NDao = nDao;
+	public void setOnlineDao(OnlineDao onlineDao) {
+		OnlineDao = onlineDao;
 	}
 
 	@Override
@@ -40,10 +40,10 @@ public class OnlineServiceImpl implements OnlineService {
 		int currentPage = Integer.valueOf(pageNum);
 
 		int startRow = currentPage * PAGE_SIZE - PAGE_SIZE;
-		int listCount = NDao.getOnlineBoardCount();
+		int listCount = OnlineDao.getOnlineBoardCount();
 
 		if (listCount > 0) {
-			List<OnlineBoard> onlineList = NDao.getOnlineBoardList(startRow, PAGE_SIZE);
+			List<OnlineBoard> onlineList = OnlineDao.getOnlineBoardList(startRow, PAGE_SIZE);
 
 			int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
 
@@ -89,7 +89,7 @@ public class OnlineServiceImpl implements OnlineService {
 			type = "normal";
 		}
 
-		OnlineBoard nb = new OnlineBoard();
+		OnlineBoard online = new OnlineBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -107,15 +107,15 @@ public class OnlineServiceImpl implements OnlineService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		online.setWr_subject(title);
+		online.setWr_content(content);
+		online.setMb_id("admin");
+		online.setWr_name("중국인찾기");
+		online.setWr_link1(link1);
+		online.setWr_link2(link2);
+		online.setWr_datetime(time);
+		online.setWr_ip(wr_ip);
+		online.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -142,8 +142,8 @@ public class OnlineServiceImpl implements OnlineService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			online.setWr_file1(rlFileNm1);
+			online.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -158,8 +158,8 @@ public class OnlineServiceImpl implements OnlineService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			online.setWr_file1("");
+			online.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -174,10 +174,10 @@ public class OnlineServiceImpl implements OnlineService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			online.setWr_file1(rlFileNm1);
+			online.setWr_file2("");
 		}
-		NDao.insertOnlineBoard(nb);
+		OnlineDao.insertOnlineBoard(online);
 	}
 
 	@Override
@@ -186,9 +186,9 @@ public class OnlineServiceImpl implements OnlineService {
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
 		int watch = Integer.valueOf(request.getParameter("watch"));
 
-		NDao.onlineWatchUpdate(watch + 1, no);
-		OnlineBoard nb = NDao.onlineContent(no);
-		request.setAttribute("nb", nb);
+		OnlineDao.onlineWatchUpdate(watch + 1, no);
+		OnlineBoard online = OnlineDao.onlineContent(no);
+		request.setAttribute("online", online);
 		request.setAttribute("pageNum", pageNum);
 	}
 
@@ -196,14 +196,14 @@ public class OnlineServiceImpl implements OnlineService {
 	public void onlineNext(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.onlineNextNo(no);
+		Integer nextNo = OnlineDao.onlineNextNo(no);
 		if (nextNo == null) {
 
 		} else {
-			OnlineBoard nb = NDao.onlineContent(nextNo);
-			NDao.onlineWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			OnlineBoard online = OnlineDao.onlineContent(nextNo);
+			OnlineDao.onlineWatchUpdate(online.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("online", online);
 		}
 	}
 
@@ -211,14 +211,14 @@ public class OnlineServiceImpl implements OnlineService {
 	public void onlinePre(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.onlinePreNo(no);
+		Integer nextNo = OnlineDao.onlinePreNo(no);
 		if (nextNo == null) {
 
 		} else {
-			OnlineBoard nb = NDao.onlineContent(nextNo);
-			NDao.onlineWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			OnlineBoard online = OnlineDao.onlineContent(nextNo);
+			OnlineDao.onlineWatchUpdate(online.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("online", online);
 		}
 	}
 
@@ -226,7 +226,7 @@ public class OnlineServiceImpl implements OnlineService {
 	public void onlineDelete(HttpServletRequest request) {
 		String[] check = request.getParameterValues("check");
 		for (int i = 0; i < check.length; i++) {
-			NDao.onlineDelete(Integer.parseInt(check[i]));
+			OnlineDao.onlineDelete(Integer.parseInt(check[i]));
 		}
 	}
 
@@ -234,9 +234,9 @@ public class OnlineServiceImpl implements OnlineService {
 	public void onlineUpdate(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 
-		OnlineBoard nb = NDao.onlineContent(no);
+		OnlineBoard online = OnlineDao.onlineContent(no);
 
-		request.setAttribute("nb", nb);
+		request.setAttribute("online", online);
 	}
 
 	@Override
@@ -264,7 +264,7 @@ public class OnlineServiceImpl implements OnlineService {
 			type = "normal";
 		}
 
-		OnlineBoard nb = new OnlineBoard();
+		OnlineBoard online = new OnlineBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -282,16 +282,16 @@ public class OnlineServiceImpl implements OnlineService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_id(no);
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		online.setWr_id(no);
+		online.setWr_subject(title);
+		online.setWr_content(content);
+		online.setMb_id("admin");
+		online.setWr_name("중국인찾기");
+		online.setWr_link1(link1);
+		online.setWr_link2(link2);
+		online.setWr_datetime(time);
+		online.setWr_ip(wr_ip);
+		online.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -318,8 +318,8 @@ public class OnlineServiceImpl implements OnlineService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			online.setWr_file1(rlFileNm1);
+			online.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -334,8 +334,8 @@ public class OnlineServiceImpl implements OnlineService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			online.setWr_file1("");
+			online.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -350,10 +350,10 @@ public class OnlineServiceImpl implements OnlineService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			online.setWr_file1(rlFileNm1);
+			online.setWr_file2("");
 		}
-		NDao.updateOnlineBoard(nb);
+		OnlineDao.updateOnlineBoard(online);
 
 	}
 }

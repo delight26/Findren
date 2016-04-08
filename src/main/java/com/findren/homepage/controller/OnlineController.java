@@ -18,25 +18,26 @@ import com.findren.homepage.service.impl.OnlineServiceImpl;
 public class OnlineController {
 
 	@Autowired
-	private OnlineServiceImpl nService;
+	private OnlineServiceImpl onlineService;
 	private static final String filePath = "/resources/file_upload/";
 
-	public void setnService(OnlineServiceImpl nService) {
-		this.nService = nService;
+	public void setonlineService(OnlineServiceImpl onlineService) {
+		this.onlineService = onlineService;
 	}
 	
 	//리스트
 	@RequestMapping(value = "onlineList")
 	public String onlineList(HttpServletRequest request, Model model) {
-		nService.onlineList(request);
+		onlineService.onlineList(request);
 		model.addAttribute("content", "Online/onlineList");
 		return "home";
 	}
 	
 	//쓰기
 	@RequestMapping(value = "onlineWrite")
-	public String onlineWrite(){
-		return "Online/onlineWrite";
+	public String onlineWrite(Model model){
+		model.addAttribute("content", "Online/onlineWrite" );
+		return "home";
 	}
 	
 	//쓰기결과
@@ -44,53 +45,57 @@ public class OnlineController {
 	public String onlineWriteResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		nService.onlineWriteResult(request, path, session);
+		onlineService.onlineWriteResult(request, path, session);
 		return "redirect:onlineList";
 	}
 	
 	//보기
 	@RequestMapping(value="onlineContent")
-	public String onlineContent(HttpServletRequest request){
-		nService.onlineContent(request);
-		return "Online/onlineContent";
+	public String onlineContent(HttpServletRequest request, Model model){
+		onlineService.onlineContent(request);
+		model.addAttribute("content", "Online/onlineContent");
+		return "home";
 	}
 	
 	//다음글
 	@RequestMapping(value="onlinenext")
-	public String onlineNext(HttpServletRequest request){
-		nService.onlineNext(request);
+	public String onlineNext(HttpServletRequest request, Model model){
+		onlineService.onlineNext(request);
+		model.addAttribute("content", "Online/onlineConetent");
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "Online/onlineContent";
+		return "home";
 	}
 	
 	//이전글
 	@RequestMapping(value="onlinepre")
-	public String onlinePre(HttpServletRequest request){
-		nService.onlinePre(request);
+	public String onlinePre(HttpServletRequest request, Model model){
+		onlineService.onlinePre(request);
+		model.addAttribute("content", "Online/onlineConetent");
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "Online/onlineContent";
+		return "home";
 	}
 	
 	//삭제
 	@RequestMapping(value="onlineDelete", method = RequestMethod.POST)
 	public String onlineDelete(HttpServletRequest request){
-		nService.onlineDelete(request);
+		onlineService.onlineDelete(request);
 		return "redirect:onlineList";
 	}
 	
 	//업데이트
 	@RequestMapping(value="onlineUpdate")
-	public String onlineUpdate(HttpServletRequest request){
-		nService.onlineUpdate(request);
-		return "Online/onlineUpdate";
+	public String onlineUpdate(HttpServletRequest request, Model model){
+		onlineService.onlineUpdate(request);
+		model.addAttribute("content", "Online/onlineUpdate");
+		return "home";
 	}
 	
 	//업데이트결과
@@ -98,7 +103,7 @@ public class OnlineController {
 	public String onlineUpdateResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		nService.onlineUpdateResult(request, path, session);
+		onlineService.onlineUpdateResult(request, path, session);
 		return "redirect:onlineList";
 	}
 }

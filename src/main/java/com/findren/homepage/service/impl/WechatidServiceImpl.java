@@ -23,12 +23,12 @@ import com.findren.homepage.service.WechatidService;
 public class WechatidServiceImpl implements WechatidService {
 
 	@Autowired
-	private WechatidDao NDao;
+	private WechatidDao WechatidDao;
 	private static final int PAGE_SIZE = 10;
 	private static final int PAGE_GROUP = 10;
 
-	public void setNDao(WechatidDao nDao) {
-		NDao = nDao;
+	public void setWechatidDao(WechatidDao wechatidDao) {
+		WechatidDao = wechatidDao;
 	}
 
 	@Override
@@ -40,10 +40,10 @@ public class WechatidServiceImpl implements WechatidService {
 		int currentPage = Integer.valueOf(pageNum);
 
 		int startRow = currentPage * PAGE_SIZE - PAGE_SIZE;
-		int listCount = NDao.getWechatidBoardCount();
+		int listCount = WechatidDao.getWechatidBoardCount();
 
 		if (listCount > 0) {
-			List<WechatidBoard> wechatidList = NDao.getWechatidBoardList(startRow, PAGE_SIZE);
+			List<WechatidBoard> wechatidList = WechatidDao.getWechatidBoardList(startRow, PAGE_SIZE);
 
 			int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
 
@@ -89,7 +89,7 @@ public class WechatidServiceImpl implements WechatidService {
 			type = "normal";
 		}
 
-		WechatidBoard nb = new WechatidBoard();
+		WechatidBoard wechatid = new WechatidBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -107,15 +107,15 @@ public class WechatidServiceImpl implements WechatidService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		wechatid.setWr_subject(title);
+		wechatid.setWr_content(content);
+		wechatid.setMb_id("admin");
+		wechatid.setWr_name("중국인찾기");
+		wechatid.setWr_link1(link1);
+		wechatid.setWr_link2(link2);
+		wechatid.setWr_datetime(time);
+		wechatid.setWr_ip(wr_ip);
+		wechatid.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -142,8 +142,8 @@ public class WechatidServiceImpl implements WechatidService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			wechatid.setWr_file1(rlFileNm1);
+			wechatid.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -158,8 +158,8 @@ public class WechatidServiceImpl implements WechatidService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			wechatid.setWr_file1("");
+			wechatid.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -174,10 +174,10 @@ public class WechatidServiceImpl implements WechatidService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			wechatid.setWr_file1(rlFileNm1);
+			wechatid.setWr_file2("");
 		}
-		NDao.insertWechatidBoard(nb);
+		WechatidDao.insertWechatidBoard(wechatid);
 	}
 
 	@Override
@@ -186,9 +186,9 @@ public class WechatidServiceImpl implements WechatidService {
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
 		int watch = Integer.valueOf(request.getParameter("watch"));
 
-		NDao.wechatidWatchUpdate(watch + 1, no);
-		WechatidBoard nb = NDao.wechatidContent(no);
-		request.setAttribute("nb", nb);
+		WechatidDao.wechatidWatchUpdate(watch + 1, no);
+		WechatidBoard wechatid = WechatidDao.wechatidContent(no);
+		request.setAttribute("wechatid", wechatid);
 		request.setAttribute("pageNum", pageNum);
 	}
 
@@ -196,14 +196,14 @@ public class WechatidServiceImpl implements WechatidService {
 	public void wechatidNext(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.wechatidNextNo(no);
+		Integer nextNo = WechatidDao.wechatidNextNo(no);
 		if (nextNo == null) {
 
 		} else {
-			WechatidBoard nb = NDao.wechatidContent(nextNo);
-			NDao.wechatidWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			WechatidBoard wechatid = WechatidDao.wechatidContent(nextNo);
+			WechatidDao.wechatidWatchUpdate(wechatid.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("wechatid", wechatid);
 		}
 	}
 
@@ -211,14 +211,14 @@ public class WechatidServiceImpl implements WechatidService {
 	public void wechatidPre(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.wechatidPreNo(no);
+		Integer nextNo = WechatidDao.wechatidPreNo(no);
 		if (nextNo == null) {
 
 		} else {
-			WechatidBoard nb = NDao.wechatidContent(nextNo);
-			NDao.wechatidWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			WechatidBoard wechatid = WechatidDao.wechatidContent(nextNo);
+			WechatidDao.wechatidWatchUpdate(wechatid.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("wechatid", wechatid);
 		}
 	}
 
@@ -226,7 +226,7 @@ public class WechatidServiceImpl implements WechatidService {
 	public void wechatidDelete(HttpServletRequest request) {
 		String[] check = request.getParameterValues("check");
 		for (int i = 0; i < check.length; i++) {
-			NDao.wechatidDelete(Integer.parseInt(check[i]));
+			WechatidDao.wechatidDelete(Integer.parseInt(check[i]));
 		}
 	}
 
@@ -234,9 +234,9 @@ public class WechatidServiceImpl implements WechatidService {
 	public void wechatidUpdate(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 
-		WechatidBoard nb = NDao.wechatidContent(no);
+		WechatidBoard wechatid = WechatidDao.wechatidContent(no);
 
-		request.setAttribute("nb", nb);
+		request.setAttribute("wechatid", wechatid);
 	}
 
 	@Override
@@ -264,7 +264,7 @@ public class WechatidServiceImpl implements WechatidService {
 			type = "normal";
 		}
 
-		WechatidBoard nb = new WechatidBoard();
+		WechatidBoard wechatid = new WechatidBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -282,16 +282,16 @@ public class WechatidServiceImpl implements WechatidService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_id(no);
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		wechatid.setWr_id(no);
+		wechatid.setWr_subject(title);
+		wechatid.setWr_content(content);
+		wechatid.setMb_id("admin");
+		wechatid.setWr_name("중국인찾기");
+		wechatid.setWr_link1(link1);
+		wechatid.setWr_link2(link2);
+		wechatid.setWr_datetime(time);
+		wechatid.setWr_ip(wr_ip);
+		wechatid.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -318,8 +318,8 @@ public class WechatidServiceImpl implements WechatidService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			wechatid.setWr_file1(rlFileNm1);
+			wechatid.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -334,8 +334,8 @@ public class WechatidServiceImpl implements WechatidService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			wechatid.setWr_file1("");
+			wechatid.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -350,10 +350,10 @@ public class WechatidServiceImpl implements WechatidService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			wechatid.setWr_file1(rlFileNm1);
+			wechatid.setWr_file2("");
 		}
-		NDao.updateWechatidBoard(nb);
+		WechatidDao.updateWechatidBoard(wechatid);
 
 	}
 }

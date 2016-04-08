@@ -18,17 +18,17 @@ import com.findren.homepage.service.impl.WechatidServiceImpl;
 public class WechatidController {
 
 	@Autowired
-	private WechatidServiceImpl nService;
+	private WechatidServiceImpl widService;
 	private static final String filePath = "/resources/file_upload/";
 
-	public void setnService(WechatidServiceImpl nService) {
-		this.nService = nService;
+	public void setwidService(WechatidServiceImpl widService) {
+		this.widService = widService;
 	}
 	
 	//리스트
 	@RequestMapping(value = "wechatidList")
 	public String wechatidList(HttpServletRequest request, Model model) {
-		nService.wechatidList(request);
+		widService.wechatidList(request);
 		model.addAttribute("content", "Wechatid/wechatidList");
 		return "home";
 	}
@@ -44,21 +44,21 @@ public class WechatidController {
 	public String wechatidWriteResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		nService.wechatidWriteResult(request, path, session);
+		widService.wechatidWriteResult(request, path, session);
 		return "redirect:wechatidList";
 	}
 	
 	//보기
 	@RequestMapping(value="wechatidContent")
 	public String wechatidContent(HttpServletRequest request){
-		nService.wechatidContent(request);
+		widService.wechatidContent(request);
 		return "Wechatid/wechatidContent";
 	}
 	
 	//다음글
 	@RequestMapping(value="wechatidnext")
 	public String wechatidNext(HttpServletRequest request){
-		nService.wechatidNext(request);
+		widService.wechatidNext(request);
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
@@ -70,7 +70,7 @@ public class WechatidController {
 	//이전글
 	@RequestMapping(value="wechatidpre")
 	public String wechatidPre(HttpServletRequest request){
-		nService.wechatidPre(request);
+		widService.wechatidPre(request);
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
@@ -82,14 +82,14 @@ public class WechatidController {
 	//삭제
 	@RequestMapping(value="wechatidDelete", method = RequestMethod.POST)
 	public String wechatidDelete(HttpServletRequest request){
-		nService.wechatidDelete(request);
+		widService.wechatidDelete(request);
 		return "redirect:wechatidList";
 	}
 	
 	//업데이트
 	@RequestMapping(value="wechatidUpdate")
 	public String wechatidUpdate(HttpServletRequest request){
-		nService.wechatidUpdate(request);
+		widService.wechatidUpdate(request);
 		return "Wechatid/wechatidUpdate";
 	}
 	
@@ -98,7 +98,7 @@ public class WechatidController {
 	public String wechatidUpdateResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		nService.wechatidUpdateResult(request, path, session);
+		widService.wechatidUpdateResult(request, path, session);
 		return "redirect:wechatidList";
 	}
 }

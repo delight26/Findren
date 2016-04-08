@@ -13,7 +13,7 @@ public interface NewsDao {
 	public List<NewsBoard> getNewsBoardList(int startRow, int PAGE_SIZE);
 	
 	//글 입력
-	public void insertNewsBoard(NewsBoard nb);
+	public void insertNewsBoard(NewsBoard news);
 	
 	//조회수
 	public void newsWatchUpdate(int watch, int no);
@@ -31,7 +31,7 @@ public interface NewsDao {
 	public void newsDelete(int no);
 	
 	//업데이트
-	public void updateNewsBoard(NewsBoard nb);
+	public void updateNewsBoard(NewsBoard news);
 	
 	//게시글 최대 수
 	public Integer maxNum();

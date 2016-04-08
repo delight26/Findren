@@ -23,12 +23,12 @@ import com.findren.homepage.service.WechatpayService;
 public class WechatpayImpl implements WechatpayService {
 
 	@Autowired
-	private WechatpayDao NDao;
+	private WechatpayDao WechatpayDao;
 	private static final int PAGE_SIZE = 10;
 	private static final int PAGE_GROUP = 10;
 
-	public void setNDao(WechatpayDao nDao) {
-		NDao = nDao;
+	public void setWechatpayDao(WechatpayDao wechatpayDao) {
+		WechatpayDao = wechatpayDao;
 	}
 
 	@Override
@@ -40,10 +40,10 @@ public class WechatpayImpl implements WechatpayService {
 		int currentPage = Integer.valueOf(pageNum);
 
 		int startRow = currentPage * PAGE_SIZE - PAGE_SIZE;
-		int listCount = NDao.getWechatpayBoardCount();
+		int listCount = WechatpayDao.getWechatpayBoardCount();
 
 		if (listCount > 0) {
-			List<WechatpayBoard> wechatpayList = NDao.getWechatpayBoardList(startRow, PAGE_SIZE);
+			List<WechatpayBoard> wechatpayList = WechatpayDao.getWechatpayBoardList(startRow, PAGE_SIZE);
 
 			int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
 
@@ -89,7 +89,7 @@ public class WechatpayImpl implements WechatpayService {
 			type = "normal";
 		}
 
-		WechatpayBoard nb = new WechatpayBoard();
+		WechatpayBoard wechatpay = new WechatpayBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -107,15 +107,15 @@ public class WechatpayImpl implements WechatpayService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		wechatpay.setWr_subject(title);
+		wechatpay.setWr_content(content);
+		wechatpay.setMb_id("admin");
+		wechatpay.setWr_name("중국인찾기");
+		wechatpay.setWr_link1(link1);
+		wechatpay.setWr_link2(link2);
+		wechatpay.setWr_datetime(time);
+		wechatpay.setWr_ip(wr_ip);
+		wechatpay.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -142,8 +142,8 @@ public class WechatpayImpl implements WechatpayService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			wechatpay.setWr_file1(rlFileNm1);
+			wechatpay.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -158,8 +158,8 @@ public class WechatpayImpl implements WechatpayService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			wechatpay.setWr_file1("");
+			wechatpay.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -174,10 +174,10 @@ public class WechatpayImpl implements WechatpayService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			wechatpay.setWr_file1(rlFileNm1);
+			wechatpay.setWr_file2("");
 		}
-		NDao.insertWechatpayBoard(nb);
+		WechatpayDao.insertWechatpayBoard(wechatpay);
 	}
 
 	@Override
@@ -186,9 +186,9 @@ public class WechatpayImpl implements WechatpayService {
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
 		int watch = Integer.valueOf(request.getParameter("watch"));
 
-		NDao.wechatpayWatchUpdate(watch + 1, no);
-		WechatpayBoard nb = NDao.wechatpayContent(no);
-		request.setAttribute("nb", nb);
+		WechatpayDao.wechatpayWatchUpdate(watch + 1, no);
+		WechatpayBoard wechatpay = WechatpayDao.wechatpayContent(no);
+		request.setAttribute("wechatpay", wechatpay);
 		request.setAttribute("pageNum", pageNum);
 	}
 
@@ -196,14 +196,14 @@ public class WechatpayImpl implements WechatpayService {
 	public void wechatpayNext(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.wechatpayNextNo(no);
+		Integer nextNo = WechatpayDao.wechatpayNextNo(no);
 		if (nextNo == null) {
 
 		} else {
-			WechatpayBoard nb = NDao.wechatpayContent(nextNo);
-			NDao.wechatpayWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			WechatpayBoard wechatpay = WechatpayDao.wechatpayContent(nextNo);
+			WechatpayDao.wechatpayWatchUpdate(wechatpay.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("wechatpay", wechatpay);
 		}
 	}
 
@@ -211,14 +211,14 @@ public class WechatpayImpl implements WechatpayService {
 	public void wechatpayPre(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.wechatpayPreNo(no);
+		Integer nextNo = WechatpayDao.wechatpayPreNo(no);
 		if (nextNo == null) {
 
 		} else {
-			WechatpayBoard nb = NDao.wechatpayContent(nextNo);
-			NDao.wechatpayWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			WechatpayBoard wechatpay = WechatpayDao.wechatpayContent(nextNo);
+			WechatpayDao.wechatpayWatchUpdate(wechatpay.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("wechatpay", wechatpay);
 		}
 	}
 
@@ -226,7 +226,7 @@ public class WechatpayImpl implements WechatpayService {
 	public void wechatpayDelete(HttpServletRequest request) {
 		String[] check = request.getParameterValues("check");
 		for (int i = 0; i < check.length; i++) {
-			NDao.wechatpayDelete(Integer.parseInt(check[i]));
+			WechatpayDao.wechatpayDelete(Integer.parseInt(check[i]));
 		}
 	}
 
@@ -234,9 +234,9 @@ public class WechatpayImpl implements WechatpayService {
 	public void wechatpayUpdate(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 
-		WechatpayBoard nb = NDao.wechatpayContent(no);
+		WechatpayBoard wechatpay = WechatpayDao.wechatpayContent(no);
 
-		request.setAttribute("nb", nb);
+		request.setAttribute("wechatpay", wechatpay);
 	}
 
 	@Override
@@ -264,7 +264,7 @@ public class WechatpayImpl implements WechatpayService {
 			type = "normal";
 		}
 
-		WechatpayBoard nb = new WechatpayBoard();
+		WechatpayBoard wechatpay = new WechatpayBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -282,16 +282,16 @@ public class WechatpayImpl implements WechatpayService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_id(no);
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		wechatpay.setWr_id(no);
+		wechatpay.setWr_subject(title);
+		wechatpay.setWr_content(content);
+		wechatpay.setMb_id("admin");
+		wechatpay.setWr_name("중국인찾기");
+		wechatpay.setWr_link1(link1);
+		wechatpay.setWr_link2(link2);
+		wechatpay.setWr_datetime(time);
+		wechatpay.setWr_ip(wr_ip);
+		wechatpay.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -318,8 +318,8 @@ public class WechatpayImpl implements WechatpayService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			wechatpay.setWr_file1(rlFileNm1);
+			wechatpay.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -334,8 +334,8 @@ public class WechatpayImpl implements WechatpayService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			wechatpay.setWr_file1("");
+			wechatpay.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -350,10 +350,10 @@ public class WechatpayImpl implements WechatpayService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			wechatpay.setWr_file1(rlFileNm1);
+			wechatpay.setWr_file2("");
 		}
-		NDao.updateWechatpayBoard(nb);
+		WechatpayDao.updateWechatpayBoard(wechatpay);
 
 	}
 }

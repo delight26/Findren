@@ -18,17 +18,17 @@ import com.findren.homepage.service.impl.SeoServiceImpl;
 public class SeoController {
 
 	@Autowired
-	private SeoServiceImpl nService;
+	private SeoServiceImpl seoService;
 	private static final String filePath = "/resources/file_upload/";
 
-	public void setnService(SeoServiceImpl nService) {
-		this.nService = nService;
+	public void setseoService(SeoServiceImpl seoService) {
+		this.seoService = seoService;
 	}
 	
 	//리스트
 	@RequestMapping(value = "seoList")
 	public String seoList(HttpServletRequest request, Model model) {
-		nService.seoList(request);
+		seoService.seoList(request);
 		model.addAttribute("content", "Seo/seoList");
 		return "home";
 	}
@@ -44,21 +44,21 @@ public class SeoController {
 	public String seoWriteResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		nService.seoWriteResult(request, path, session);
+		seoService.seoWriteResult(request, path, session);
 		return "redirect:seoList";
 	}
 	
 	//보기
 	@RequestMapping(value="seoContent")
 	public String seoContent(HttpServletRequest request){
-		nService.seoContent(request);
+		seoService.seoContent(request);
 		return "Seo/seoContent";
 	}
 	
 	//다음글
 	@RequestMapping(value="seonext")
 	public String seoNext(HttpServletRequest request){
-		nService.seoNext(request);
+		seoService.seoNext(request);
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
@@ -70,7 +70,7 @@ public class SeoController {
 	//이전글
 	@RequestMapping(value="seopre")
 	public String seoPre(HttpServletRequest request){
-		nService.seoPre(request);
+		seoService.seoPre(request);
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
@@ -82,14 +82,14 @@ public class SeoController {
 	//삭제
 	@RequestMapping(value="seoDelete", method = RequestMethod.POST)
 	public String seoDelete(HttpServletRequest request){
-		nService.seoDelete(request);
+		seoService.seoDelete(request);
 		return "redirect:seoList";
 	}
 	
 	//업데이트
 	@RequestMapping(value="seoUpdate")
 	public String seoUpdate(HttpServletRequest request){
-		nService.seoUpdate(request);
+		seoService.seoUpdate(request);
 		return "Seo/seoUpdate";
 	}
 	
@@ -98,7 +98,7 @@ public class SeoController {
 	public String seoUpdateResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		nService.seoUpdateResult(request, path, session);
+		seoService.seoUpdateResult(request, path, session);
 		return "redirect:seoList";
 	}
 }

@@ -13,7 +13,7 @@ public interface WechatidDao {
 	public List<WechatidBoard> getWechatidBoardList(int startRow, int PAGE_SIZE);
 	
 	//글 입력
-	public void insertWechatidBoard(WechatidBoard nb);
+	public void insertWechatidBoard(WechatidBoard wechatid);
 	
 	//조회수
 	public void wechatidWatchUpdate(int watch, int no);
@@ -31,7 +31,7 @@ public interface WechatidDao {
 	public void wechatidDelete(int no);
 	
 	//업데이트
-	public void updateWechatidBoard(WechatidBoard nb);
+	public void updateWechatidBoard(WechatidBoard wechatid);
 	
 	//게시글 최대 수
 	public Integer maxNum();

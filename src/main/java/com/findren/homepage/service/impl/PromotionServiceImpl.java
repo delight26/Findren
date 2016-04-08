@@ -23,12 +23,12 @@ import com.findren.homepage.service.PromotionService;
 public class PromotionServiceImpl implements PromotionService {
 
 	@Autowired
-	private PromotionDao NDao;
+	private PromotionDao PromotionDao;
 	private static final int PAGE_SIZE = 10;
 	private static final int PAGE_GROUP = 10;
 
-	public void setNDao(PromotionDao nDao) {
-		NDao = nDao;
+	public void setPromotionDao(PromotionDao nDao) {
+		PromotionDao = nDao;
 	}
 
 	@Override
@@ -40,10 +40,10 @@ public class PromotionServiceImpl implements PromotionService {
 		int currentPage = Integer.valueOf(pageNum);
 
 		int startRow = currentPage * PAGE_SIZE - PAGE_SIZE;
-		int listCount = NDao.getPromotionBoardCount();
+		int listCount = PromotionDao.getPromotionBoardCount();
 
 		if (listCount > 0) {
-			List<PromotionBoard> promotionList = NDao.getPromotionBoardList(startRow, PAGE_SIZE);
+			List<PromotionBoard> promotionList = PromotionDao.getPromotionBoardList(startRow, PAGE_SIZE);
 
 			int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
 
@@ -89,7 +89,7 @@ public class PromotionServiceImpl implements PromotionService {
 			type = "normal";
 		}
 
-		PromotionBoard nb = new PromotionBoard();
+		PromotionBoard promotion = new PromotionBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -107,15 +107,15 @@ public class PromotionServiceImpl implements PromotionService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		promotion.setWr_subject(title);
+		promotion.setWr_content(content);
+		promotion.setMb_id("admin");
+		promotion.setWr_name("중국인찾기");
+		promotion.setWr_link1(link1);
+		promotion.setWr_link2(link2);
+		promotion.setWr_datetime(time);
+		promotion.setWr_ip(wr_ip);
+		promotion.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -142,8 +142,8 @@ public class PromotionServiceImpl implements PromotionService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			promotion.setWr_file1(rlFileNm1);
+			promotion.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -158,8 +158,8 @@ public class PromotionServiceImpl implements PromotionService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			promotion.setWr_file1("");
+			promotion.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -174,10 +174,10 @@ public class PromotionServiceImpl implements PromotionService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			promotion.setWr_file1(rlFileNm1);
+			promotion.setWr_file2("");
 		}
-		NDao.insertPromotionBoard(nb);
+		PromotionDao.insertPromotionBoard(promotion);
 	}
 
 	@Override
@@ -186,9 +186,9 @@ public class PromotionServiceImpl implements PromotionService {
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
 		int watch = Integer.valueOf(request.getParameter("watch"));
 
-		NDao.promotionWatchUpdate(watch + 1, no);
-		PromotionBoard nb = NDao.promotionContent(no);
-		request.setAttribute("nb", nb);
+		PromotionDao.promotionWatchUpdate(watch + 1, no);
+		PromotionBoard promotion = PromotionDao.promotionContent(no);
+		request.setAttribute("promotion", promotion);
 		request.setAttribute("pageNum", pageNum);
 	}
 
@@ -196,14 +196,14 @@ public class PromotionServiceImpl implements PromotionService {
 	public void promotionNext(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.promotionNextNo(no);
+		Integer nextNo = PromotionDao.promotionNextNo(no);
 		if (nextNo == null) {
 
 		} else {
-			PromotionBoard nb = NDao.promotionContent(nextNo);
-			NDao.promotionWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			PromotionBoard promotion = PromotionDao.promotionContent(nextNo);
+			PromotionDao.promotionWatchUpdate(promotion.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("promotion", promotion);
 		}
 	}
 
@@ -211,14 +211,14 @@ public class PromotionServiceImpl implements PromotionService {
 	public void promotionPre(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.promotionPreNo(no);
+		Integer nextNo = PromotionDao.promotionPreNo(no);
 		if (nextNo == null) {
 
 		} else {
-			PromotionBoard nb = NDao.promotionContent(nextNo);
-			NDao.promotionWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			PromotionBoard promotion = PromotionDao.promotionContent(nextNo);
+			PromotionDao.promotionWatchUpdate(promotion.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("promotion", promotion);
 		}
 	}
 
@@ -226,7 +226,7 @@ public class PromotionServiceImpl implements PromotionService {
 	public void promotionDelete(HttpServletRequest request) {
 		String[] check = request.getParameterValues("check");
 		for (int i = 0; i < check.length; i++) {
-			NDao.promotionDelete(Integer.parseInt(check[i]));
+			PromotionDao.promotionDelete(Integer.parseInt(check[i]));
 		}
 	}
 
@@ -234,9 +234,9 @@ public class PromotionServiceImpl implements PromotionService {
 	public void promotionUpdate(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 
-		PromotionBoard nb = NDao.promotionContent(no);
+		PromotionBoard promotion = PromotionDao.promotionContent(no);
 
-		request.setAttribute("nb", nb);
+		request.setAttribute("promotion", promotion);
 	}
 
 	@Override
@@ -264,7 +264,7 @@ public class PromotionServiceImpl implements PromotionService {
 			type = "normal";
 		}
 
-		PromotionBoard nb = new PromotionBoard();
+		PromotionBoard promotion = new PromotionBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -282,16 +282,16 @@ public class PromotionServiceImpl implements PromotionService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_id(no);
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		promotion.setWr_id(no);
+		promotion.setWr_subject(title);
+		promotion.setWr_content(content);
+		promotion.setMb_id("admin");
+		promotion.setWr_name("중국인찾기");
+		promotion.setWr_link1(link1);
+		promotion.setWr_link2(link2);
+		promotion.setWr_datetime(time);
+		promotion.setWr_ip(wr_ip);
+		promotion.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -318,8 +318,8 @@ public class PromotionServiceImpl implements PromotionService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			promotion.setWr_file1(rlFileNm1);
+			promotion.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -334,8 +334,8 @@ public class PromotionServiceImpl implements PromotionService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			promotion.setWr_file1("");
+			promotion.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -350,10 +350,10 @@ public class PromotionServiceImpl implements PromotionService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			promotion.setWr_file1(rlFileNm1);
+			promotion.setWr_file2("");
 		}
-		NDao.updatePromotionBoard(nb);
+		PromotionDao.updatePromotionBoard(promotion);
 
 	}
 }

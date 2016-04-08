@@ -23,12 +23,12 @@ import com.findren.homepage.service.SnsService;
 public class SnsServiceImpl implements SnsService {
 
 	@Autowired
-	private SnsDao NDao;
+	private SnsDao SnsDao;
 	private static final int PAGE_SIZE = 10;
 	private static final int PAGE_GROUP = 10;
 
-	public void setNDao(SnsDao nDao) {
-		NDao = nDao;
+	public void setSnsDao(SnsDao snsDao) {
+		SnsDao = snsDao;
 	}
 
 	@Override
@@ -40,10 +40,10 @@ public class SnsServiceImpl implements SnsService {
 		int currentPage = Integer.valueOf(pageNum);
 
 		int startRow = currentPage * PAGE_SIZE - PAGE_SIZE;
-		int listCount = NDao.getSnsBoardCount();
+		int listCount = SnsDao.getSnsBoardCount();
 
 		if (listCount > 0) {
-			List<SnsBoard> snsList = NDao.getSnsBoardList(startRow, PAGE_SIZE);
+			List<SnsBoard> snsList = SnsDao.getSnsBoardList(startRow, PAGE_SIZE);
 
 			int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
 
@@ -89,7 +89,7 @@ public class SnsServiceImpl implements SnsService {
 			type = "normal";
 		}
 
-		SnsBoard nb = new SnsBoard();
+		SnsBoard sns = new SnsBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -107,15 +107,15 @@ public class SnsServiceImpl implements SnsService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		sns.setWr_subject(title);
+		sns.setWr_content(content);
+		sns.setMb_id("admin");
+		sns.setWr_name("중국인찾기");
+		sns.setWr_link1(link1);
+		sns.setWr_link2(link2);
+		sns.setWr_datetime(time);
+		sns.setWr_ip(wr_ip);
+		sns.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -142,8 +142,8 @@ public class SnsServiceImpl implements SnsService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			sns.setWr_file1(rlFileNm1);
+			sns.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -158,8 +158,8 @@ public class SnsServiceImpl implements SnsService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			sns.setWr_file1("");
+			sns.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -174,10 +174,10 @@ public class SnsServiceImpl implements SnsService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			sns.setWr_file1(rlFileNm1);
+			sns.setWr_file2("");
 		}
-		NDao.insertSnsBoard(nb);
+		SnsDao.insertSnsBoard(sns);
 	}
 
 	@Override
@@ -186,9 +186,9 @@ public class SnsServiceImpl implements SnsService {
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
 		int watch = Integer.valueOf(request.getParameter("watch"));
 
-		NDao.snsWatchUpdate(watch + 1, no);
-		SnsBoard nb = NDao.snsContent(no);
-		request.setAttribute("nb", nb);
+		SnsDao.snsWatchUpdate(watch + 1, no);
+		SnsBoard sns = SnsDao.snsContent(no);
+		request.setAttribute("sns", sns);
 		request.setAttribute("pageNum", pageNum);
 	}
 
@@ -196,14 +196,14 @@ public class SnsServiceImpl implements SnsService {
 	public void snsNext(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.snsNextNo(no);
+		Integer nextNo = SnsDao.snsNextNo(no);
 		if (nextNo == null) {
 
 		} else {
-			SnsBoard nb = NDao.snsContent(nextNo);
-			NDao.snsWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			SnsBoard sns = SnsDao.snsContent(nextNo);
+			SnsDao.snsWatchUpdate(sns.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("sns", sns);
 		}
 	}
 
@@ -211,14 +211,14 @@ public class SnsServiceImpl implements SnsService {
 	public void snsPre(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.snsPreNo(no);
+		Integer nextNo = SnsDao.snsPreNo(no);
 		if (nextNo == null) {
 
 		} else {
-			SnsBoard nb = NDao.snsContent(nextNo);
-			NDao.snsWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			SnsBoard sns = SnsDao.snsContent(nextNo);
+			SnsDao.snsWatchUpdate(sns.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("sns", sns);
 		}
 	}
 
@@ -226,7 +226,7 @@ public class SnsServiceImpl implements SnsService {
 	public void snsDelete(HttpServletRequest request) {
 		String[] check = request.getParameterValues("check");
 		for (int i = 0; i < check.length; i++) {
-			NDao.snsDelete(Integer.parseInt(check[i]));
+			SnsDao.snsDelete(Integer.parseInt(check[i]));
 		}
 	}
 
@@ -234,9 +234,9 @@ public class SnsServiceImpl implements SnsService {
 	public void snsUpdate(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 
-		SnsBoard nb = NDao.snsContent(no);
+		SnsBoard sns = SnsDao.snsContent(no);
 
-		request.setAttribute("nb", nb);
+		request.setAttribute("sns", sns);
 	}
 
 	@Override
@@ -264,7 +264,7 @@ public class SnsServiceImpl implements SnsService {
 			type = "normal";
 		}
 
-		SnsBoard nb = new SnsBoard();
+		SnsBoard sns = new SnsBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -282,16 +282,16 @@ public class SnsServiceImpl implements SnsService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_id(no);
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		sns.setWr_id(no);
+		sns.setWr_subject(title);
+		sns.setWr_content(content);
+		sns.setMb_id("admin");
+		sns.setWr_name("중국인찾기");
+		sns.setWr_link1(link1);
+		sns.setWr_link2(link2);
+		sns.setWr_datetime(time);
+		sns.setWr_ip(wr_ip);
+		sns.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -318,8 +318,8 @@ public class SnsServiceImpl implements SnsService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			sns.setWr_file1(rlFileNm1);
+			sns.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -334,8 +334,8 @@ public class SnsServiceImpl implements SnsService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			sns.setWr_file1("");
+			sns.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -350,10 +350,10 @@ public class SnsServiceImpl implements SnsService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			sns.setWr_file1(rlFileNm1);
+			sns.setWr_file2("");
 		}
-		NDao.updateSnsBoard(nb);
+		SnsDao.updateSnsBoard(sns);
 
 	}
 }

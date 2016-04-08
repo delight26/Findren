@@ -19,17 +19,17 @@ import com.findren.homepage.service.impl.WechatpayImpl;
 public class WechatpayController {
 
 	@Autowired
-	private WechatpayImpl nService;
+	private WechatpayImpl wpService;
 	private static final String filePath = "/resources/file_upload/";
 
-	public void setnService(WechatpayImpl nService) {
-		this.nService = nService;
+	public void setwpService(WechatpayImpl wpService) {
+		this.wpService = wpService;
 	}
 	
 	//리스트
 	@RequestMapping(value = "wechatpayList")
 	public String wechatpayList(HttpServletRequest request, Model model) {
-		nService.wechatpayList(request);
+		wpService.wechatpayList(request);
 		model.addAttribute("content", "Wechatpay/wechatpayList");
 		return "home";
 	}
@@ -45,21 +45,21 @@ public class WechatpayController {
 	public String wechatpayWriteResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		nService.wechatpayWriteResult(request, path, session);
+		wpService.wechatpayWriteResult(request, path, session);
 		return "redirect:wechatpayList";
 	}
 	
 	//보기
 	@RequestMapping(value="wechatpayContent")
 	public String wechatpayContent(HttpServletRequest request){
-		nService.wechatpayContent(request);
+		wpService.wechatpayContent(request);
 		return "Wechatpay/wechatpayContent";
 	}
 	
 	//다음글
 	@RequestMapping(value="wechatpaynext")
 	public String wechatpayNext(HttpServletRequest request){
-		nService.wechatpayNext(request);
+		wpService.wechatpayNext(request);
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
@@ -71,7 +71,7 @@ public class WechatpayController {
 	//이전글
 	@RequestMapping(value="wechatpaypre")
 	public String wechatpayPre(HttpServletRequest request){
-		nService.wechatpayPre(request);
+		wpService.wechatpayPre(request);
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
@@ -83,14 +83,14 @@ public class WechatpayController {
 	//삭제
 	@RequestMapping(value="wechatpayDelete", method = RequestMethod.POST)
 	public String wechatpayDelete(HttpServletRequest request){
-		nService.wechatpayDelete(request);
+		wpService.wechatpayDelete(request);
 		return "redirect:wechatpayList";
 	}
 	
 	//업데이트
 	@RequestMapping(value="wechatpayUpdate")
 	public String wechatpayUpdate(HttpServletRequest request){
-		nService.wechatpayUpdate(request);
+		wpService.wechatpayUpdate(request);
 		return "Wechatpay/wechatpayUpdate";
 	}
 	
@@ -99,7 +99,7 @@ public class WechatpayController {
 	public String wechatpayUpdateResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		nService.wechatpayUpdateResult(request, path, session);
+		wpService.wechatpayUpdateResult(request, path, session);
 		return "redirect:wechatpayList";
 	}
 }

@@ -13,7 +13,7 @@ public interface OnlineDao {
 	public List<OnlineBoard> getOnlineBoardList(int startRow, int PAGE_SIZE);
 	
 	//글 입력
-	public void insertOnlineBoard(OnlineBoard nb);
+	public void insertOnlineBoard(OnlineBoard online);
 	
 	//조회수
 	public void onlineWatchUpdate(int watch, int no);
@@ -31,7 +31,7 @@ public interface OnlineDao {
 	public void onlineDelete(int no);
 	
 	//업데이트
-	public void updateOnlineBoard(OnlineBoard nb);
+	public void updateOnlineBoard(OnlineBoard online);
 	
 	//게시글 최대 수
 	public Integer maxNum();

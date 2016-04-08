@@ -2,18 +2,7 @@
  * 
  */
 
-//공지사항 게시글 삭제 확인(noticeList.jsp)
-$(function(){
-	$("#noticeDelete").click(function(){
-		var message = "선택한 게시물을 정말 삭제하시겠습니까?\n" 
-				+"한번 삭제한 자료는 복구할 수 없습니다.";
-		if(confirm(message) == true){
-			$("#form1").attr({action:'noticeDelete', method:'post'}).submit();
-		}
-	});	
-});
-
-//공지사항 게시판 글쓰기
+//게시판 글쓰기
 var oEditors = [];
 $(function(){
 	nhn.husky.EZCreator.createInIFrame({
@@ -48,7 +37,18 @@ $(function(){
     });
 });
 
-//보도자 게시글 삭제 확인(noticeList.jsp)
+//공지사항 게시글 삭제 확인(noticeList.jsp)
+$(function(){
+	$("#noticeDelete").click(function(){
+		var message = "선택한 게시물을 정말 삭제하시겠습니까?\n" 
+				+"한번 삭제한 자료는 복구할 수 없습니다.";
+		if(confirm(message) == true){
+			$("#form1").attr({action:'noticeDelete', method:'post'}).submit();
+		}
+	});	
+});
+
+//보도자료 게시글 삭제 확인(newsList.jsp)
 $(function(){
 	$("#newsDelete").click(function(){
 		var message = "선택한 게시물을 정말 삭제하시겠습니까?\n" 
@@ -59,3 +59,13 @@ $(function(){
 	});	
 });
 
+//온라인마케팅 게시글 삭제 확인(onlineList.jsp)
+$(function(){
+	$("#onlineDelete").click(function(){
+		var message = "선택한 게시물을 정말 삭제하시겠습니까?\n" 
+				+"한번 삭제한 자료는 복구할 수 없습니다.";
+		if(confirm(message) == true){
+			$("#form1").attr({action:'onlineDelete', method:'post'}).submit();
+		}
+	});	
+});

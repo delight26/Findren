@@ -13,7 +13,7 @@ public interface PortfolioDao {
 	public List<Portfolio> getPortfolioList(int startRow, int PAGE_SIZE);
 	
 	//글 입력
-	public void insertPortfolio(Portfolio nb);
+	public void insertPortfolio(Portfolio portfolio);
 	
 	//조회수
 	public void portfolioWatchUpdate(int watch, int no);
@@ -31,7 +31,7 @@ public interface PortfolioDao {
 	public void portfolioDelete(int no);
 	
 	//업데이트
-	public void updatePortfolio(Portfolio nb);
+	public void updatePortfolio(Portfolio portfolio);
 	
 	//게시글 최대 수
 	public Integer maxNum();

@@ -77,13 +77,13 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">중국마케팅<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="#">온라인마케팅</a>
+                                <a href="/Findren/onlineList">온라인마케팅</a>
                             </li>
                             <li>
-                                <a href="#">SNS마케팅</a>
+                                <a href="/Findren/snsList">SNS마케팅</a>
                             </li>
                             <li>
-                                <a href="#">SEO마케팅</a>
+                                <a href="/Findren/seoList">SEO마케팅</a>
                             </li>
                         </ul>
                     </li>

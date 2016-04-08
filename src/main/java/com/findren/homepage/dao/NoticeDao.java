@@ -13,7 +13,7 @@ public interface NoticeDao {
 	public List<NoticeBoard> getNoticeBoardList(int startRow, int PAGE_SIZE);
 	
 	//글 입력
-	public void insertNoticeBoard(NoticeBoard nb);
+	public void insertNoticeBoard(NoticeBoard notice);
 	
 	//조회수
 	public void noticeWatchUpdate(int watch, int no);
@@ -31,7 +31,7 @@ public interface NoticeDao {
 	public void noticeDelete(int no);
 	
 	//업데이트
-	public void updateNoticeBoard(NoticeBoard nb);
+	public void updateNoticeBoard(NoticeBoard notice);
 	
 	//게시글 최대 수
 	public Integer maxNum();

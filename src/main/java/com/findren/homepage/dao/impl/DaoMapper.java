@@ -32,51 +32,52 @@ public class DaoMapper {
 
 		@Override
 		public NoticeBoard mapRow(ResultSet rs, int rowNum) throws SQLException {
-			NoticeBoard nb = new NoticeBoard();
-			nb.setWr_id(rs.getInt("wr_id"));
-			nb.setWr_subject(rs.getString("wr_subject"));
-			nb.setWr_content(rs.getString("wr_content"));
-			nb.setMb_id(rs.getString("mb_id"));
-			nb.setWr_name(rs.getString("wr_name"));
-			nb.setWr_link1(rs.getString("wr_link1"));
-			nb.setWr_link2(rs.getString("wr_link2"));
-			nb.setWr_link1_hit(rs.getInt("wr_link1_hit"));
-			nb.setWr_link2_hit(rs.getInt("wr_link2_hit"));
-			nb.setWr_hit(rs.getInt("wr_hit"));
-			nb.setWr_datetime(rs.getTimestamp("wr_datetime"));
-			nb.setWr_file1(rs.getString("wr_file1"));
-			nb.setWr_file2(rs.getString("wr_file2"));
-			nb.setWr_ip(rs.getString("wr_ip"));
-			nb.setWr_option(rs.getString("wr_option"));
+			NoticeBoard notice = new NoticeBoard();
+			notice.setWr_id(rs.getInt("wr_id"));
+			notice.setWr_subject(rs.getString("wr_subject"));
+			notice.setWr_content(rs.getString("wr_content"));
+			notice.setMb_id(rs.getString("mb_id"));
+			notice.setWr_name(rs.getString("wr_name"));
+			notice.setWr_link1(rs.getString("wr_link1"));
+			notice.setWr_link2(rs.getString("wr_link2"));
+			notice.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+			notice.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+			notice.setWr_hit(rs.getInt("wr_hit"));
+			notice.setWr_datetime(rs.getTimestamp("wr_datetime"));
+			notice.setWr_file1(rs.getString("wr_file1"));
+			notice.setWr_file2(rs.getString("wr_file2"));
+			notice.setWr_ip(rs.getString("wr_ip"));
+			notice.setWr_option(rs.getString("wr_option"));
 
-			return nb;
+			return notice;
 		}
 
 		@Override
 		public NoticeBoard extractData(ResultSet rs) throws SQLException, DataAccessException {
 			if (rs.next()) {
-				NoticeBoard nb = new NoticeBoard();
-				nb.setWr_id(rs.getInt("wr_id"));
-				nb.setWr_subject(rs.getString("wr_subject"));
-				nb.setWr_content(rs.getString("wr_content"));
-				nb.setMb_id(rs.getString("mb_id"));
-				nb.setWr_name(rs.getString("wr_name"));
-				nb.setWr_link1(rs.getString("wr_link1"));
-				nb.setWr_link2(rs.getString("wr_link2"));
-				nb.setWr_link1_hit(rs.getInt("wr_link1_hit"));
-				nb.setWr_link2_hit(rs.getInt("wr_link2_hit"));
-				nb.setWr_hit(rs.getInt("wr_hit"));
-				nb.setWr_datetime(rs.getTimestamp("wr_datetime"));
-				nb.setWr_file1(rs.getString("wr_file1"));
-				nb.setWr_file2(rs.getString("wr_file2"));
-				nb.setWr_ip(rs.getString("wr_ip"));
-				nb.setWr_option(rs.getString("wr_option"));
-				return nb;
+				NoticeBoard notice = new NoticeBoard();
+				notice.setWr_id(rs.getInt("wr_id"));
+				notice.setWr_subject(rs.getString("wr_subject"));
+				notice.setWr_content(rs.getString("wr_content"));
+				notice.setMb_id(rs.getString("mb_id"));
+				notice.setWr_name(rs.getString("wr_name"));
+				notice.setWr_link1(rs.getString("wr_link1"));
+				notice.setWr_link2(rs.getString("wr_link2"));
+				notice.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+				notice.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+				notice.setWr_hit(rs.getInt("wr_hit"));
+				notice.setWr_datetime(rs.getTimestamp("wr_datetime"));
+				notice.setWr_file1(rs.getString("wr_file1"));
+				notice.setWr_file2(rs.getString("wr_file2"));
+				notice.setWr_ip(rs.getString("wr_ip"));
+				notice.setWr_option(rs.getString("wr_option"));
+				return notice;
 			}
 			return null;
 		}
 	}
 
+	//설정
 	private ConfigRMRSE configRMRSE = new ConfigRMRSE();
 
 	public ConfigRMRSE getConfigRMRSE() {
@@ -115,46 +116,46 @@ public class DaoMapper {
 
 		@Override
 		public NewsBoard mapRow(ResultSet rs, int rowNum) throws SQLException {
-			NewsBoard nb = new NewsBoard();
-			nb.setWr_id(rs.getInt("wr_id"));
-			nb.setWr_subject(rs.getString("wr_subject"));
-			nb.setWr_content(rs.getString("wr_content"));
-			nb.setMb_id(rs.getString("mb_id"));
-			nb.setWr_name(rs.getString("wr_name"));
-			nb.setWr_link1(rs.getString("wr_link1"));
-			nb.setWr_link2(rs.getString("wr_link2"));
-			nb.setWr_link1_hit(rs.getInt("wr_link1_hit"));
-			nb.setWr_link2_hit(rs.getInt("wr_link2_hit"));
-			nb.setWr_hit(rs.getInt("wr_hit"));
-			nb.setWr_datetime(rs.getTimestamp("wr_datetime"));
-			nb.setWr_file1(rs.getString("wr_file1"));
-			nb.setWr_file2(rs.getString("wr_file2"));
-			nb.setWr_ip(rs.getString("wr_ip"));
-			nb.setWr_option(rs.getString("wr_option"));
+			NewsBoard news = new NewsBoard();
+			news.setWr_id(rs.getInt("wr_id"));
+			news.setWr_subject(rs.getString("wr_subject"));
+			news.setWr_content(rs.getString("wr_content"));
+			news.setMb_id(rs.getString("mb_id"));
+			news.setWr_name(rs.getString("wr_name"));
+			news.setWr_link1(rs.getString("wr_link1"));
+			news.setWr_link2(rs.getString("wr_link2"));
+			news.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+			news.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+			news.setWr_hit(rs.getInt("wr_hit"));
+			news.setWr_datetime(rs.getTimestamp("wr_datetime"));
+			news.setWr_file1(rs.getString("wr_file1"));
+			news.setWr_file2(rs.getString("wr_file2"));
+			news.setWr_ip(rs.getString("wr_ip"));
+			news.setWr_option(rs.getString("wr_option"));
 
-			return nb;
+			return news;
 		}
 
 		@Override
 		public NewsBoard extractData(ResultSet rs) throws SQLException, DataAccessException {
 			if (rs.next()) {
-				NewsBoard nb = new NewsBoard();
-				nb.setWr_id(rs.getInt("wr_id"));
-				nb.setWr_subject(rs.getString("wr_subject"));
-				nb.setWr_content(rs.getString("wr_content"));
-				nb.setMb_id(rs.getString("mb_id"));
-				nb.setWr_name(rs.getString("wr_name"));
-				nb.setWr_link1(rs.getString("wr_link1"));
-				nb.setWr_link2(rs.getString("wr_link2"));
-				nb.setWr_link1_hit(rs.getInt("wr_link1_hit"));
-				nb.setWr_link2_hit(rs.getInt("wr_link2_hit"));
-				nb.setWr_hit(rs.getInt("wr_hit"));
-				nb.setWr_datetime(rs.getTimestamp("wr_datetime"));
-				nb.setWr_file1(rs.getString("wr_file1"));
-				nb.setWr_file2(rs.getString("wr_file2"));
-				nb.setWr_ip(rs.getString("wr_ip"));
-				nb.setWr_option(rs.getString("wr_option"));
-				return nb;
+				NewsBoard news = new NewsBoard();
+				news.setWr_id(rs.getInt("wr_id"));
+				news.setWr_subject(rs.getString("wr_subject"));
+				news.setWr_content(rs.getString("wr_content"));
+				news.setMb_id(rs.getString("mb_id"));
+				news.setWr_name(rs.getString("wr_name"));
+				news.setWr_link1(rs.getString("wr_link1"));
+				news.setWr_link2(rs.getString("wr_link2"));
+				news.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+				news.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+				news.setWr_hit(rs.getInt("wr_hit"));
+				news.setWr_datetime(rs.getTimestamp("wr_datetime"));
+				news.setWr_file1(rs.getString("wr_file1"));
+				news.setWr_file2(rs.getString("wr_file2"));
+				news.setWr_ip(rs.getString("wr_ip"));
+				news.setWr_option(rs.getString("wr_option"));
+				return news;
 			}
 			return null;
 		}
@@ -440,6 +441,7 @@ public class DaoMapper {
 		}
 	}
 	
+	// 08 위챗공중계정
 	private WechatidRMRSE wechatidRMRSE = new WechatidRMRSE();
 
 	public WechatpayRMRSE getWechatpayRMRSE() {
@@ -450,7 +452,64 @@ public class DaoMapper {
 
 		@Override
 		public WechatidBoard mapRow(ResultSet rs, int rowNum) throws SQLException {
-			WechatidBoard wcp = new WechatidBoard();
+			WechatidBoard wcid = new WechatidBoard();
+			wcid.setWr_id(rs.getInt("wr_id"));
+			wcid.setWr_subject(rs.getString("wr_subject"));
+			wcid.setWr_content(rs.getString("wr_content"));
+			wcid.setMb_id(rs.getString("mb_id"));
+			wcid.setWr_name(rs.getString("wr_name"));
+			wcid.setWr_link1(rs.getString("wr_link1"));
+			wcid.setWr_link2(rs.getString("wr_link2"));
+			wcid.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+			wcid.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+			wcid.setWr_hit(rs.getInt("wr_hit"));
+			wcid.setWr_datetime(rs.getTimestamp("wr_datetime"));
+			wcid.setWr_file1(rs.getString("wr_file1"));
+			wcid.setWr_file2(rs.getString("wr_file2"));
+			wcid.setWr_ip(rs.getString("wr_ip"));
+			wcid.setWr_option(rs.getString("wr_option"));
+
+			return wcid;
+		}
+
+		@Override
+		public WechatidBoard extractData(ResultSet rs) throws SQLException, DataAccessException {
+			if (rs.next()) {
+				WechatidBoard wcid = new WechatidBoard();
+				wcid.setWr_id(rs.getInt("wr_id"));
+				wcid.setWr_subject(rs.getString("wr_subject"));
+				wcid.setWr_content(rs.getString("wr_content"));
+				wcid.setMb_id(rs.getString("mb_id"));
+				wcid.setWr_name(rs.getString("wr_name"));
+				wcid.setWr_link1(rs.getString("wr_link1"));
+				wcid.setWr_link2(rs.getString("wr_link2"));
+				wcid.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+				wcid.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+				wcid.setWr_hit(rs.getInt("wr_hit"));
+				wcid.setWr_datetime(rs.getTimestamp("wr_datetime"));
+				wcid.setWr_file1(rs.getString("wr_file1"));
+				wcid.setWr_file2(rs.getString("wr_file2"));
+				wcid.setWr_ip(rs.getString("wr_ip"));
+				wcid.setWr_option(rs.getString("wr_option"));
+
+				return wcid;
+			}
+			return null;
+		}
+	}
+	
+	//09 위챗페이
+	private WechatpayRMRSE wechatpayRMRSE = new WechatpayRMRSE();
+
+	public WechatidRMRSE getWechatidRMRSE() {
+		return wechatidRMRSE;
+	}
+	
+	private class WechatpayRMRSE implements RowMapper<WechatpayBoard>, ResultSetExtractor<WechatpayBoard> {
+
+		@Override
+		public WechatpayBoard mapRow(ResultSet rs, int rowNum) throws SQLException {
+			WechatpayBoard wcp = new WechatpayBoard();
 			wcp.setWr_id(rs.getInt("wr_id"));
 			wcp.setWr_subject(rs.getString("wr_subject"));
 			wcp.setWr_content(rs.getString("wr_content"));
@@ -471,9 +530,9 @@ public class DaoMapper {
 		}
 
 		@Override
-		public WechatidBoard extractData(ResultSet rs) throws SQLException, DataAccessException {
+		public WechatpayBoard extractData(ResultSet rs) throws SQLException, DataAccessException {
 			if (rs.next()) {
-				WechatidBoard wcp = new WechatidBoard();
+				WechatpayBoard wcp = new WechatpayBoard();
 				wcp.setWr_id(rs.getInt("wr_id"));
 				wcp.setWr_subject(rs.getString("wr_subject"));
 				wcp.setWr_content(rs.getString("wr_content"));
@@ -495,58 +554,173 @@ public class DaoMapper {
 			return null;
 		}
 	}
-	
-	private WechatpayRMRSE wechatpayRMRSE = new WechatpayRMRSE();
 
-	public WechatidRMRSE getWechatidRMRSE() {
+	//10 구인구직 
+	private JobofferRMRSE jobofferRMRSE = new JobofferRMRSE();
+
+	public WechatidRMRSE getJobofferRMRSE() {
 		return wechatidRMRSE;
 	}
 	
-	private class WechatpayRMRSE implements RowMapper<WechatpayBoard>, ResultSetExtractor<WechatpayBoard> {
+	private class JobofferRMRSE implements RowMapper<JobofferBoard>, ResultSetExtractor<JobofferBoard> {
 
 		@Override
-		public WechatpayBoard mapRow(ResultSet rs, int rowNum) throws SQLException {
-			WechatpayBoard wcid = new WechatpayBoard();
-			wcid.setWr_id(rs.getInt("wr_id"));
-			wcid.setWr_subject(rs.getString("wr_subject"));
-			wcid.setWr_content(rs.getString("wr_content"));
-			wcid.setMb_id(rs.getString("mb_id"));
-			wcid.setWr_name(rs.getString("wr_name"));
-			wcid.setWr_link1(rs.getString("wr_link1"));
-			wcid.setWr_link2(rs.getString("wr_link2"));
-			wcid.setWr_link1_hit(rs.getInt("wr_link1_hit"));
-			wcid.setWr_link2_hit(rs.getInt("wr_link2_hit"));
-			wcid.setWr_hit(rs.getInt("wr_hit"));
-			wcid.setWr_datetime(rs.getTimestamp("wr_datetime"));
-			wcid.setWr_file1(rs.getString("wr_file1"));
-			wcid.setWr_file2(rs.getString("wr_file2"));
-			wcid.setWr_ip(rs.getString("wr_ip"));
-			wcid.setWr_option(rs.getString("wr_option"));
+		public JobofferBoard mapRow(ResultSet rs, int rowNum) throws SQLException {
+			JobofferBoard joboffer = new JobofferBoard();
+			joboffer.setWr_id(rs.getInt("wr_id"));
+			joboffer.setWr_subject(rs.getString("wr_subject"));
+			joboffer.setWr_content(rs.getString("wr_content"));
+			joboffer.setMb_id(rs.getString("mb_id"));
+			joboffer.setWr_name(rs.getString("wr_name"));
+			joboffer.setWr_link1(rs.getString("wr_link1"));
+			joboffer.setWr_link2(rs.getString("wr_link2"));
+			joboffer.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+			joboffer.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+			joboffer.setWr_hit(rs.getInt("wr_hit"));
+			joboffer.setWr_datetime(rs.getTimestamp("wr_datetime"));
+			joboffer.setWr_file1(rs.getString("wr_file1"));
+			joboffer.setWr_file2(rs.getString("wr_file2"));
+			joboffer.setWr_ip(rs.getString("wr_ip"));
+			joboffer.setWr_option(rs.getString("wr_option"));
 
-			return wcid;
+			return joboffer;
 		}
 
 		@Override
-		public WechatpayBoard extractData(ResultSet rs) throws SQLException, DataAccessException {
+		public JobofferBoard extractData(ResultSet rs) throws SQLException, DataAccessException {
 			if (rs.next()) {
-				WechatpayBoard wcid = new WechatpayBoard();
-				wcid.setWr_id(rs.getInt("wr_id"));
-				wcid.setWr_subject(rs.getString("wr_subject"));
-				wcid.setWr_content(rs.getString("wr_content"));
-				wcid.setMb_id(rs.getString("mb_id"));
-				wcid.setWr_name(rs.getString("wr_name"));
-				wcid.setWr_link1(rs.getString("wr_link1"));
-				wcid.setWr_link2(rs.getString("wr_link2"));
-				wcid.setWr_link1_hit(rs.getInt("wr_link1_hit"));
-				wcid.setWr_link2_hit(rs.getInt("wr_link2_hit"));
-				wcid.setWr_hit(rs.getInt("wr_hit"));
-				wcid.setWr_datetime(rs.getTimestamp("wr_datetime"));
-				wcid.setWr_file1(rs.getString("wr_file1"));
-				wcid.setWr_file2(rs.getString("wr_file2"));
-				wcid.setWr_ip(rs.getString("wr_ip"));
-				wcid.setWr_option(rs.getString("wr_option"));
+				JobofferBoard joboffer = new JobofferBoard();
+				joboffer.setWr_id(rs.getInt("wr_id"));
+				joboffer.setWr_subject(rs.getString("wr_subject"));
+				joboffer.setWr_content(rs.getString("wr_content"));
+				joboffer.setMb_id(rs.getString("mb_id"));
+				joboffer.setWr_name(rs.getString("wr_name"));
+				joboffer.setWr_link1(rs.getString("wr_link1"));
+				joboffer.setWr_link2(rs.getString("wr_link2"));
+				joboffer.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+				joboffer.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+				joboffer.setWr_hit(rs.getInt("wr_hit"));
+				joboffer.setWr_datetime(rs.getTimestamp("wr_datetime"));
+				joboffer.setWr_file1(rs.getString("wr_file1"));
+				joboffer.setWr_file2(rs.getString("wr_file2"));
+				joboffer.setWr_ip(rs.getString("wr_ip"));
+				joboffer.setWr_option(rs.getString("wr_option"));
 
-				return wcid;
+				return joboffer;
+			}
+			return null;
+		}
+	}
+	
+	//11 해드헌팅 
+	private HeadhuntingRMRSE headhuntingRMRSE = new HeadhuntingRMRSE();
+
+	public WechatidRMRSE getHeadhuntingRMRSE() {
+		return wechatidRMRSE;
+	}
+	
+	private class HeadhuntingRMRSE implements RowMapper<HeadhuntingBoard>, ResultSetExtractor<HeadhuntingBoard> {
+
+		@Override
+		public HeadhuntingBoard mapRow(ResultSet rs, int rowNum) throws SQLException {
+			HeadhuntingBoard headhunting = new HeadhuntingBoard();
+			headhunting.setWr_id(rs.getInt("wr_id"));
+			headhunting.setWr_subject(rs.getString("wr_subject"));
+			headhunting.setWr_content(rs.getString("wr_content"));
+			headhunting.setMb_id(rs.getString("mb_id"));
+			headhunting.setWr_name(rs.getString("wr_name"));
+			headhunting.setWr_link1(rs.getString("wr_link1"));
+			headhunting.setWr_link2(rs.getString("wr_link2"));
+			headhunting.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+			headhunting.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+			headhunting.setWr_hit(rs.getInt("wr_hit"));
+			headhunting.setWr_datetime(rs.getTimestamp("wr_datetime"));
+			headhunting.setWr_file1(rs.getString("wr_file1"));
+			headhunting.setWr_file2(rs.getString("wr_file2"));
+			headhunting.setWr_ip(rs.getString("wr_ip"));
+			headhunting.setWr_option(rs.getString("wr_option"));
+
+			return headhunting;
+		}
+
+		@Override
+		public HeadhuntingBoard extractData(ResultSet rs) throws SQLException, DataAccessException {
+			if (rs.next()) {
+				HeadhuntingBoard headhunting = new HeadhuntingBoard();
+				headhunting.setWr_id(rs.getInt("wr_id"));
+				headhunting.setWr_subject(rs.getString("wr_subject"));
+				headhunting.setWr_content(rs.getString("wr_content"));
+				headhunting.setMb_id(rs.getString("mb_id"));
+				headhunting.setWr_name(rs.getString("wr_name"));
+				headhunting.setWr_link1(rs.getString("wr_link1"));
+				headhunting.setWr_link2(rs.getString("wr_link2"));
+				headhunting.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+				headhunting.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+				headhunting.setWr_hit(rs.getInt("wr_hit"));
+				headhunting.setWr_datetime(rs.getTimestamp("wr_datetime"));
+				headhunting.setWr_file1(rs.getString("wr_file1"));
+				headhunting.setWr_file2(rs.getString("wr_file2"));
+				headhunting.setWr_ip(rs.getString("wr_ip"));
+				headhunting.setWr_option(rs.getString("wr_option"));
+
+				return headhunting;
+			}
+			return null;
+		}
+	}
+	
+	//12 인력파견 
+	private DispatchingRMRSE dispatchingRMRSE = new DispatchingRMRSE();
+
+	public WechatidRMRSE getDispatchingRMRSE() {
+		return wechatidRMRSE;
+	}
+	
+	private class DispatchingRMRSE implements RowMapper<DispatchingBoard>, ResultSetExtractor<DispatchingBoard> {
+
+		@Override
+		public DispatchingBoard mapRow(ResultSet rs, int rowNum) throws SQLException {
+			DispatchingBoard dispatching = new DispatchingBoard();
+			dispatching.setWr_id(rs.getInt("wr_id"));
+			dispatching.setWr_subject(rs.getString("wr_subject"));
+			dispatching.setWr_content(rs.getString("wr_content"));
+			dispatching.setMb_id(rs.getString("mb_id"));
+			dispatching.setWr_name(rs.getString("wr_name"));
+			dispatching.setWr_link1(rs.getString("wr_link1"));
+			dispatching.setWr_link2(rs.getString("wr_link2"));
+			dispatching.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+			dispatching.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+			dispatching.setWr_hit(rs.getInt("wr_hit"));
+			dispatching.setWr_datetime(rs.getTimestamp("wr_datetime"));
+			dispatching.setWr_file1(rs.getString("wr_file1"));
+			dispatching.setWr_file2(rs.getString("wr_file2"));
+			dispatching.setWr_ip(rs.getString("wr_ip"));
+			dispatching.setWr_option(rs.getString("wr_option"));
+
+			return dispatching;
+		}
+
+		@Override
+		public DispatchingBoard extractData(ResultSet rs) throws SQLException, DataAccessException {
+			if (rs.next()) {
+				DispatchingBoard dispatching = new DispatchingBoard();
+				dispatching.setWr_id(rs.getInt("wr_id"));
+				dispatching.setWr_subject(rs.getString("wr_subject"));
+				dispatching.setWr_content(rs.getString("wr_content"));
+				dispatching.setMb_id(rs.getString("mb_id"));
+				dispatching.setWr_name(rs.getString("wr_name"));
+				dispatching.setWr_link1(rs.getString("wr_link1"));
+				dispatching.setWr_link2(rs.getString("wr_link2"));
+				dispatching.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+				dispatching.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+				dispatching.setWr_hit(rs.getInt("wr_hit"));
+				dispatching.setWr_datetime(rs.getTimestamp("wr_datetime"));
+				dispatching.setWr_file1(rs.getString("wr_file1"));
+				dispatching.setWr_file2(rs.getString("wr_file2"));
+				dispatching.setWr_ip(rs.getString("wr_ip"));
+				dispatching.setWr_option(rs.getString("wr_option"));
+
+				return dispatching;
 			}
 			return null;
 		}

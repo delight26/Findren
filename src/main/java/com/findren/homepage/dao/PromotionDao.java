@@ -13,7 +13,7 @@ public interface PromotionDao {
 	public List<PromotionBoard> getPromotionBoardList(int startRow, int PAGE_SIZE);
 	
 	//글 입력
-	public void insertPromotionBoard(PromotionBoard nb);
+	public void insertPromotionBoard(PromotionBoard pb);
 	
 	//조회수
 	public void promotionWatchUpdate(int watch, int no);
@@ -31,7 +31,7 @@ public interface PromotionDao {
 	public void promotionDelete(int no);
 	
 	//업데이트
-	public void updatePromotionBoard(PromotionBoard nb);
+	public void updatePromotionBoard(PromotionBoard pb);
 	
 	//게시글 최대 수
 	public Integer maxNum();

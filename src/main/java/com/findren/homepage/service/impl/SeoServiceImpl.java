@@ -23,12 +23,12 @@ import com.findren.homepage.service.SeoService;
 public class SeoServiceImpl implements SeoService {
 
 	@Autowired
-	private SeoDao NDao;
+	private SeoDao SeoDao;
 	private static final int PAGE_SIZE = 10;
 	private static final int PAGE_GROUP = 10;
 
-	public void setNDao(SeoDao nDao) {
-		NDao = nDao;
+	public void setSeoDao(SeoDao seoDao) {
+		SeoDao = seoDao;
 	}
 
 	@Override
@@ -40,10 +40,10 @@ public class SeoServiceImpl implements SeoService {
 		int currentPage = Integer.valueOf(pageNum);
 
 		int startRow = currentPage * PAGE_SIZE - PAGE_SIZE;
-		int listCount = NDao.getSeoBoardCount();
+		int listCount = SeoDao.getSeoBoardCount();
 
 		if (listCount > 0) {
-			List<SeoBoard> seoList = NDao.getSeoBoardList(startRow, PAGE_SIZE);
+			List<SeoBoard> seoList = SeoDao.getSeoBoardList(startRow, PAGE_SIZE);
 
 			int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
 
@@ -89,7 +89,7 @@ public class SeoServiceImpl implements SeoService {
 			type = "normal";
 		}
 
-		SeoBoard nb = new SeoBoard();
+		SeoBoard seo = new SeoBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -107,15 +107,15 @@ public class SeoServiceImpl implements SeoService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		seo.setWr_subject(title);
+		seo.setWr_content(content);
+		seo.setMb_id("admin");
+		seo.setWr_name("중국인찾기");
+		seo.setWr_link1(link1);
+		seo.setWr_link2(link2);
+		seo.setWr_datetime(time);
+		seo.setWr_ip(wr_ip);
+		seo.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -142,8 +142,8 @@ public class SeoServiceImpl implements SeoService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			seo.setWr_file1(rlFileNm1);
+			seo.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -158,8 +158,8 @@ public class SeoServiceImpl implements SeoService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			seo.setWr_file1("");
+			seo.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -174,10 +174,10 @@ public class SeoServiceImpl implements SeoService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			seo.setWr_file1(rlFileNm1);
+			seo.setWr_file2("");
 		}
-		NDao.insertSeoBoard(nb);
+		SeoDao.insertSeoBoard(seo);
 	}
 
 	@Override
@@ -186,9 +186,9 @@ public class SeoServiceImpl implements SeoService {
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
 		int watch = Integer.valueOf(request.getParameter("watch"));
 
-		NDao.seoWatchUpdate(watch + 1, no);
-		SeoBoard nb = NDao.seoContent(no);
-		request.setAttribute("nb", nb);
+		SeoDao.seoWatchUpdate(watch + 1, no);
+		SeoBoard seo = SeoDao.seoContent(no);
+		request.setAttribute("seo", seo);
 		request.setAttribute("pageNum", pageNum);
 	}
 
@@ -196,14 +196,14 @@ public class SeoServiceImpl implements SeoService {
 	public void seoNext(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.seoNextNo(no);
+		Integer nextNo = SeoDao.seoNextNo(no);
 		if (nextNo == null) {
 
 		} else {
-			SeoBoard nb = NDao.seoContent(nextNo);
-			NDao.seoWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			SeoBoard seo = SeoDao.seoContent(nextNo);
+			SeoDao.seoWatchUpdate(seo.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("seo", seo);
 		}
 	}
 
@@ -211,14 +211,14 @@ public class SeoServiceImpl implements SeoService {
 	public void seoPre(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.seoPreNo(no);
+		Integer nextNo = SeoDao.seoPreNo(no);
 		if (nextNo == null) {
 
 		} else {
-			SeoBoard nb = NDao.seoContent(nextNo);
-			NDao.seoWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			SeoBoard seo = SeoDao.seoContent(nextNo);
+			SeoDao.seoWatchUpdate(seo.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("seo", seo);
 		}
 	}
 
@@ -226,7 +226,7 @@ public class SeoServiceImpl implements SeoService {
 	public void seoDelete(HttpServletRequest request) {
 		String[] check = request.getParameterValues("check");
 		for (int i = 0; i < check.length; i++) {
-			NDao.seoDelete(Integer.parseInt(check[i]));
+			SeoDao.seoDelete(Integer.parseInt(check[i]));
 		}
 	}
 
@@ -234,9 +234,9 @@ public class SeoServiceImpl implements SeoService {
 	public void seoUpdate(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 
-		SeoBoard nb = NDao.seoContent(no);
+		SeoBoard seo = SeoDao.seoContent(no);
 
-		request.setAttribute("nb", nb);
+		request.setAttribute("seo", seo);
 	}
 
 	@Override
@@ -264,7 +264,7 @@ public class SeoServiceImpl implements SeoService {
 			type = "normal";
 		}
 
-		SeoBoard nb = new SeoBoard();
+		SeoBoard seo = new SeoBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -282,16 +282,16 @@ public class SeoServiceImpl implements SeoService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_id(no);
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		seo.setWr_id(no);
+		seo.setWr_subject(title);
+		seo.setWr_content(content);
+		seo.setMb_id("admin");
+		seo.setWr_name("중국인찾기");
+		seo.setWr_link1(link1);
+		seo.setWr_link2(link2);
+		seo.setWr_datetime(time);
+		seo.setWr_ip(wr_ip);
+		seo.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -318,8 +318,8 @@ public class SeoServiceImpl implements SeoService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			seo.setWr_file1(rlFileNm1);
+			seo.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -334,8 +334,8 @@ public class SeoServiceImpl implements SeoService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			seo.setWr_file1("");
+			seo.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -350,10 +350,10 @@ public class SeoServiceImpl implements SeoService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			seo.setWr_file1(rlFileNm1);
+			seo.setWr_file2("");
 		}
-		NDao.updateSeoBoard(nb);
+		SeoDao.updateSeoBoard(seo);
 
 	}
 }

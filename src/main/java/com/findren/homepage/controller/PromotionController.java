@@ -14,21 +14,22 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.findren.homepage.service.impl.PromotionServiceImpl;
 
+
 @Controller
 public class PromotionController {
 
 	@Autowired
-	private PromotionServiceImpl nService;
+	private PromotionServiceImpl pService;
 	private static final String filePath = "/resources/file_upload/";
 
-	public void setnService(PromotionServiceImpl nService) {
-		this.nService = nService;
+	public void setpService(PromotionServiceImpl pService) {
+		this.pService = pService;
 	}
 	
 	//리스트
 	@RequestMapping(value = "promotionList")
 	public String promotionList(HttpServletRequest request, Model model) {
-		nService.promotionList(request);
+		pService.promotionList(request);
 		model.addAttribute("content", "Promotion/promotionList");
 		return "home";
 	}
@@ -44,21 +45,21 @@ public class PromotionController {
 	public String promotionWriteResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		nService.promotionWriteResult(request, path, session);
+		pService.promotionWriteResult(request, path, session);
 		return "redirect:promotionList";
 	}
 	
 	//보기
 	@RequestMapping(value="promotionContent")
 	public String promotionContent(HttpServletRequest request){
-		nService.promotionContent(request);
+		pService.promotionContent(request);
 		return "Promotion/promotionContent";
 	}
 	
 	//다음글
 	@RequestMapping(value="promotionnext")
 	public String promotionNext(HttpServletRequest request){
-		nService.promotionNext(request);
+		pService.promotionNext(request);
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
@@ -70,7 +71,7 @@ public class PromotionController {
 	//이전글
 	@RequestMapping(value="promotionpre")
 	public String promotionPre(HttpServletRequest request){
-		nService.promotionPre(request);
+		pService.promotionPre(request);
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
@@ -82,14 +83,14 @@ public class PromotionController {
 	//삭제
 	@RequestMapping(value="promotionDelete", method = RequestMethod.POST)
 	public String promotionDelete(HttpServletRequest request){
-		nService.promotionDelete(request);
+		pService.promotionDelete(request);
 		return "redirect:promotionList";
 	}
 	
 	//업데이트
 	@RequestMapping(value="promotionUpdate")
 	public String promotionUpdate(HttpServletRequest request){
-		nService.promotionUpdate(request);
+		pService.promotionUpdate(request);
 		return "Promotion/promotionUpdate";
 	}
 	
@@ -98,7 +99,7 @@ public class PromotionController {
 	public String promotionUpdateResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		nService.promotionUpdateResult(request, path, session);
+		pService.promotionUpdateResult(request, path, session);
 		return "redirect:promotionList";
 	}
 }

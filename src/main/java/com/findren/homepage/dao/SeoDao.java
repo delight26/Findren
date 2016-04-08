@@ -13,7 +13,7 @@ public interface SeoDao {
 	public List<SeoBoard> getSeoBoardList(int startRow, int PAGE_SIZE);
 	
 	//글 입력
-	public void insertSeoBoard(SeoBoard nb);
+	public void insertSeoBoard(SeoBoard seo);
 	
 	//조회수
 	public void seoWatchUpdate(int watch, int no);
@@ -31,7 +31,7 @@ public interface SeoDao {
 	public void seoDelete(int no);
 	
 	//업데이트
-	public void updateSeoBoard(SeoBoard nb);
+	public void updateSeoBoard(SeoBoard seo);
 	
 	//게시글 최대 수
 	public Integer maxNum();
