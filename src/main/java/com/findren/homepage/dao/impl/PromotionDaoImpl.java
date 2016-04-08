@@ -39,7 +39,7 @@ public class PromotionDaoImpl implements PromotionDao {
 		promotionparam = new MapSqlParameterSource("startRow", startRow).addValue("PAGE_SIZE",
 				PAGE_SIZE);
 		sql = "select * from findren_write_04_board order by wr_datetime desc limit :startRow, :PAGE_SIZE";
-		return namedParameterJdbcTemplate.query(sql, promotionparam, dm.getPromotionBoardRMRSE());
+		return namedParameterJdbcTemplate.query(sql, promotionparam, dm.getPromotionRMRSE());
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class PromotionDaoImpl implements PromotionDao {
 	public PromotionBoard promotionContent(int no) {
 		promotionparam = new MapSqlParameterSource("no", no);
 		sql = "select * from findren_write_04_board where wr_id = :no";
-		return namedParameterJdbcTemplate.query(sql, promotionparam, dm.getPromotionBoardRMRSE());
+		return namedParameterJdbcTemplate.query(sql, promotionparam, dm.getPromotionRMRSE());
 	}
 	
 	@Override

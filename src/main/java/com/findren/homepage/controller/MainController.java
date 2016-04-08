@@ -58,26 +58,11 @@ public class MainController {
 		return "home";
 	}
 	
-	// 사업분야 > 포트폴리오
-	@RequestMapping("/comPortfolio")
-	public String comPortfolio(Model model){
-		model.addAttribute("content", "ComBiz/comPortfolio");
-		return "home";
-	}
-	
 	// 사업분야 > 위채페이
 	@RequestMapping("/comWechatPay")
 	public String comWechatPay(Model model){
 		model.addAttribute("content", "ComBiz/comWechatPay");
 		return "home";
 	}
-	
-	//사업분야 > 가맹점홍보
-	@RequestMapping("/storePromotion")
-	public String storePromotion(Model model){
-		model.addAttribute("content", "ComBiz/storePromotion");
-		return "home";
-	}
-	
 
 }
