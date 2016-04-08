@@ -554,7 +554,7 @@ public class DaoMapper {
 			return null;
 		}
 	}
-
+/*
 	//10 구인구직 
 	private JobofferRMRSE jobofferRMRSE = new JobofferRMRSE();
 
@@ -724,5 +724,5 @@ public class DaoMapper {
 			}
 			return null;
 		}
-	}
+	}*/
 }
