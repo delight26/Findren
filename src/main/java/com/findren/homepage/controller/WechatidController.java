@@ -29,14 +29,14 @@ public class WechatidController {
 	@RequestMapping(value = "wechatidList")
 	public String wechatidList(HttpServletRequest request, Model model) {
 		widService.wechatidList(request);
-		model.addAttribute("content", "Wechatid/wechatidList");
+		model.addAttribute("content", "WechatID/wechatidList");
 		return "home";
 	}
 	
 	//쓰기
 	@RequestMapping(value = "wechatidWrite")
 	public String wechatidWrite(){
-		return "Wechatid/wechatidWrite";
+		return "WechatID/wechatidWrite";
 	}
 	
 	//쓰기결과
@@ -52,7 +52,7 @@ public class WechatidController {
 	@RequestMapping(value="wechatidContent")
 	public String wechatidContent(HttpServletRequest request){
 		widService.wechatidContent(request);
-		return "Wechatid/wechatidContent";
+		return "WechatID/wechatidContent";
 	}
 	
 	//다음글
@@ -64,7 +64,7 @@ public class WechatidController {
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "Wechatid/wechatidContent";
+		return "WechatID/wechatidContent";
 	}
 	
 	//이전글
@@ -76,7 +76,7 @@ public class WechatidController {
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "Wechatid/wechatidContent";
+		return "WechatID/wechatidContent";
 	}
 	
 	//삭제
@@ -90,7 +90,7 @@ public class WechatidController {
 	@RequestMapping(value="wechatidUpdate")
 	public String wechatidUpdate(HttpServletRequest request){
 		widService.wechatidUpdate(request);
-		return "Wechatid/wechatidUpdate";
+		return "WechatID/wechatidUpdate";
 	}
 	
 	//업데이트결과

@@ -23,12 +23,12 @@ import com.findren.homepage.service.PeopleService;
 public class PeopleServiceImpl implements PeopleService {
 
 	@Autowired
-	private PeopleDao NDao;
+	private PeopleDao PeopleDao;
 	private static final int PAGE_SIZE = 10;
 	private static final int PAGE_GROUP = 10;
 
-	public void setNDao(PeopleDao nDao) {
-		NDao = nDao;
+	public void setPeopleDao(PeopleDao peopleDao) {
+		PeopleDao = peopleDao;
 	}
 
 	@Override
@@ -40,10 +40,10 @@ public class PeopleServiceImpl implements PeopleService {
 		int currentPage = Integer.valueOf(pageNum);
 
 		int startRow = currentPage * PAGE_SIZE - PAGE_SIZE;
-		int listCount = NDao.getPeopleBoardCount();
+		int listCount = PeopleDao.getPeopleBoardCount();
 
 		if (listCount > 0) {
-			List<PeopleBoard> peopleList = NDao.getPeopleBoardList(startRow, PAGE_SIZE);
+			List<PeopleBoard> peopleList = PeopleDao.getPeopleBoardList(startRow, PAGE_SIZE);
 
 			int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
 
@@ -89,7 +89,7 @@ public class PeopleServiceImpl implements PeopleService {
 			type = "normal";
 		}
 
-		PeopleBoard nb = new PeopleBoard();
+		PeopleBoard people = new PeopleBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -107,15 +107,15 @@ public class PeopleServiceImpl implements PeopleService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		people.setWr_subject(title);
+		people.setWr_content(content);
+		people.setMb_id("admin");
+		people.setWr_name("중국인찾기");
+		people.setWr_link1(link1);
+		people.setWr_link2(link2);
+		people.setWr_datetime(time);
+		people.setWr_ip(wr_ip);
+		people.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -142,8 +142,8 @@ public class PeopleServiceImpl implements PeopleService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			people.setWr_file1(rlFileNm1);
+			people.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -158,8 +158,8 @@ public class PeopleServiceImpl implements PeopleService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			people.setWr_file1("");
+			people.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -174,10 +174,10 @@ public class PeopleServiceImpl implements PeopleService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			people.setWr_file1(rlFileNm1);
+			people.setWr_file2("");
 		}
-		NDao.insertPeopleBoard(nb);
+		PeopleDao.insertPeopleBoard(people);
 	}
 
 	@Override
@@ -186,9 +186,9 @@ public class PeopleServiceImpl implements PeopleService {
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
 		int watch = Integer.valueOf(request.getParameter("watch"));
 
-		NDao.peopleWatchUpdate(watch + 1, no);
-		PeopleBoard nb = NDao.peopleContent(no);
-		request.setAttribute("nb", nb);
+		PeopleDao.peopleWatchUpdate(watch + 1, no);
+		PeopleBoard people = PeopleDao.peopleContent(no);
+		request.setAttribute("people", people);
 		request.setAttribute("pageNum", pageNum);
 	}
 
@@ -196,14 +196,14 @@ public class PeopleServiceImpl implements PeopleService {
 	public void peopleNext(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.peopleNextNo(no);
+		Integer nextNo = PeopleDao.peopleNextNo(no);
 		if (nextNo == null) {
 
 		} else {
-			PeopleBoard nb = NDao.peopleContent(nextNo);
-			NDao.peopleWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			PeopleBoard people = PeopleDao.peopleContent(nextNo);
+			PeopleDao.peopleWatchUpdate(people.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("people", people);
 		}
 	}
 
@@ -211,14 +211,14 @@ public class PeopleServiceImpl implements PeopleService {
 	public void peoplePre(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.peoplePreNo(no);
+		Integer nextNo = PeopleDao.peoplePreNo(no);
 		if (nextNo == null) {
 
 		} else {
-			PeopleBoard nb = NDao.peopleContent(nextNo);
-			NDao.peopleWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			PeopleBoard people = PeopleDao.peopleContent(nextNo);
+			PeopleDao.peopleWatchUpdate(people.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("people", people);
 		}
 	}
 
@@ -227,10 +227,10 @@ public class PeopleServiceImpl implements PeopleService {
 		String no = request.getParameter("no");
 		String[] check = request.getParameterValues("check");
 		if(check == null){
-			NDao.peopleDelete(Integer.valueOf(no));
+			PeopleDao.peopleDelete(Integer.valueOf(no));
 		} else{
 			for (int i = 0; i < check.length; i++) {
-				NDao.peopleDelete(Integer.parseInt(check[i]));
+				PeopleDao.peopleDelete(Integer.parseInt(check[i]));
 			}
 		}
 	}
@@ -239,9 +239,9 @@ public class PeopleServiceImpl implements PeopleService {
 	public void peopleUpdate(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 
-		PeopleBoard nb = NDao.peopleContent(no);
+		PeopleBoard people = PeopleDao.peopleContent(no);
 
-		request.setAttribute("nb", nb);
+		request.setAttribute("people", people);
 	}
 
 	@Override
@@ -269,7 +269,7 @@ public class PeopleServiceImpl implements PeopleService {
 			type = "normal";
 		}
 
-		PeopleBoard nb = new PeopleBoard();
+		PeopleBoard people = new PeopleBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -287,16 +287,16 @@ public class PeopleServiceImpl implements PeopleService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_id(no);
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		people.setWr_id(no);
+		people.setWr_subject(title);
+		people.setWr_content(content);
+		people.setMb_id("admin");
+		people.setWr_name("중국인찾기");
+		people.setWr_link1(link1);
+		people.setWr_link2(link2);
+		people.setWr_datetime(time);
+		people.setWr_ip(wr_ip);
+		people.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -323,8 +323,8 @@ public class PeopleServiceImpl implements PeopleService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			people.setWr_file1(rlFileNm1);
+			people.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -339,8 +339,8 @@ public class PeopleServiceImpl implements PeopleService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			people.setWr_file1("");
+			people.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -355,10 +355,10 @@ public class PeopleServiceImpl implements PeopleService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			people.setWr_file1(rlFileNm1);
+			people.setWr_file2("");
 		}
-		NDao.updatePeopleBoard(nb);
+		PeopleDao.updatePeopleBoard(people);
 
 	}
 }

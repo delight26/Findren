@@ -18,101 +18,92 @@ import com.findren.homepage.service.impl.JobofferServiceImpl;
 public class JobofferController {
 
 	@Autowired
-	private JobofferServiceImpl nService;
+	private JobofferServiceImpl jobService;
 	private static final String filePath = "/resources/file_upload/";
 
-	public void setnService(JobofferServiceImpl nService) {
-		this.nService = nService;
+	public void setjobService(JobofferServiceImpl jobService) {
+		this.jobService = jobService;
 	}
 
-	// 리스트
+	//리스트
 	@RequestMapping(value = "jobofferList")
 	public String jobofferList(HttpServletRequest request, Model model) {
-		nService.jobofferList(request);
-		model.addAttribute("content", "Joboffer/jobofferList");
+		jobService.jobofferList(request);
+		model.addAttribute("content", "JobOffer/jobofferList");
 		return "home";
 	}
-
-	// 쓰기
+	
+	//쓰기
 	@RequestMapping(value = "jobofferWrite")
-	public String jobofferWrite(Model model) {
-		model.addAttribute("content", "Joboffer/jobofferWrite");
+	public String jobofferWrite(Model model){
+		model.addAttribute("content", "JobOffer/jobofferWrite" );
 		return "home";
 	}
-
-	// 쓰기결과
-	@RequestMapping(value = "jobofferWriteResult", method = RequestMethod.POST)
-	public String jobofferWriteResult(MultipartHttpServletRequest request, HttpSession session)
-			throws IllegalStateException, IOException {
+	
+	//쓰기결과
+	@RequestMapping(value="jobofferWriteResult", method = RequestMethod.POST)
+	public String jobofferWriteResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
-
-		nService.jobofferWriteResult(request, path, session);
+		
+		jobService.jobofferWriteResult(request, path, session);
 		return "redirect:jobofferList";
 	}
-
-	// 보기
-	@RequestMapping(value = "jobofferContent")
-	public String jobofferContent(HttpServletRequest request, Model model) {
-		nService.jobofferContent(request);
-		return "Joboffer/jobofferContent";
+	
+	//보기
+	@RequestMapping(value="jobofferContent")
+	public String jobofferContent(HttpServletRequest request, Model model){
+		jobService.jobofferContent(request);
+		model.addAttribute("content", "JobOffer/jobofferContent");
+		return "home";
 	}
-
-	// 다음글
-	@RequestMapping(value = "joboffernext")
-	public String jobofferNext(HttpServletRequest request, Model model) {
-		nService.jobofferNext(request);
-		model.addAttribute("content", "Joboffer/jobofferContent");
-
+	
+	//다음글
+	@RequestMapping(value="joboffernext")
+	public String jobofferNext(HttpServletRequest request, Model model){
+		jobService.jobofferNext(request);
+		model.addAttribute("content", "JobOffer/jobofferConetent");
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "Joboffer/jobofferContent";
+		return "home";
 	}
-
-	// 이전글
-	@RequestMapping(value = "jobofferpre")
-	public String jobofferPre(HttpServletRequest request, Model model) {
-		nService.jobofferPre(request);
-		model.addAttribute("content", "Joboffer/jobofferContent");
-
+	
+	//이전글
+	@RequestMapping(value="jobofferpre")
+	public String jobofferPre(HttpServletRequest request, Model model){
+		jobService.jobofferPre(request);
+		model.addAttribute("content", "JobOffer/jobofferConetent");
 		if (request.getAttribute("nb") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "Joboffer/jobofferContent";
+		return "home";
 	}
-
-	// 삭제
-	@RequestMapping(value = "jobofferDelete", method = RequestMethod.POST)
-	public String jobofferDelete(HttpServletRequest request) {
-		nService.jobofferDelete(request);
+	
+	//삭제
+	@RequestMapping(value="jobofferDelete", method = RequestMethod.POST)
+	public String jobofferDelete(HttpServletRequest request){
+		jobService.jobofferDelete(request);
 		return "redirect:jobofferList";
 	}
-
-	// 삭제
-	@RequestMapping(value = "jobofferOneDelete")
-	public String jobofferOneDelete(HttpServletRequest request) {
-		nService.jobofferDelete(request);
-		return "redirect:jobofferList";
+	
+	//업데이트
+	@RequestMapping(value="jobofferUpdate")
+	public String jobofferUpdate(HttpServletRequest request, Model model){
+		jobService.jobofferUpdate(request);
+		model.addAttribute("content", "JobOffer/jobofferUpdate");
+		return "home";
 	}
-
-	// 업데이트
-	@RequestMapping(value = "jobofferUpdate")
-	public String jobofferUpdate(HttpServletRequest request, Model model) {
-		nService.jobofferUpdate(request);
-		return "Joboffer/jobofferUpdate";
-	}
-
-	// 업데이트결과
-	@RequestMapping(value = "jobofferUpdateResult", method = RequestMethod.POST)
-	public String jobofferUpdateResult(MultipartHttpServletRequest request, HttpSession session)
-			throws IllegalStateException, IOException {
+	
+	//업데이트결과
+	@RequestMapping(value="jobofferUpdateResult", method = RequestMethod.POST)
+	public String jobofferUpdateResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
-
-		nService.jobofferUpdateResult(request, path, session);
+		
+		jobService.jobofferUpdateResult(request, path, session);
 		return "redirect:jobofferList";
 	}
 }

@@ -13,7 +13,7 @@ public interface JobofferDao {
 	public List<JobofferBoard> getJobofferBoardList(int startRow, int PAGE_SIZE);
 	
 	//글 입력
-	public void insertJobofferBoard(JobofferBoard nb);
+	public void insertJobofferBoard(JobofferBoard joboffer);
 	
 	//조회수
 	public void jobofferWatchUpdate(int watch, int no);
@@ -31,7 +31,7 @@ public interface JobofferDao {
 	public void jobofferDelete(int no);
 	
 	//업데이트
-	public void updateJobofferBoard(JobofferBoard nb);
+	public void updateJobofferBoard(JobofferBoard joboffer);
 	
 	//게시글 최대 수
 	public Integer maxNum();

@@ -23,12 +23,12 @@ import com.findren.homepage.service.HeadhuntingService;
 public class HeadhuntingServiceImpl implements HeadhuntingService {
 
 	@Autowired
-	private HeadhuntingDao NDao;
+	private HeadhuntingDao HeadhuntingDao;
 	private static final int PAGE_SIZE = 10;
 	private static final int PAGE_GROUP = 10;
 
-	public void setNDao(HeadhuntingDao nDao) {
-		NDao = nDao;
+	public void setHeadhuntingDao(HeadhuntingDao headhuntingDao) {
+		HeadhuntingDao = headhuntingDao;
 	}
 
 	@Override
@@ -40,10 +40,10 @@ public class HeadhuntingServiceImpl implements HeadhuntingService {
 		int currentPage = Integer.valueOf(pageNum);
 
 		int startRow = currentPage * PAGE_SIZE - PAGE_SIZE;
-		int listCount = NDao.getHeadhuntingBoardCount();
+		int listCount = HeadhuntingDao.getHeadhuntingBoardCount();
 
 		if (listCount > 0) {
-			List<HeadhuntingBoard> headhuntingList = NDao.getHeadhuntingBoardList(startRow, PAGE_SIZE);
+			List<HeadhuntingBoard> headhuntingList = HeadhuntingDao.getHeadhuntingBoardList(startRow, PAGE_SIZE);
 
 			int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
 
@@ -89,7 +89,7 @@ public class HeadhuntingServiceImpl implements HeadhuntingService {
 			type = "normal";
 		}
 
-		HeadhuntingBoard nb = new HeadhuntingBoard();
+		HeadhuntingBoard headhunting = new HeadhuntingBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -107,15 +107,15 @@ public class HeadhuntingServiceImpl implements HeadhuntingService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		headhunting.setWr_subject(title);
+		headhunting.setWr_content(content);
+		headhunting.setMb_id("admin");
+		headhunting.setWr_name("중국인찾기");
+		headhunting.setWr_link1(link1);
+		headhunting.setWr_link2(link2);
+		headhunting.setWr_datetime(time);
+		headhunting.setWr_ip(wr_ip);
+		headhunting.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -142,8 +142,8 @@ public class HeadhuntingServiceImpl implements HeadhuntingService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			headhunting.setWr_file1(rlFileNm1);
+			headhunting.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -158,8 +158,8 @@ public class HeadhuntingServiceImpl implements HeadhuntingService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			headhunting.setWr_file1("");
+			headhunting.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -174,10 +174,10 @@ public class HeadhuntingServiceImpl implements HeadhuntingService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			headhunting.setWr_file1(rlFileNm1);
+			headhunting.setWr_file2("");
 		}
-		NDao.insertHeadhuntingBoard(nb);
+		HeadhuntingDao.insertHeadhuntingBoard(headhunting);
 	}
 
 	@Override
@@ -186,9 +186,9 @@ public class HeadhuntingServiceImpl implements HeadhuntingService {
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
 		int watch = Integer.valueOf(request.getParameter("watch"));
 
-		NDao.headhuntingWatchUpdate(watch + 1, no);
-		HeadhuntingBoard nb = NDao.headhuntingContent(no);
-		request.setAttribute("nb", nb);
+		HeadhuntingDao.headhuntingWatchUpdate(watch + 1, no);
+		HeadhuntingBoard headhunting = HeadhuntingDao.headhuntingContent(no);
+		request.setAttribute("headhunting", headhunting);
 		request.setAttribute("pageNum", pageNum);
 	}
 
@@ -196,14 +196,14 @@ public class HeadhuntingServiceImpl implements HeadhuntingService {
 	public void headhuntingNext(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.headhuntingNextNo(no);
+		Integer nextNo = HeadhuntingDao.headhuntingNextNo(no);
 		if (nextNo == null) {
 
 		} else {
-			HeadhuntingBoard nb = NDao.headhuntingContent(nextNo);
-			NDao.headhuntingWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			HeadhuntingBoard headhunting = HeadhuntingDao.headhuntingContent(nextNo);
+			HeadhuntingDao.headhuntingWatchUpdate(headhunting.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("headhunting", headhunting);
 		}
 	}
 
@@ -211,14 +211,14 @@ public class HeadhuntingServiceImpl implements HeadhuntingService {
 	public void headhuntingPre(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.headhuntingPreNo(no);
+		Integer nextNo = HeadhuntingDao.headhuntingPreNo(no);
 		if (nextNo == null) {
 
 		} else {
-			HeadhuntingBoard nb = NDao.headhuntingContent(nextNo);
-			NDao.headhuntingWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			HeadhuntingBoard headhunting = HeadhuntingDao.headhuntingContent(nextNo);
+			HeadhuntingDao.headhuntingWatchUpdate(headhunting.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("headhunting", headhunting);
 		}
 	}
 
@@ -227,10 +227,10 @@ public class HeadhuntingServiceImpl implements HeadhuntingService {
 		String no = request.getParameter("no");
 		String[] check = request.getParameterValues("check");
 		if(check == null){
-			NDao.headhuntingDelete(Integer.valueOf(no));
+			HeadhuntingDao.headhuntingDelete(Integer.valueOf(no));
 		} else{
 			for (int i = 0; i < check.length; i++) {
-				NDao.headhuntingDelete(Integer.parseInt(check[i]));
+				HeadhuntingDao.headhuntingDelete(Integer.parseInt(check[i]));
 			}
 		}
 	}
@@ -239,9 +239,9 @@ public class HeadhuntingServiceImpl implements HeadhuntingService {
 	public void headhuntingUpdate(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 
-		HeadhuntingBoard nb = NDao.headhuntingContent(no);
+		HeadhuntingBoard headhunting = HeadhuntingDao.headhuntingContent(no);
 
-		request.setAttribute("nb", nb);
+		request.setAttribute("headhunting", headhunting);
 	}
 
 	@Override
@@ -269,7 +269,7 @@ public class HeadhuntingServiceImpl implements HeadhuntingService {
 			type = "normal";
 		}
 
-		HeadhuntingBoard nb = new HeadhuntingBoard();
+		HeadhuntingBoard headhunting = new HeadhuntingBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -287,16 +287,16 @@ public class HeadhuntingServiceImpl implements HeadhuntingService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_id(no);
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		headhunting.setWr_id(no);
+		headhunting.setWr_subject(title);
+		headhunting.setWr_content(content);
+		headhunting.setMb_id("admin");
+		headhunting.setWr_name("중국인찾기");
+		headhunting.setWr_link1(link1);
+		headhunting.setWr_link2(link2);
+		headhunting.setWr_datetime(time);
+		headhunting.setWr_ip(wr_ip);
+		headhunting.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -323,8 +323,8 @@ public class HeadhuntingServiceImpl implements HeadhuntingService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			headhunting.setWr_file1(rlFileNm1);
+			headhunting.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -339,8 +339,8 @@ public class HeadhuntingServiceImpl implements HeadhuntingService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			headhunting.setWr_file1("");
+			headhunting.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -355,10 +355,10 @@ public class HeadhuntingServiceImpl implements HeadhuntingService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			headhunting.setWr_file1(rlFileNm1);
+			headhunting.setWr_file2("");
 		}
-		NDao.updateHeadhuntingBoard(nb);
+		HeadhuntingDao.updateHeadhuntingBoard(headhunting);
 
 	}
 }

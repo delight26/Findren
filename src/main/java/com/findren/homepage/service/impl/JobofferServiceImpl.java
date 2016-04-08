@@ -23,12 +23,12 @@ import com.findren.homepage.service.JobofferService;
 public class JobofferServiceImpl implements JobofferService {
 
 	@Autowired
-	private JobofferDao NDao;
+	private JobofferDao JobofferDao;
 	private static final int PAGE_SIZE = 10;
 	private static final int PAGE_GROUP = 10;
 
-	public void setNDao(JobofferDao nDao) {
-		NDao = nDao;
+	public void setJobofferDao(JobofferDao jobofferDao) {
+		JobofferDao = jobofferDao;
 	}
 
 	@Override
@@ -40,10 +40,10 @@ public class JobofferServiceImpl implements JobofferService {
 		int currentPage = Integer.valueOf(pageNum);
 
 		int startRow = currentPage * PAGE_SIZE - PAGE_SIZE;
-		int listCount = NDao.getJobofferBoardCount();
+		int listCount = JobofferDao.getJobofferBoardCount();
 
 		if (listCount > 0) {
-			List<JobofferBoard> jobofferList = NDao.getJobofferBoardList(startRow, PAGE_SIZE);
+			List<JobofferBoard> jobofferList = JobofferDao.getJobofferBoardList(startRow, PAGE_SIZE);
 
 			int pageCount = listCount / PAGE_SIZE + (listCount % PAGE_SIZE == 0 ? 0 : 1);
 
@@ -89,7 +89,7 @@ public class JobofferServiceImpl implements JobofferService {
 			type = "normal";
 		}
 
-		JobofferBoard nb = new JobofferBoard();
+		JobofferBoard joboffer = new JobofferBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -107,15 +107,15 @@ public class JobofferServiceImpl implements JobofferService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		joboffer.setWr_subject(title);
+		joboffer.setWr_content(content);
+		joboffer.setMb_id("admin");
+		joboffer.setWr_name("중국인찾기");
+		joboffer.setWr_link1(link1);
+		joboffer.setWr_link2(link2);
+		joboffer.setWr_datetime(time);
+		joboffer.setWr_ip(wr_ip);
+		joboffer.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -142,8 +142,8 @@ public class JobofferServiceImpl implements JobofferService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			joboffer.setWr_file1(rlFileNm1);
+			joboffer.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -158,8 +158,8 @@ public class JobofferServiceImpl implements JobofferService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			joboffer.setWr_file1("");
+			joboffer.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -174,10 +174,10 @@ public class JobofferServiceImpl implements JobofferService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			joboffer.setWr_file1(rlFileNm1);
+			joboffer.setWr_file2("");
 		}
-		NDao.insertJobofferBoard(nb);
+		JobofferDao.insertJobofferBoard(joboffer);
 	}
 
 	@Override
@@ -186,9 +186,9 @@ public class JobofferServiceImpl implements JobofferService {
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
 		int watch = Integer.valueOf(request.getParameter("watch"));
 
-		NDao.jobofferWatchUpdate(watch + 1, no);
-		JobofferBoard nb = NDao.jobofferContent(no);
-		request.setAttribute("nb", nb);
+		JobofferDao.jobofferWatchUpdate(watch + 1, no);
+		JobofferBoard joboffer = JobofferDao.jobofferContent(no);
+		request.setAttribute("joboffer", joboffer);
 		request.setAttribute("pageNum", pageNum);
 	}
 
@@ -196,14 +196,14 @@ public class JobofferServiceImpl implements JobofferService {
 	public void jobofferNext(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.jobofferNextNo(no);
+		Integer nextNo = JobofferDao.jobofferNextNo(no);
 		if (nextNo == null) {
 
 		} else {
-			JobofferBoard nb = NDao.jobofferContent(nextNo);
-			NDao.jobofferWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			JobofferBoard joboffer = JobofferDao.jobofferContent(nextNo);
+			JobofferDao.jobofferWatchUpdate(joboffer.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("joboffer", joboffer);
 		}
 	}
 
@@ -211,14 +211,14 @@ public class JobofferServiceImpl implements JobofferService {
 	public void jobofferPre(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 		int pageNum = Integer.valueOf(request.getParameter("pageNum"));
-		Integer nextNo = NDao.jobofferPreNo(no);
+		Integer nextNo = JobofferDao.jobofferPreNo(no);
 		if (nextNo == null) {
 
 		} else {
-			JobofferBoard nb = NDao.jobofferContent(nextNo);
-			NDao.jobofferWatchUpdate(nb.getWr_hit() + 1, nextNo);
+			JobofferBoard joboffer = JobofferDao.jobofferContent(nextNo);
+			JobofferDao.jobofferWatchUpdate(joboffer.getWr_hit() + 1, nextNo);
 			request.setAttribute("pageNum", pageNum);
-			request.setAttribute("nb", nb);
+			request.setAttribute("joboffer", joboffer);
 		}
 	}
 
@@ -227,10 +227,10 @@ public class JobofferServiceImpl implements JobofferService {
 		String no = request.getParameter("no");
 		String[] check = request.getParameterValues("check");
 		if(check == null){
-			NDao.jobofferDelete(Integer.valueOf(no));
+			JobofferDao.jobofferDelete(Integer.valueOf(no));
 		} else{
 			for (int i = 0; i < check.length; i++) {
-				NDao.jobofferDelete(Integer.parseInt(check[i]));
+				JobofferDao.jobofferDelete(Integer.parseInt(check[i]));
 			}
 		}
 	}
@@ -239,9 +239,9 @@ public class JobofferServiceImpl implements JobofferService {
 	public void jobofferUpdate(HttpServletRequest request) {
 		int no = Integer.valueOf(request.getParameter("no"));
 
-		JobofferBoard nb = NDao.jobofferContent(no);
+		JobofferBoard joboffer = JobofferDao.jobofferContent(no);
 
-		request.setAttribute("nb", nb);
+		request.setAttribute("joboffer", joboffer);
 	}
 
 	@Override
@@ -269,7 +269,7 @@ public class JobofferServiceImpl implements JobofferService {
 			type = "normal";
 		}
 
-		JobofferBoard nb = new JobofferBoard();
+		JobofferBoard joboffer = new JobofferBoard();
 
 		Timestamp time = new Timestamp(System.currentTimeMillis());
 
@@ -287,16 +287,16 @@ public class JobofferServiceImpl implements JobofferService {
 			wr_ip = request.getRemoteAddr();
 		}
 
-		nb.setWr_id(no);
-		nb.setWr_subject(title);
-		nb.setWr_content(content);
-		nb.setMb_id("admin");
-		nb.setWr_name("중국인찾기");
-		nb.setWr_link1(link1);
-		nb.setWr_link2(link2);
-		nb.setWr_datetime(time);
-		nb.setWr_ip(wr_ip);
-		nb.setWr_option(type);
+		joboffer.setWr_id(no);
+		joboffer.setWr_subject(title);
+		joboffer.setWr_content(content);
+		joboffer.setMb_id("admin");
+		joboffer.setWr_name("중국인찾기");
+		joboffer.setWr_link1(link1);
+		joboffer.setWr_link2(link2);
+		joboffer.setWr_datetime(time);
+		joboffer.setWr_ip(wr_ip);
+		joboffer.setWr_option(type);
 
 		if (!multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -323,8 +323,8 @@ public class JobofferServiceImpl implements JobofferService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2(rlFileNm2);
+			joboffer.setWr_file1(rlFileNm1);
+			joboffer.setWr_file2(rlFileNm2);
 
 		} else if (multipartFile1.isEmpty() && !multipartFile2.isEmpty()) {
 			String filename_ext2 = multipartFile2.getOriginalFilename()
@@ -339,8 +339,8 @@ public class JobofferServiceImpl implements JobofferService {
 			File file2 = new File(path, rlFileNm2);
 			multipartFile2.transferTo(file2);
 
-			nb.setWr_file1("");
-			nb.setWr_file2(rlFileNm2);
+			joboffer.setWr_file1("");
+			joboffer.setWr_file2(rlFileNm2);
 
 		} else if (!multipartFile1.isEmpty() && multipartFile2.isEmpty()) {
 			String filename_ext1 = multipartFile1.getOriginalFilename()
@@ -355,10 +355,10 @@ public class JobofferServiceImpl implements JobofferService {
 			File file1 = new File(path, rlFileNm1);
 			multipartFile1.transferTo(file1);
 
-			nb.setWr_file1(rlFileNm1);
-			nb.setWr_file2("");
+			joboffer.setWr_file1(rlFileNm1);
+			joboffer.setWr_file2("");
 		}
-		NDao.updateJobofferBoard(nb);
+		JobofferDao.updateJobofferBoard(joboffer);
 
 	}
 }
