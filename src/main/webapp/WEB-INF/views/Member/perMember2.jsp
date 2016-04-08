@@ -41,24 +41,22 @@ $(function(){
                 }
             }
         });
-        $('input[name="fhm_per_nation"]').change(function(){
-        	alert(1);
-        	var fhm_per_nation = $(':input[name=fhm_per_nation]:radio:checked').val();
-        	if(fhm_per_nation == "korea"){
-        		$("#addrsearch").show();
-        		$("#addrtext").hide();
-        	}else{
-        		$("#addrsearch").hide();
-        		$("#addrtext").show();
-        	}
-        });
     });
+    $('input[name="fhm_per_nation"]').change(function(){
+    	var fhm_per_nation =  $(':radio[name="fhm_per_nation"]:checked').val();
+    	if(fhm_per_nation == "china" || fhm_per_nation == "etc"){
+    		$("#addrsearch").hide();
+			$("#addrtext").show();    		
+    	}
+    });
+    
     $("#submit").click(function(){
     	var rechaptcha = $("#rechaptcha").val();
     	var pass = $("#pass").val();
     	var passconfirm = $("#passconfirm").val();
     	if(rechaptcha == "Success!"){
     		if(pass == passconfirm){
+    			alert($("#fhm_per_address"));
     			$("#joinform").submit();
     		}else{
     			event.preventDefault();
@@ -87,7 +85,10 @@ $(function(){
 	<table>
 		<tr>
 			<th>아이디</th>
-			<td><input type = "text" name = "fhm_id" id="id" required/></td>
+			<td>
+				<input type = "text" name = "fhm_id" id="id" required/>
+				<input type ="button" id="idcheck" value="아이디 중복 검사"/>
+			</td>
 		</tr>
 		<tr>
 			<th>패스워드</th>
@@ -135,10 +136,9 @@ $(function(){
 		<tr>
 			<th>주소</th>
 			<td>
-				<textarea rows="5" cols="100" style="display:none" name="fhm_per_adress"></textarea>
+				<textarea rows="5" cols="100" style="display:none" name="fhm_per_addresstext" id="addrtext"></textarea>
 				<div id="addrsearch">
 				</div>
-			
 			</td>
 		</tr>
 		<tr>

@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -68,10 +67,8 @@ public class MemberController {
 	    ReCaptchaResponse reCaptchaResponse = reCaptcha.checkAnswer(host, challenge, res);
 	 
 	    if (reCaptchaResponse.isValid()) {
-	        System.out.println("true");
 	        check = "Y";
 	    } else {
-	        System.out.println("false");
 	        check = "N";
 	    }
 	     
@@ -80,9 +77,10 @@ public class MemberController {
 	}
 	
 	//회원 가입 결과
-	@RequestMapping(value="joinPer")
-	public String joinPer(HttpServletRequest request, HttpServletResponse response, HttpSession session){
+	@RequestMapping(value="joinPer", method = RequestMethod.POST)
+	public String joinPer(HttpServletRequest request, HttpServletResponse response, HttpSession session) throws Exception{
 		mService.joinPer(request);
+		mService.emailCheck(request, response, session);
 		return "Member/joinPer";
 	}
 	

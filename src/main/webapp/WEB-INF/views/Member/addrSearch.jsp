@@ -2,13 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<input type="text" id="sample3_postcode" name="fhm_per_adress" placeholder="우편번호">
+<input type="text" id="sample3_postcode" name="fhm_per_address1" placeholder="우편번호" readonly>
 <input type="button" onclick="sample3_execDaumPostcode()" value="우편번호 찾기"><br>
 
 <div id="wrap" style="display:none;border:1px solid;width:500px;height:300px;margin:5px 0;position:relative">
 <img src="//i1.daumcdn.net/localimg/localimages/07/postcode/320/close.png" id="btnFoldWrap" style="cursor:pointer;position:absolute;right:0px;top:-1px;z-index:1" onclick="foldDaumPostcode()" alt="접기 버튼">
 </div>
-<input type="text" id="sample3_address" name="fhm_per_adress" class="d_form large" placeholder="주소">
+<input type="text" id="sample3_address" name="fhm_per_address2" class="d_form large" placeholder="주소" readonly>
 
 <script>
     // 우편번호 찾기 찾기 화면을 넣을 element

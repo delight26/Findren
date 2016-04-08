@@ -9,9 +9,12 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.findren.homepage.domain.Config;
+import com.findren.homepage.domain.HeadhuntingBoard;
+import com.findren.homepage.domain.JobofferBoard;
 import com.findren.homepage.domain.NewsBoard;
 import com.findren.homepage.domain.NoticeBoard;
 import com.findren.homepage.domain.OnlineBoard;
+import com.findren.homepage.domain.PeopleBoard;
 import com.findren.homepage.domain.Portfolio;
 import com.findren.homepage.domain.PromotionBoard;
 import com.findren.homepage.domain.SeoBoard;
@@ -554,12 +557,12 @@ public class DaoMapper {
 			return null;
 		}
 	}
-/*
+
 	//10 구인구직 
 	private JobofferRMRSE jobofferRMRSE = new JobofferRMRSE();
 
-	public WechatidRMRSE getJobofferRMRSE() {
-		return wechatidRMRSE;
+	public JobofferRMRSE getJobofferRMRSE() {
+		return jobofferRMRSE;
 	}
 	
 	private class JobofferRMRSE implements RowMapper<JobofferBoard>, ResultSetExtractor<JobofferBoard> {
@@ -615,8 +618,8 @@ public class DaoMapper {
 	//11 해드헌팅 
 	private HeadhuntingRMRSE headhuntingRMRSE = new HeadhuntingRMRSE();
 
-	public WechatidRMRSE getHeadhuntingRMRSE() {
-		return wechatidRMRSE;
+	public HeadhuntingRMRSE getHeadhuntingRMRSE() {
+		return headhuntingRMRSE;
 	}
 	
 	private class HeadhuntingRMRSE implements RowMapper<HeadhuntingBoard>, ResultSetExtractor<HeadhuntingBoard> {
@@ -670,59 +673,59 @@ public class DaoMapper {
 	}
 	
 	//12 인력파견 
-	private DispatchingRMRSE dispatchingRMRSE = new DispatchingRMRSE();
+	private PeopleRMRSE peopleRMRSE = new PeopleRMRSE();
 
-	public WechatidRMRSE getDispatchingRMRSE() {
-		return wechatidRMRSE;
+	public PeopleRMRSE getPeopleRMRSE() {
+		return peopleRMRSE;
 	}
 	
-	private class DispatchingRMRSE implements RowMapper<DispatchingBoard>, ResultSetExtractor<DispatchingBoard> {
+	private class PeopleRMRSE implements RowMapper<PeopleBoard>, ResultSetExtractor<PeopleBoard> {
 
 		@Override
-		public DispatchingBoard mapRow(ResultSet rs, int rowNum) throws SQLException {
-			DispatchingBoard dispatching = new DispatchingBoard();
-			dispatching.setWr_id(rs.getInt("wr_id"));
-			dispatching.setWr_subject(rs.getString("wr_subject"));
-			dispatching.setWr_content(rs.getString("wr_content"));
-			dispatching.setMb_id(rs.getString("mb_id"));
-			dispatching.setWr_name(rs.getString("wr_name"));
-			dispatching.setWr_link1(rs.getString("wr_link1"));
-			dispatching.setWr_link2(rs.getString("wr_link2"));
-			dispatching.setWr_link1_hit(rs.getInt("wr_link1_hit"));
-			dispatching.setWr_link2_hit(rs.getInt("wr_link2_hit"));
-			dispatching.setWr_hit(rs.getInt("wr_hit"));
-			dispatching.setWr_datetime(rs.getTimestamp("wr_datetime"));
-			dispatching.setWr_file1(rs.getString("wr_file1"));
-			dispatching.setWr_file2(rs.getString("wr_file2"));
-			dispatching.setWr_ip(rs.getString("wr_ip"));
-			dispatching.setWr_option(rs.getString("wr_option"));
+		public PeopleBoard mapRow(ResultSet rs, int rowNum) throws SQLException {
+			PeopleBoard people = new PeopleBoard();
+			people.setWr_id(rs.getInt("wr_id"));
+			people.setWr_subject(rs.getString("wr_subject"));
+			people.setWr_content(rs.getString("wr_content"));
+			people.setMb_id(rs.getString("mb_id"));
+			people.setWr_name(rs.getString("wr_name"));
+			people.setWr_link1(rs.getString("wr_link1"));
+			people.setWr_link2(rs.getString("wr_link2"));
+			people.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+			people.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+			people.setWr_hit(rs.getInt("wr_hit"));
+			people.setWr_datetime(rs.getTimestamp("wr_datetime"));
+			people.setWr_file1(rs.getString("wr_file1"));
+			people.setWr_file2(rs.getString("wr_file2"));
+			people.setWr_ip(rs.getString("wr_ip"));
+			people.setWr_option(rs.getString("wr_option"));
 
-			return dispatching;
+			return people;
 		}
 
 		@Override
-		public DispatchingBoard extractData(ResultSet rs) throws SQLException, DataAccessException {
+		public PeopleBoard extractData(ResultSet rs) throws SQLException, DataAccessException {
 			if (rs.next()) {
-				DispatchingBoard dispatching = new DispatchingBoard();
-				dispatching.setWr_id(rs.getInt("wr_id"));
-				dispatching.setWr_subject(rs.getString("wr_subject"));
-				dispatching.setWr_content(rs.getString("wr_content"));
-				dispatching.setMb_id(rs.getString("mb_id"));
-				dispatching.setWr_name(rs.getString("wr_name"));
-				dispatching.setWr_link1(rs.getString("wr_link1"));
-				dispatching.setWr_link2(rs.getString("wr_link2"));
-				dispatching.setWr_link1_hit(rs.getInt("wr_link1_hit"));
-				dispatching.setWr_link2_hit(rs.getInt("wr_link2_hit"));
-				dispatching.setWr_hit(rs.getInt("wr_hit"));
-				dispatching.setWr_datetime(rs.getTimestamp("wr_datetime"));
-				dispatching.setWr_file1(rs.getString("wr_file1"));
-				dispatching.setWr_file2(rs.getString("wr_file2"));
-				dispatching.setWr_ip(rs.getString("wr_ip"));
-				dispatching.setWr_option(rs.getString("wr_option"));
+				PeopleBoard people = new PeopleBoard();
+				people.setWr_id(rs.getInt("wr_id"));
+				people.setWr_subject(rs.getString("wr_subject"));
+				people.setWr_content(rs.getString("wr_content"));
+				people.setMb_id(rs.getString("mb_id"));
+				people.setWr_name(rs.getString("wr_name"));
+				people.setWr_link1(rs.getString("wr_link1"));
+				people.setWr_link2(rs.getString("wr_link2"));
+				people.setWr_link1_hit(rs.getInt("wr_link1_hit"));
+				people.setWr_link2_hit(rs.getInt("wr_link2_hit"));
+				people.setWr_hit(rs.getInt("wr_hit"));
+				people.setWr_datetime(rs.getTimestamp("wr_datetime"));
+				people.setWr_file1(rs.getString("wr_file1"));
+				people.setWr_file2(rs.getString("wr_file2"));
+				people.setWr_ip(rs.getString("wr_ip"));
+				people.setWr_option(rs.getString("wr_option"));
 
-				return dispatching;
+				return people;
 			}
 			return null;
 		}
-	}*/
+	}
 }
