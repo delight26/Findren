@@ -8,8 +8,9 @@ table th, td{
 	text-align: center;
 }
 
-.fm_img{
-	width: 20px;
+table span img{
+	width: 10vw;
+	text-align: left;
 }
 </style>
 
@@ -18,9 +19,6 @@ table th, td{
 	<!-- 페이지 헤드라인 -->
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">
-				&nbsp;
-			</h1>
 			<ol class="breadcrumb">
 				<li>사업분야</li>
 				<li class="active">포트폴리오</li>
@@ -41,12 +39,12 @@ table th, td{
 				<a href="/Findren/promotionList" class="list-group-item">가맹점홍보</a>
 			</div>
 		</div>
-		<!-- 공지사항 이름 -->
+		<!-- 포트폴리오 이름 -->
 		<div class="col-md-9">
-			<h2><img src="resources/images/portfolio_01.png"></h2>
+			<h2><img src="resources/images/portfolio_01.png" class="table_name"></h2>
 		</div>
 		
-		<div class="findrenNews col-md-9">
+		<div class="findrenPortfolio col-md-9">
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -54,7 +52,7 @@ table th, td{
 <%--						<c:if test=""> --%>
 						<th></th>
 <%--						/<c:if> --%>
-						<th>제목</th>
+						<th colspan="2">제목</th>
 						<th>글쓴이</th>
 					</tr>
 				</thead>
@@ -65,17 +63,23 @@ table th, td{
 							<c:if test="${ portfolio.wr_option eq 'portfolio' }">
 								<tr>
 									<c:if test="${ portfolio.wr_subject.length() > 20 }">
+										<td style="text-align: left; width:11vw;">
+											<a href="portfolioContent?no=${ portfolio.wr_id }&pageNum=${ currentPage }&watch=${ portfolio.wr_hit }">
+											<span class="pf_img"> <img src="resources/file_upload/${portfolio.wr_file1 }"></span></a>
+										</td>
 										<td>
 											<a href="portfolioContent?no=${ portfolio.wr_id }&pageNum=${ currentPage }&watch=${ portfolio.wr_hit }">
-										<span class="pf_img"> <img src="resources/images/${portfolio.wr_file1 }"></span> ${ portfolio.wr_subject.substring(0, 21) }... 
-											</a>
+											${ portfolio.wr_subject.substring(0, 21) }... </a>
 										</td>
 									</c:if>
 									<c:if test="${ portfolio.wr_subject.length() <= 20 }">
+										<td style="text-align: left; width:11vw;">
+											<a href="portfolioContent?no=${ portfolio.wr_id }&pageNum=${ currentPage }&watch=${ portfolio.wr_hit }">
+											<span class="pf_img"> <img src="resources/file_upload/${portfolio.wr_file1 }"></span></a>
+										</td>
 										<td>
 											<a href="portfolioContent?no=${ portfolio.wr_id }&pageNum=${ currentPage }&watch=${ portfolio.wr_hit }">
-										<span class="pf_img"> ${portfolio.wr_file1 }</span> ${ portfolio.wr_subject } 
-											</a>
+											${ portfolio.wr_subject} </a>
 										</td>
 									</c:if>
 										<td><b>${ portfolio.wr_name }</b></td>
@@ -92,17 +96,23 @@ table th, td{
 								</td>
 							<%-- 									</c:if> --%>
 							<c:if test="${ portfolio.wr_subject.length() > 20 }">
+								<td style="text-align: left; width:11vw;">
+									<a href="portfolioContent?no=${ portfolio.wr_id }&pageNum=${ currentPage }&watch=${ portfolio.wr_hit }">
+									<span class="pf_img"> <img src="resources/file_upload/${portfolio.wr_file1 }"></span></a>
+								</td>
 								<td>
 									<a href="portfolioContent?no=${ portfolio.wr_id }&pageNum=${ currentPage }&watch=${ portfolio.wr_hit }">
-								<span class="pf_img"> ${portfolio.wr_file1 }</span> ${ portfolio.wr_subject.substring(0, 21) }... 
-									</a>
+									${ portfolio.wr_subject.substring(0, 21) }... </a>
 								</td>
 							</c:if>
 							<c:if test="${ portfolio.wr_subject.length() <= 20 }">
+								<td style="text-align: left; width:11vw;">
+									<a href="portfolioContent?no=${ portfolio.wr_id }&pageNum=${ currentPage }&watch=${ portfolio.wr_hit }">
+									<span class="pf_img"> <img src="resources/file_upload/${portfolio.wr_file1 }"></span></a>
+								</td>
 								<td>
 									<a href="portfolioContent?no=${ portfolio.wr_id }&pageNum=${ currentPage }&watch=${ portfolio.wr_hit }">
-								<span class="pf_img"> ${portfolio.wr_file1 }</span> ${ portfolio.wr_subject } 
-									</a>
+									${ portfolio.wr_subject } </a>
 								</td>
 							</c:if>
 								<td><b>${ portfolio.wr_name }</b></td>
@@ -142,8 +152,6 @@ table th, td{
 				<%-- 				<c:if test=""> --%>
 				
 				<a href = "#" id = "portfolioDelete"><button class="btn btn-default">선택삭제</button></a>
-				<a href = "#" id = "portfolioCopy"><button class="btn btn-default">선택복사</button></a>
-				<a href = "#" id = "portfolioMove"><button class="btn btn-default">선택이동</button></a>
 				<input type="button" class="btn btn-default" value="글쓰기" onclick="location.href='portfolioWrite'">
 				<%-- 				</c:if> --%>
 			</div>

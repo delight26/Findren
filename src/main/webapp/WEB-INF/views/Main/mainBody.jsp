@@ -14,7 +14,7 @@
 		</div>
 		
 		<!-- 중국마케팅 -->
-		<div class="col-md-4">
+		<div class="col-sm-4 col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4><i class="fa fa-fw fa-check"></i><img src="resources/images/main03.png" ></h4>
@@ -27,7 +27,7 @@
 		</div>
 		
 		<!-- 위챗서비스 -->
-		<div class="col-md-4">
+		<div class="col-sm-4 col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4><i class="fa fa-fw fa-gift"></i><img src="resources/images/main04.png" ></h4>
@@ -40,7 +40,7 @@
 		</div>
 		
 		<!-- 중국인채용 -->
-		<div class="col-md-4">
+		<div class="col-sm-4 col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h4><i class="fa fa-fw fa-compass"></i><img src="resources/images/main05.png" ></h4>
@@ -54,7 +54,7 @@
 	</div>
 
 	<!-- 공식계정 -->
-		<div class="col-md-5">
+		<div class="col-sm-6 col-md-4">
 			<div class="col-lg-12">
 				<h2 class="page-header"><img src="resources/images/main02.png"></h2>
 			</div>
@@ -67,10 +67,12 @@
 		</div>
 	 
 	<!-- 가맹점홍보 -->
-	<div class="col-md-7" style="margin-bottom: 5%;">
+	<div class="col-sm-6 col-md-8">
 		<div class="col-lg-12">
 			<h2 class="page-header"><img src="resources/images/main09.png"></h2>
 		</div>
-		<div class="comProLink">ffs</div>
+		<div class="col-lg-12">
+			<iframe><jsp:include page="/WEB-INF/views/Promotion/promotionList.jsp"></jsp:include></iframe>
+		</div>
 	</div>
 </div>

@@ -59,6 +59,28 @@ $(function(){
 	});	
 });
 
+//포트폴리오 게시글 삭제 확인(portfolioList.jsp)
+$(function(){
+	$("#portfolioDelete").click(function(){
+		var message = "선택한 게시물을 정말 삭제하시겠습니까?\n" 
+				+"한번 삭제한 자료는 복구할 수 없습니다.";
+		if(confirm(message) == true){
+			$("#form1").attr({action:'portfolioDelete', method:'post'}).submit();
+		}
+	});	
+});
+
+//프로모션 게시글 삭제 확인(promotionList.jsp)
+$(function(){
+	$("#promotionDelete").click(function(){
+		var message = "선택한 게시물을 정말 삭제하시겠습니까?\n" 
+				+"한번 삭제한 자료는 복구할 수 없습니다.";
+		if(confirm(message) == true){
+			$("#form1").attr({action:'promotionDelete', method:'post'}).submit();
+		}
+	});	
+});
+
 //온라인마케팅 게시글 삭제 확인(onlineList.jsp)
 $(function(){
 	$("#onlineDelete").click(function(){
@@ -66,6 +88,83 @@ $(function(){
 				+"한번 삭제한 자료는 복구할 수 없습니다.";
 		if(confirm(message) == true){
 			$("#form1").attr({action:'onlineDelete', method:'post'}).submit();
+		}
+	});	
+});
+
+//SNS 게시글 삭제 확인(snsList.jsp)
+$(function(){
+	$("#snsDelete").click(function(){
+		var message = "선택한 게시물을 정말 삭제하시겠습니까?\n" 
+				+"한번 삭제한 자료는 복구할 수 없습니다.";
+		if(confirm(message) == true){
+			$("#form1").attr({action:'snsDelete', method:'post'}).submit();
+		}
+	});	
+});
+
+//SEO 게시글 삭제 확인(seoDelete.jsp)
+$(function(){
+	$("#seoDelete").click(function(){
+		var message = "선택한 게시물을 정말 삭제하시겠습니까?\n" 
+				+"한번 삭제한 자료는 복구할 수 없습니다.";
+		if(confirm(message) == true){
+			$("#form1").attr({action:'seoDelete', method:'post'}).submit();
+		}
+	});	
+});
+
+//공중계정 게시글 삭제 확인(wechatidList.jsp)
+$(function(){
+	$("#wechatidDelete").click(function(){
+		var message = "선택한 게시물을 정말 삭제하시겠습니까?\n" 
+				+"한번 삭제한 자료는 복구할 수 없습니다.";
+		if(confirm(message) == true){
+			$("#form1").attr({action:'wechatidDelete', method:'post'}).submit();
+		}
+	});	
+});
+
+//위챗페이 게시글 삭제 확인(wechatpayList.jsp)
+$(function(){
+	$("#wechatpayDelete").click(function(){
+		var message = "선택한 게시물을 정말 삭제하시겠습니까?\n" 
+				+"한번 삭제한 자료는 복구할 수 없습니다.";
+		if(confirm(message) == true){
+			$("#form1").attr({action:'wechatpayDelete', method:'post'}).submit();
+		}
+	});	
+});
+
+//구인구직 게시글 삭제 확인(jobofferList.jsp)
+$(function(){
+	$("#jobofferDelete").click(function(){
+		var message = "선택한 게시물을 정말 삭제하시겠습니까?\n" 
+				+"한번 삭제한 자료는 복구할 수 없습니다.";
+		if(confirm(message) == true){
+			$("#form1").attr({action:'jobofferDelete', method:'post'}).submit();
+		}
+	});	
+});
+
+//헤드헌팅 게시글 삭제 확인(onlineList.jsp)
+$(function(){
+	$("#headhuntingDelete").click(function(){
+		var message = "선택한 게시물을 정말 삭제하시겠습니까?\n" 
+				+"한번 삭제한 자료는 복구할 수 없습니다.";
+		if(confirm(message) == true){
+			$("#form1").attr({action:'headhuntingDelete', method:'post'}).submit();
+		}
+	});	
+});
+
+//인력파견 게시글 삭제 확인(onlineList.jsp)
+$(function(){
+	$("#peopleDelete").click(function(){
+		var message = "선택한 게시물을 정말 삭제하시겠습니까?\n" 
+				+"한번 삭제한 자료는 복구할 수 없습니다.";
+		if(confirm(message) == true){
+			$("#form1").attr({action:'peopleDelete', method:'post'}).submit();
 		}
 	});	
 });

@@ -8,9 +8,6 @@
 	<!-- 페이지 헤드라인 -->
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">
-				&nbsp;
-			</h1>
 			<ol class="breadcrumb">
 				<li>사업분야</li>
 				<li class="active">중국마케팅</li>
@@ -19,7 +16,6 @@
 	</div>
 
 	<!-- 컨텐츠 -->
-	<div class="row">
 		<!-- 사이드 리스트 -->
 		<div class="col-md-3">
 			<div class="list-group">
@@ -34,12 +30,16 @@
 		
 		<!-- 회사정보 내용 -->
 		<div class="col-md-9">
-			<h2><img src="resources/images/chinaMKT_01.png"></h2>
+			<h2><img src="resources/images/chinaMKT_01.png" class="comBiz_name"></h2>
 			<div class="comChinaMkt">
 				<div class="comChinaMkt_img">
 					<img src="resources/images/chinaMKT_02.png" style="width:100%;">
 				</div>
 			</div>
 		</div>
+		<div class="clear"></div>
+				<div style="float:right;"><img src="resources/images/contact.png" style="width:100%; margin-top:5%;">
+				&nbsp;&nbsp;<a href="/Findren/onlineList"><img src="resources/images/more.png" style="width:15%; float: right;"></a>
+				</div>
 	</div>
 </div>

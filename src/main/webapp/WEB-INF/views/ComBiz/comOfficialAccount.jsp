@@ -8,9 +8,6 @@
 	<!-- 페이지 헤드라인 -->
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">
-				&nbsp;
-			</h1>
 			<ol class="breadcrumb">
 				<li>사업분야</li>
 				<li class="active">위챗공중계정</li>
@@ -19,7 +16,6 @@
 	</div>
 
 	<!-- 컨텐츠 -->
-	<div class="row">
 		<!-- 사이드 리스트 -->
 		<div class="col-md-3">
 			<div class="list-group">
@@ -31,48 +27,25 @@
 				<a href="/Findren/promotionList" class="list-group-item">가맹점홍보</a>
 			</div>
 		</div>
+		
 		<!-- 공중계정 -->
 		<div class="col-md-9">
-			<h2><img src="resources/images/wcgz_01.png"></h2>
+			<h2><img src="resources/images/wcgz_01.png" class="comBiz_name"></h2>
 			
-				<div class="comApp_id">
-					<div class="comApp_side">
-						<img class="comApp_id_name" src="resources/images/wcgz_02.png">
+				<div class="comApp_id ">
+					<div class="comApp">
+						<img src="resources/images/wcgz_02.png" style="width:100%;">
 					</div>
-					<div class="comApp_content">
-						<div><img class="comApp_id_img01" src="resources/images/wcgz_03.png">&nbsp;&nbsp;</div>
-						<div><img class="comApp_id_img01" src="resources/images/wcgz_04.png">&nbsp;&nbsp;</div>
-						<div><img class="comApp_id_img01" src="resources/images/wcgz_05.png"></div>
+					<div class="comApp">
+						<img src="resources/images/wcgz_03.png" style="width:100%;">
 					</div>
-					<div>&nbsp;<br>&nbsp;</div>
-				</div>
-				
-				<div class="comApp_id">
-					<div class="comApp_side">
-						<img class="comApp_id_name" src="resources/images/wcgz_06.png">
+					<div class="comApp">
+						<img src="resources/images/wcgz_04.png" style="width:100%;">
 					</div>
-					<div class="comApp_content">
-						<div><img class="comApp_id_img01" src="resources/images/wcgz_07.png">&nbsp;&nbsp;</div>
-						<div><img class="comApp_id_img01" src="resources/images/wcgz_14.png">&nbsp;&nbsp;</div>
-						<div><img class="comApp_id_img01" src="resources/images/wcgz_08.png"></div>
-					</div>
-					<div>&nbsp;<br>&nbsp;</div>
-				</div>
-				
-				<div class="comApp_id">
-					<div class="comApp_side">
-						<img class="comApp_id_name" src="resources/images/wcgz_09.png">
-					</div>	
-					<div class="comApp_content">	
-						<div><img class="comApp_id_img02" src="resources/images/wcgz_10.png">&nbsp;&nbsp;</div>
-						<div><img class="comApp_id_img02" src="resources/images/wcgz_11.png">&nbsp;&nbsp;</div>
-						<div><img class="comApp_id_img02" src="resources/images/wcgz_12.png">&nbsp;&nbsp;</div>
-						<div><img class="comApp_id_img02" src="resources/images/wcgz_13.png"></div>
-					</div>
-				</div>
+					
 				<div class="clear"></div>
-				<div style="float:right;"><img src="resources/images/contact.png" style="width:100%;">
-				&nbsp;&nbsp;<a href="#"><img src="resources/images/more.png" style="width:20%; float: right;"></a>
+				<div style="float:right;"><img src="resources/images/contact.png" style="width:100%; ">
+				&nbsp;&nbsp;<a href="/Findren/wechatidList"><img src="resources/images/more.png" style="width:15%; float: right;"></a>
 				</div>
 		</div>
 	</div>

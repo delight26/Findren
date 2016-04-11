@@ -62,7 +62,7 @@ public class JobofferController {
 	public String jobofferNext(HttpServletRequest request, Model model){
 		jobService.jobofferNext(request);
 		model.addAttribute("content", "JobOffer/jobofferConetent");
-		if (request.getAttribute("nb") == null) {
+		if (request.getAttribute("joboffer") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
@@ -75,7 +75,7 @@ public class JobofferController {
 	public String jobofferPre(HttpServletRequest request, Model model){
 		jobService.jobofferPre(request);
 		model.addAttribute("content", "JobOffer/jobofferConetent");
-		if (request.getAttribute("nb") == null) {
+		if (request.getAttribute("joboffer") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";

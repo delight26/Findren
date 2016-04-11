@@ -19,17 +19,17 @@ import com.findren.homepage.service.impl.PortfolioServiceImpl;
 public class PortfolioController {
 
 	@Autowired
-	private PortfolioServiceImpl pService;
+	private PortfolioServiceImpl portfolioService;
 	private static final String filePath = "/resources/file_upload/";
 
-	public void setpService(PortfolioServiceImpl pService) {
-		this.pService = pService;
+	public void setportfolioService(PortfolioServiceImpl portfolioService) {
+		this.portfolioService = portfolioService;
 	}
 	
 	//리스트
 	@RequestMapping(value = "portfolioList")
 	public String portfolioList(HttpServletRequest request, Model model) {
-		pService.portfolioList(request);
+		portfolioService.portfolioList(request);
 		model.addAttribute("content", "Portfolio/portfolioList");
 		return "home";
 	}
@@ -46,14 +46,14 @@ public class PortfolioController {
 	public String portfolioWriteResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		pService.portfolioWriteResult(request, path, session);
+		portfolioService.portfolioWriteResult(request, path, session);
 		return "redirect:portfolioList";
 	}
 	
 	//보기
 	@RequestMapping(value="portfolioContent")
 	public String portfolioContent(HttpServletRequest request,Model model){
-		pService.portfolioContent(request);
+		portfolioService.portfolioContent(request);
 		model.addAttribute("content", "Portfolio/portfolioContent");
 		return "home";
 	}
@@ -61,10 +61,10 @@ public class PortfolioController {
 	//다음글
 	@RequestMapping(value="portfolioNext")
 	public String portfolioNext(HttpServletRequest request, Model model){
-		pService.portfolioNext(request);
+		portfolioService.portfolioNext(request);
 		model.addAttribute("content", "Portfolio/portfolioContent");
 		
-		if (request.getAttribute("nb") == null) {
+		if (request.getAttribute("portfolio") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
@@ -75,10 +75,10 @@ public class PortfolioController {
 	//이전글
 	@RequestMapping(value="portfolioPre")
 	public String portfolioPre(HttpServletRequest request, Model model){
-		pService.portfolioPre(request);
+		portfolioService.portfolioPre(request);
 		model.addAttribute("content", "Portfolio/portfolioContent");
 		
-		if (request.getAttribute("nb") == null) {
+		if (request.getAttribute("portfolio") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
@@ -89,14 +89,14 @@ public class PortfolioController {
 	//삭제
 	@RequestMapping(value="portfolioDelete", method = RequestMethod.POST)
 	public String portfolioDelete(HttpServletRequest request){
-		pService.portfolioDelete(request);
+		portfolioService.portfolioDelete(request);
 		return "redirect:portfolioList";
 	}
 	
 	//업데이트
 	@RequestMapping(value="portfolioUpdate")
 	public String portfolioUpdate(HttpServletRequest request, Model model){
-		pService.portfolioUpdate(request);
+		portfolioService.portfolioUpdate(request);
 		model.addAttribute("content", "Portfolio/portfolioUpdate");
 		return "home";
 	}
@@ -106,7 +106,7 @@ public class PortfolioController {
 	public String portfolioUpdateResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		pService.portfolioUpdateResult(request, path, session);
+		portfolioService.portfolioUpdateResult(request, path, session);
 		return "redirect:portfolioList";
 	}
 }

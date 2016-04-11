@@ -16,9 +16,6 @@ text-align: center;
 	<!-- 페이지 헤드라인 -->
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">
-				&nbsp;
-			</h1>
 			<ol class="breadcrumb">
 				<li>중국마케팅</li>
 				<li class="active">온라인마케팅</li>
@@ -38,7 +35,7 @@ text-align: center;
 		</div>
 		<!-- 온라인마케팅 이름 -->
 		<div class="col-md-9">
-			<h2><img src="resources/images/onlineMKT_01.png"></h2>
+			<h2><img src="resources/images/onlineMKT_01.png" class="table_name"></h2>
 		</div>
 		
 		<div class="findrenOnline col-md-9">
@@ -71,11 +68,7 @@ text-align: center;
 			<div style="text-align: center;">
 				<input type="button" class="btn btn-default" value="수정" onclick="location.href='onlineUpdate?no=${ online.wr_id }'"/>
 				<input type="button" class="btn btn-default" id="onlineDelete" value="삭제" onclick="location.href='onlineOneDelete?no=${online.wr_id}'"/>
-				<input type="button" class="btn btn-default" value="복사"/>
-				<input type="button" class="btn btn-default" value="이동"/>
-				
 				<input type="button" class="btn btn-default" value="목록" onclick="location.href='onlineList?pageNum=${pageNum }'"/>
-				<input type="button" class="btn btn-default" value="답변"/>
 				<input type="button" class="btn btn-default"value="글쓰기" onclick="location.href='onlineWrite'"/>
 			</div>
 		</div>

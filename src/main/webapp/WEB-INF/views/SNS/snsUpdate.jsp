@@ -17,12 +17,9 @@ text-align: center;
 	<!-- 페이지 헤드라인 -->
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">
-				&nbsp;
-			</h1>
 			<ol class="breadcrumb">
 				<li>중국마케팅</li>
-				<li class="active">온라인마케팅</li>
+				<li class="active">SNS마케팅</li>
 			</ol>
 		</div>
 	</div>
@@ -32,40 +29,40 @@ text-align: center;
 		<!-- 사이드 리스트 -->
 		<div class="col-md-3">
 			<div class="list-group">
-				<a href="/Findren/onlineList" class="list-group-item active">온라인마케팅</a>
-				<a href="/Findren/snsList" class="list-group-item">SNS마케팅</a>
+				<a href="/Findren/onlineList" class="list-group-item">온라인마케팅</a>
+				<a href="/Findren/snsList" class="list-group-item active">SNS마케팅</a>
 				<a href="/Findren/seoList" class="list-group-item">SEO마케팅</a>
 			</div>
 		</div>
 		<!-- 온라인마케팅 이름 -->
 		<div class="col-md-9">
-			<h2><img src="resources/images/onlineMKT_01.png"></h2>
+			<h2><img src="resources/images/snsMKT_01.png" class="table_name"></h2>
 		</div>
 		
 		<div class="findrenNews col-md-9">
-		<form id="frm" action="onlineUpdateResult" method="post" enctype="multipart/form-data">
-			<table class="table">
+		<form id="frm" action="snsUpdateResult" method="post" enctype="multipart/form-data">
+			<table class="table inputForm">
 				<tr>
 					<td>옵션</td>
 					<td>
-						<input type="checkbox" value="online" name="type"/>공지
-						<input type="hidden" value="${ online.wr_id }"  name="no"/>
+						<input type="checkbox" value="sns" name="type"/>공지
+						<input type="hidden" value="${ sns.wr_id }"  name="no"/>
 					</td>
 				</tr>
 				<tr>
 					<td>제목</td>
-					<td><input type="text" name="title" value="${ online.wr_subject }"/></td>
+					<td><input type="text" name="title" value="${ sns.wr_subject }"/></td>
 				</tr>
 			   	<tr>
 			   		<td>내용</td>
-			   		<td style="width:766px;"><textarea name="content" id="ir1" rows="10" cols="100">${ online.wr_content }</textarea></td>
+			   		<td id="input"><textarea name="content" id="ir1" rows="10" cols="100">${ sns.wr_content }</textarea></td>
 				<tr>
 					<td>링크 1</td>
-					<td><input type="text" name="link1" value="${ online.wr_link1 }"/></td>
+					<td><input type="text" name="link1" value="${ sns.wr_link1 }"/></td>
 				</tr>
 				<tr>
 					<td>링크 2</td>
-					<td><input type="text" name="link2"/>${ online.wr_link2 }</td>
+					<td><input type="text" name="link2"/>${ sns.wr_link2 }</td>
 				</tr>
 				<tr>
 					<td>파일 1</td>

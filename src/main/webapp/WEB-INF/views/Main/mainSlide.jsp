@@ -15,21 +15,18 @@
         <div class="carousel-inner">
             <div class="item active">
             <img class="mainslide_img" src="resources/images/mainslide01.jpg">
-<!--                 <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide One');"></div> -->
                 <div class="carousel-caption">
 <!--                     <h2>Caption 1</h2> -->
                 </div>
             </div>
             <div class="item">
              <img class="mainslide_img"  src="resources/images/mainslide02.jpg">
-<!--                 <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Two');"></div> -->
                 <div class="carousel-caption">
 <!--                     <h2>Caption 2</h2> -->
                 </div>
             </div>
             <div class="item">
              <img class="mainslide_img" src="resources/images/mainslide03.jpg">
-<!--                 <div class="fill" style="background-image:url('http://placehold.it/1900x1080&text=Slide Three');"></div> -->
                 <div class="carousel-caption">
 <!--                     <h2>Caption 3</h2> -->
                 </div>

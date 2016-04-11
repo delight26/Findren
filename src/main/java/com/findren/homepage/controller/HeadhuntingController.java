@@ -62,7 +62,7 @@ public class HeadhuntingController {
 	public String headhuntingNext(HttpServletRequest request, Model model){
 		headhuntingService.headhuntingNext(request);
 		model.addAttribute("content", "Headhunting/headhuntingConetent");
-		if (request.getAttribute("nb") == null) {
+		if (request.getAttribute("headhunting") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
@@ -75,7 +75,7 @@ public class HeadhuntingController {
 	public String headhuntingPre(HttpServletRequest request, Model model){
 		headhuntingService.headhuntingPre(request);
 		model.addAttribute("content", "Headhunting/headhuntingConetent");
-		if (request.getAttribute("nb") == null) {
+		if (request.getAttribute("headhunting") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";

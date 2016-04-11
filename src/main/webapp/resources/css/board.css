@@ -1,0 +1,43 @@
+@CHARSET "UTF-8";
+
+table{
+	width: 100%;
+}
+
+table td, table th{
+	padding-top: 1vw;
+	padding-bottom: 1vw;
+	padding-left: 1vw;
+}
+
+
+
+@media(min-width:320px){
+	table td, th{
+		font-size: 1.5vw;
+	}
+	.inputForm #input{
+		width: 90%;
+	}
+	.boardcontent{
+		width: 320px;
+	}
+}
+
+@media(min-width:760px){
+	.inputForm #input{
+		width: 700px;
+	}
+	.boardcontent{
+		width: 760px;
+	}
+}
+
+@media(min-width:1200px){
+	.inputForm #input{
+		width: 800px;
+	}
+	.boardcontent{
+		width: 1200px;
+	}
+}

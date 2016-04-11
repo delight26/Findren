@@ -14,12 +14,9 @@ text-align: center;
 	<!-- 페이지 헤드라인 -->
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">
-				&nbsp;
-			</h1>
 			<ol class="breadcrumb">
 				<li>중국마케팅</li>
-				<li class="active">온라인마케팅</li>
+				<li class="active">SEO마케팅</li>
 			</ol>
 		</div>
 	</div>
@@ -29,17 +26,17 @@ text-align: center;
 		<!-- 사이드 리스트 -->
 		<div class="col-md-3">
 			<div class="list-group">
-				<a href="/Findren/onlineList" class="list-group-item active">온라인마케팅</a>
+				<a href="/Findren/onlineList" class="list-group-item">온라인마케팅</a>
 				<a href="/Findren/snsList" class="list-group-item">SNS마케팅</a>
-				<a href="/Findren/seoList" class="list-group-item">SEO마케팅</a>
+				<a href="/Findren/seoList" class="list-group-item active">SEO마케팅</a>
 			</div>
 		</div>
 		<!-- 공지사항 이름 -->
 		<div class="col-md-9">
-			<h2><img src="resources/images/onlineMKT_01.png"></h2>
+			<h2><img src="resources/images/seoMKT_01.png" class="table_name"></h2>
 		</div>
 		
-		<div class="findreOnline col-md-9">
+		<div class="findreSeo col-md-9">
 			<table class="table table-hover">
 				<thead>
 					<tr>
@@ -56,55 +53,55 @@ text-align: center;
 				
 				<c:if test="${ listCount > 0 }">
 					<form id="form1">
-						<c:forEach var="online" items="${ onlineList }" varStatus="s">
-							<c:if test="${ online.wr_option eq 'online' }">
+						<c:forEach var="seo" items="${ seoList }" varStatus="s">
+							<c:if test="${ seo.wr_option eq 'seo' }">
 								<tr>
-									<c:if test="${ online.wr_subject.length() > 20 }">
+									<c:if test="${ seo.wr_subject.length() > 20 }">
 										<td>
-											<a href="onlineContent?no=${ online.wr_id }&pageNum=${ currentPage }&watch=${ online.wr_hit }">
-										${ online.wr_subject.substring(0, 21) }... 
+											<a href="seoContent?no=${ seo.wr_id }&pageNum=${ currentPage }&watch=${ seo.wr_hit }">
+										${ seo.wr_subject.substring(0, 21) }... 
 											</a>
 										</td>
 									</c:if>
-									<c:if test="${ online.wr_subject.length() <= 20 }">
+									<c:if test="${ seo.wr_subject.length() <= 20 }">
 										<td>
-											<a href="onlineContent?no=${ online.wr_id }&pageNum=${ currentPage }&watch=${ online.wr_hit }">
-										${ online.wr_subject } 
+											<a href="seoContent?no=${ seo.wr_id }&pageNum=${ currentPage }&watch=${ seo.wr_hit }">
+										${ seo.wr_subject } 
 											</a>
 										</td>
 									</c:if>
-										<td><b>${ online.wr_name }</b></td>
-										<td>${ fn:substring(online.wr_datetime, 0, 10) }</td>
-										<td>${ online.wr_hit }</td>
+										<td><b>${ seo.wr_name }</b></td>
+										<td>${ fn:substring(seo.wr_datetime, 0, 10) }</td>
+										<td>${ seo.wr_hit }</td>
 								</tr>
 							</c:if>
 						</c:forEach>
 						
-						<c:forEach var="online" items="${ onlineList }" varStatus="s">
+						<c:forEach var="seo" items="${ seoList }" varStatus="s">
 							<tr>
 								<td>${(listCount - s.index) - ( (currentPage - 1)  *  PAGE_GROUP ) }</td>
 								<%-- 									<c:if test=""> --%>
 								<td>
-									<input type="checkbox" value="${ online.wr_id }" name="check"/>
+									<input type="checkbox" value="${ seo.wr_id }" name="check"/>
 								</td>
 							<%-- 									</c:if> --%>
-							<c:if test="${ online.wr_subject.length() > 20 }">
+							<c:if test="${ seo.wr_subject.length() > 20 }">
 								<td>
-									<a href="onlineContent?no=${ online.wr_id }&pageNum=${ currentPage }&watch=${ online.wr_hit }">
-								${ online.wr_subject.substring(0, 21) }... 
+									<a href="seoContent?no=${ seo.wr_id }&pageNum=${ currentPage }&watch=${ seo.wr_hit }">
+								${ seo.wr_subject.substring(0, 21) }... 
 									</a>
 								</td>
 							</c:if>
-							<c:if test="${ online.wr_subject.length() <= 20 }">
+							<c:if test="${ seo.wr_subject.length() <= 20 }">
 								<td>
-									<a href="onlineContent?no=${ online.wr_id }&pageNum=${ currentPage }&watch=${ online.wr_hit }">
-								${ online.wr_subject } 
+									<a href="seoContent?no=${ seo.wr_id }&pageNum=${ currentPage }&watch=${ seo.wr_hit }">
+								${ seo.wr_subject } 
 									</a>
 								</td>
 							</c:if>
-								<td><b>${ online.wr_name }</b></td>
-								<td>${ fn:substring(online.wr_datetime, 0, 10) }</td>
-								<td>${ online.wr_hit }</td>
+								<td><b>${ seo.wr_name }</b></td>
+								<td>${ fn:substring(seo.wr_datetime, 0, 10) }</td>
+								<td>${ seo.wr_hit }</td>
 							</tr>
 						</c:forEach>
 					</form>
@@ -115,7 +112,7 @@ text-align: center;
 				<c:if test="${ startPage > PAGE_GROUP }">
 					<ul>
 						<li>
-							<a href="onlineList?pageNum=${ startPage - PAGE_GROUP }"><span class="glyphicon glyphicon-menu-left" aria-hidden="true">[이전]</span></a></li>
+							<a href="seoList?pageNum=${ startPage - PAGE_GROUP }"><span class="glyphicon glyphicon-menu-left" aria-hidden="true">[이전]</span></a></li>
 					</ul>
 				</c:if>
 				
@@ -126,7 +123,7 @@ text-align: center;
 								<li class="disabled"><a>${ i }</a></li>
 							</c:if>
 							<c:if test="${ i != currentPage }">
-								<li><a href="onlineList?pageNum=${ i }">${ i }</a></li>
+								<li><a href="seoList?pageNum=${ i }">${ i }</a></li>
 							</c:if>
 						</c:forEach>
 					</ul>
@@ -135,15 +132,13 @@ text-align: center;
 				<c:if test="${ endPage < pageCount }">
 					<ul>
 						<li>
-							<a href="onlineList?pageNum=${ startPage + PAGE_GROUP }">[다음]</a></li>
+							<a href="seoList?pageNum=${ startPage + PAGE_GROUP }">[다음]</a></li>
 					</ul>
 				</c:if>
 				<%-- 				<c:if test=""> --%>
 				
-				<a href = "#" id = "onlineDelete"><button class="btn btn-default">선택삭제</button></a>
-				<a href = "#" id = "onlineCopy"><button class="btn btn-default">선택복사</button></a>
-				<a href = "#" id = "onlineMove"><button class="btn btn-default">선택이동</button></a>
-				<input type="button" class="btn btn-default" value="글쓰기" onclick="location.href='onlineWrite'">
+				<a href = "#" id = "seoDelete"><button class="btn btn-default">선택삭제</button></a>
+				<input type="button" class="btn btn-default" value="글쓰기" onclick="location.href='seoWrite'">
 				<%-- 				</c:if> --%>
 			</div>
 		</div>

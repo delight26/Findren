@@ -14,9 +14,6 @@ text-align: center;
 	<!-- 페이지 헤드라인 -->
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">
-				&nbsp;
-			</h1>
 			<ol class="breadcrumb">
 				<li>중국마케팅</li>
 				<li class="active">온라인마케팅</li>
@@ -36,7 +33,7 @@ text-align: center;
 		</div>
 		<!-- 공지사항 이름 -->
 		<div class="col-md-9">
-			<h2><img src="resources/images/onlineMKT_01.png"></h2>
+			<h2><img src="resources/images/onlineMKT_01.png" class="table_name"></h2>
 		</div>
 		
 		<div class="findreOnline col-md-9">
@@ -141,8 +138,6 @@ text-align: center;
 				<%-- 				<c:if test=""> --%>
 				
 				<a href = "#" id = "onlineDelete"><button class="btn btn-default">선택삭제</button></a>
-				<a href = "#" id = "onlineCopy"><button class="btn btn-default">선택복사</button></a>
-				<a href = "#" id = "onlineMove"><button class="btn btn-default">선택이동</button></a>
 				<input type="button" class="btn btn-default" value="글쓰기" onclick="location.href='onlineWrite'">
 				<%-- 				</c:if> --%>
 			</div>

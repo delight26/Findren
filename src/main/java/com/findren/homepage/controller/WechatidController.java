@@ -35,8 +35,9 @@ public class WechatidController {
 	
 	//쓰기
 	@RequestMapping(value = "wechatidWrite")
-	public String wechatidWrite(){
-		return "WechatID/wechatidWrite";
+	public String wechatidWrite(Model model){
+		model.addAttribute("content", "WechatID/wechatidWrite");
+		return "home";
 	}
 	
 	//쓰기결과
@@ -50,33 +51,36 @@ public class WechatidController {
 	
 	//보기
 	@RequestMapping(value="wechatidContent")
-	public String wechatidContent(HttpServletRequest request){
+	public String wechatidContent(HttpServletRequest request, Model model){
 		widService.wechatidContent(request);
-		return "WechatID/wechatidContent";
+		model.addAttribute("content", "WechatID/wechatidContent");
+		return "home";
 	}
 	
 	//다음글
 	@RequestMapping(value="wechatidnext")
-	public String wechatidNext(HttpServletRequest request){
+	public String wechatidNext(HttpServletRequest request, Model model){
 		widService.wechatidNext(request);
-		if (request.getAttribute("nb") == null) {
+		model.addAttribute("content", "WechatID/wechatidContent");
+		if (request.getAttribute("wechatid") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "WechatID/wechatidContent";
+		return "home";
 	}
 	
 	//이전글
 	@RequestMapping(value="wechatidpre")
-	public String wechatidPre(HttpServletRequest request){
+	public String wechatidPre(HttpServletRequest request, Model model){
 		widService.wechatidPre(request);
-		if (request.getAttribute("nb") == null) {
+		model.addAttribute("content", "WechatID/wechatidContent");
+		if (request.getAttribute("wechatid") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "WechatID/wechatidContent";
+		return "home";
 	}
 	
 	//삭제
@@ -88,9 +92,10 @@ public class WechatidController {
 	
 	//업데이트
 	@RequestMapping(value="wechatidUpdate")
-	public String wechatidUpdate(HttpServletRequest request){
+	public String wechatidUpdate(HttpServletRequest request, Model model){
+		model.addAttribute("content", "WechatID/wechatidUpdate");
 		widService.wechatidUpdate(request);
-		return "WechatID/wechatidUpdate";
+		return "home";
 	}
 	
 	//업데이트결과

@@ -1,5 +1,6 @@
 package com.findren.homepage.domain;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Member {
@@ -10,7 +11,7 @@ public class Member {
 	private String fhm_sex;
 	private String fhm_per_nation;
 	private String fhm_per_email;
-	private Timestamp fhm_per_birth;
+	private String fhm_per_birth;
 	private String fhm_per_phone;
 	private String fhm_per_cell;
 	private String fhm_com_part;
@@ -30,7 +31,16 @@ public class Member {
 	private String fhm_noauth;
 	private String fhm_per_address;
 	private String fhm_com_address;
+	private int fhm_com_person;
 
+	public int getFhm_com_person() {
+		return fhm_com_person;
+	}
+	
+	public void setFhm_com_person(int fhm_com_person) {
+		this.fhm_com_person = fhm_com_person;
+	}
+	
 	public String getFhm_per_address() {
 		return fhm_per_address;
 	}
@@ -103,11 +113,11 @@ public class Member {
 		this.fhm_per_email = fhm_per_email;
 	}
 
-	public Timestamp getFhm_per_birth() {
+	public String getFhm_per_birth() {
 		return fhm_per_birth;
 	}
 
-	public void setFhm_per_birth(Timestamp fhm_per_birth) {
+	public void setFhm_per_birth(String fhm_per_birth) {
 		this.fhm_per_birth = fhm_per_birth;
 	}
 

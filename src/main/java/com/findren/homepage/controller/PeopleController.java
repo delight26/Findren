@@ -62,7 +62,7 @@ public class PeopleController {
 	public String peopleNext(HttpServletRequest request, Model model){
 		pplService.peopleNext(request);
 		model.addAttribute("content", "People/peopleConetent");
-		if (request.getAttribute("nb") == null) {
+		if (request.getAttribute("people") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
@@ -75,7 +75,7 @@ public class PeopleController {
 	public String peoplePre(HttpServletRequest request, Model model){
 		pplService.peoplePre(request);
 		model.addAttribute("content", "People/peopleConetent");
-		if (request.getAttribute("nb") == null) {
+		if (request.getAttribute("people") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";

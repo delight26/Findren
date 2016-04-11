@@ -11,6 +11,7 @@
 <link href="resources/css/bootstrap.min.css" rel="stylesheet">
 <link href="resources/css/modern-business.css" rel="stylesheet">
 <link href="resources/css/main.css" rel="stylesheet">
+<link href="resources/css/board.css" rel="stylesheet">
 </head>
 <body>
 	<div class="findren home">

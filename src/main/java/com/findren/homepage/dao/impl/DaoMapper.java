@@ -5,12 +5,12 @@ import java.sql.SQLException;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.RowMapper;
 
 import com.findren.homepage.domain.Config;
 import com.findren.homepage.domain.HeadhuntingBoard;
 import com.findren.homepage.domain.JobofferBoard;
+import com.findren.homepage.domain.Member;
 import com.findren.homepage.domain.NewsBoard;
 import com.findren.homepage.domain.NoticeBoard;
 import com.findren.homepage.domain.OnlineBoard;
@@ -107,7 +107,86 @@ public class DaoMapper {
 			return null;
 		}
 	}
+	
+	private MemberRMRSE memberRMRSE = new MemberRMRSE();
 
+	public MemberRMRSE getMemberRMRSE() {
+		return memberRMRSE;
+	}
+	
+	private class MemberRMRSE implements RowMapper<Member>, ResultSetExtractor<Member> {
+		@Override
+		public Member mapRow(ResultSet rs, int pageNum) throws SQLException {
+			Member m = new Member();
+			m.setFhm_type(rs.getInt("fhm_type"));
+			m.setFhm_id(rs.getString("fhm_id"));
+			m.setFhm_pw(rs.getString("fhm_pw"));
+			m.setFhm_name(rs.getString("fhm_name"));
+			m.setFhm_sex(rs.getString("fhm_sex"));
+			m.setFhm_per_nation(rs.getString("fhm_per_nation"));
+			m.setFhm_per_birth(rs.getString("fhm_per_birth"));
+			m.setFhm_per_phone(rs.getString("fhm_per_phone"));
+			m.setFhm_per_cell(rs.getString("fhm_per_cell"));
+			m.setFhm_com_part(rs.getString("fhm_com_part"));
+			m.setFhm_com_nation(rs.getString("fhm_com_nation"));
+			m.setFhm_com_name(rs.getString("fhm_com_name"));
+			m.setFhm_com_logo(rs.getString("fhm_com_logo"));
+			m.setFhm_com_no(rs.getString("fhm_com_no"));
+			m.setFhm_com_style(rs.getString("fhm_com_style"));
+			m.setFhm_com_biz(rs.getString("fhm_com_biz"));
+			m.setFhm_com_ceo(rs.getString("fhm_com_ceo"));
+			m.setFhm_com_emp(rs.getString("fhm_com_ceo"));
+			m.setFhm_com_birth(rs.getString("fhm_com_birth"));
+			m.setFhm_com_homepage(rs.getString("fhm_com_homepage"));
+			m.setFhm_com_phone(rs.getString("fhm_com_phone"));
+			m.setFhm_com_email(rs.getString("fhm_com_email"));
+			m.setFhm_mailig(rs.getString("fhm_mailing"));
+			m.setFhm_noauth(rs.getString("fhm_noauth"));
+			m.setFhm_per_address(rs.getString("fhm_per_address"));
+			m.setFhm_com_address(rs.getString("fhm_com_address"));
+			m.setFhm_com_person(rs.getInt("fhm_com_person"));
+			
+			return m;
+		}
+
+		@Override
+		public Member extractData(ResultSet rs) throws SQLException, DataAccessException {
+			if (rs.next()) {
+				Member m = new Member();
+				m.setFhm_type(rs.getInt("fhm_type"));
+				m.setFhm_id(rs.getString("fhm_id"));
+				m.setFhm_pw(rs.getString("fhm_pw"));
+				m.setFhm_name(rs.getString("fhm_name"));
+				m.setFhm_sex(rs.getString("fhm_sex"));
+				m.setFhm_per_nation(rs.getString("fhm_per_nation"));
+				m.setFhm_per_birth(rs.getString("fhm_per_birth"));
+				m.setFhm_per_phone(rs.getString("fhm_per_phone"));
+				m.setFhm_per_cell(rs.getString("fhm_per_cell"));
+				m.setFhm_com_part(rs.getString("fhm_com_part"));
+				m.setFhm_com_nation(rs.getString("fhm_com_nation"));
+				m.setFhm_com_name(rs.getString("fhm_com_name"));
+				m.setFhm_com_logo(rs.getString("fhm_com_logo"));
+				m.setFhm_com_no(rs.getString("fhm_com_no"));
+				m.setFhm_com_style(rs.getString("fhm_com_style"));
+				m.setFhm_com_biz(rs.getString("fhm_com_biz"));
+				m.setFhm_com_ceo(rs.getString("fhm_com_ceo"));
+				m.setFhm_com_emp(rs.getString("fhm_com_ceo"));
+				m.setFhm_com_birth(rs.getString("fhm_com_birth"));
+				m.setFhm_com_homepage(rs.getString("fhm_com_homepage"));
+				m.setFhm_com_phone(rs.getString("fhm_com_phone"));
+				m.setFhm_com_email(rs.getString("fhm_com_email"));
+				m.setFhm_mailig(rs.getString("fhm_mailing"));
+				m.setFhm_noauth(rs.getString("fhm_noauth"));
+				m.setFhm_per_address(rs.getString("fhm_per_address"));
+				m.setFhm_com_address(rs.getString("fhm_com_address"));
+				m.setFhm_com_person(rs.getInt("fhm_com_person"));
+				
+				return m;
+			}
+			return null;
+		}
+	}
+	
 	// 02 보도자료
 	private NewsBoardRMRSE newsBoardRMRSE = new NewsBoardRMRSE();
 

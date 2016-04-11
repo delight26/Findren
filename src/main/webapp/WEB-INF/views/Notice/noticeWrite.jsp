@@ -17,9 +17,6 @@ text-align: center;
 	<!-- 페이지 헤드라인 -->
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">
-				&nbsp;
-			</h1>
 			<ol class="breadcrumb">
 				<li>회사소개</li>
 				<li class="active">공지사항</li>
@@ -46,7 +43,7 @@ text-align: center;
 		
 		<div class="findrenNotice col-md-9">
 			<form id="frm" action="noticeWriteResult" method="post" enctype="multipart/form-data">
-				<table class="table">
+				<table class="table inputForm">
 					<tr>
 						<td>옵션</td>
 						<td><input type="checkbox" value="notice" name="type">공지</td>
@@ -57,7 +54,7 @@ text-align: center;
 					</tr>
 				   	<tr>
 					   	<td>내용</td>
-					   	<td style="width:766px;"><textarea name="content" id="ir1" rows="10" cols="100"></textarea></td>
+					   	<td id="input" ><textarea name="content" id="ir1" cols="100"></textarea></td>
 					<tr>
 						<td>링크 1</td>
 						<td><input type="text" name="link1"/></td>

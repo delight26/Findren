@@ -19,17 +19,17 @@ import com.findren.homepage.service.impl.NewsServiceImpl;
 public class NewsController {
 
 	@Autowired
-	private NewsServiceImpl nService;
+	private NewsServiceImpl newsService;
 	private static final String filePath = "/resources/file_upload/";
 
-	public void setnService(NewsServiceImpl nService) {
-		this.nService = nService;
+	public void setnewsService(NewsServiceImpl newsService) {
+		this.newsService = newsService;
 	}
 	
 	//리스트
 	@RequestMapping(value = "newsList")
 	public String newsList(HttpServletRequest request, Model model) {
-		nService.newsList(request);
+		newsService.newsList(request);
 		model.addAttribute("content", "News/newsList");
 		return "home";
 	}
@@ -46,14 +46,14 @@ public class NewsController {
 	public String newsWriteResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		nService.newsWriteResult(request, path, session);
+		newsService.newsWriteResult(request, path, session);
 		return "redirect:newsList";
 	}
 	
 	//보기
 	@RequestMapping(value="newsContent")
 	public String newsContent(HttpServletRequest request,Model model){
-		nService.newsContent(request);
+		newsService.newsContent(request);
 		model.addAttribute("content", "News/newsContent");
 		return "home";
 	}
@@ -61,10 +61,10 @@ public class NewsController {
 	//다음글
 	@RequestMapping(value="newsNext")
 	public String newsNext(HttpServletRequest request, Model model){
-		nService.newsNext(request);
+		newsService.newsNext(request);
 		model.addAttribute("content", "News/newsContent");
 		
-		if (request.getAttribute("nb") == null) {
+		if (request.getAttribute("news") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
@@ -75,10 +75,10 @@ public class NewsController {
 	//이전글
 	@RequestMapping(value="newsPre")
 	public String newsPre(HttpServletRequest request, Model model){
-		nService.newsPre(request);
+		newsService.newsPre(request);
 		model.addAttribute("content", "News/newsContent");
 		
-		if (request.getAttribute("nb") == null) {
+		if (request.getAttribute("news") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
@@ -89,14 +89,14 @@ public class NewsController {
 	//삭제
 	@RequestMapping(value="newsDelete", method = RequestMethod.POST)
 	public String newsDelete(HttpServletRequest request){
-		nService.newsDelete(request);
+		newsService.newsDelete(request);
 		return "redirect:newsList";
 	}
 	
 	//업데이트
 	@RequestMapping(value="newsUpdate")
 	public String newsUpdate(HttpServletRequest request, Model model){
-		nService.newsUpdate(request);
+		newsService.newsUpdate(request);
 		model.addAttribute("content", "News/newsUpdate");
 		return "home";
 	}
@@ -106,7 +106,7 @@ public class NewsController {
 	public String newsUpdateResult(MultipartHttpServletRequest request, HttpSession session) throws IllegalStateException, IOException{
 		String path = request.getServletContext().getRealPath(filePath);
 		
-		nService.newsUpdateResult(request, path, session);
+		newsService.newsUpdateResult(request, path, session);
 		return "redirect:newsList";
 	}
 }

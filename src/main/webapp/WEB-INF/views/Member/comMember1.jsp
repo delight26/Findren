@@ -10,13 +10,15 @@ $(document).ready(function(){
 		var identifyagree = $('input:radio[name="identifyuse"]:checked').val();
 
 		if(useagree=="agree"&&identifyagree=="agree"){
-			document.location.href = "perMember2";
+			document.location.href = "comMember2";
 		} else{
 			alert("[회원가입 이용약관]에 동의를 하셔야 회원가입이 가능합니다.");
 		}
 	});
 });
 </script>
+</head>
+<body>
 	<textarea rows="10" cols="150">${ cf.cf_sign }</textarea><br/>
 	<input type="radio" name="use" value="agree" />동의합니다 
 	<input type="radio" name="use" value="notagree" />동의하지 않습니다<br/>

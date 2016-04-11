@@ -35,8 +35,9 @@ public class SnsController {
 	
 	//쓰기
 	@RequestMapping(value = "snsWrite")
-	public String snsWrite(){
-		return "SNS/snsWrite";
+	public String snsWrite(Model model){
+		model.addAttribute("content", "SNS/snsWrite");
+		return "home";
 	}
 	
 	//쓰기결과
@@ -50,33 +51,36 @@ public class SnsController {
 	
 	//보기
 	@RequestMapping(value="snsContent")
-	public String snsContent(HttpServletRequest request){
+	public String snsContent(HttpServletRequest request, Model model){
 		snsService.snsContent(request);
-		return "SNS/snsContent";
+		model.addAttribute("content", "SNS/snsContent");
+		return "home";
 	}
 	
 	//다음글
 	@RequestMapping(value="snsnext")
-	public String snsNext(HttpServletRequest request){
+	public String snsNext(HttpServletRequest request, Model model){
 		snsService.snsNext(request);
-		if (request.getAttribute("nb") == null) {
+		model.addAttribute("content", "SNS/snsContent");
+		if (request.getAttribute("sns") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "SNS/snsContent";
+		return "home";
 	}
 	
 	//이전글
 	@RequestMapping(value="snspre")
-	public String snsPre(HttpServletRequest request){
+	public String snsPre(HttpServletRequest request, Model model){
 		snsService.snsPre(request);
-		if (request.getAttribute("nb") == null) {
+		model.addAttribute("content", "SNS/snsContent");
+		if (request.getAttribute("sns") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "SNS/snsContent";
+		return "home";
 	}
 	
 	//삭제
@@ -88,9 +92,10 @@ public class SnsController {
 	
 	//업데이트
 	@RequestMapping(value="snsUpdate")
-	public String snsUpdate(HttpServletRequest request){
+	public String snsUpdate(HttpServletRequest request, Model model){
+		model.addAttribute("content", "SNS/snsUpdate");
 		snsService.snsUpdate(request);
-		return "SNS/snsUpdate";
+		return "home";
 	}
 	
 	//업데이트결과

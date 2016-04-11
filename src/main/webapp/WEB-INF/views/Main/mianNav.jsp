@@ -1,6 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<style>
+.loginjoin_btn{
+	background: white;
+	border: none;
+}
+.loginjoin{
+	
+}
+</style>
+
+
 
 
    <!-- 메인 네비 -->
@@ -8,10 +19,18 @@
 	<div class="findren headlogo">	
 		<div class="maintop">
 			<a href="/Findren/findren"><img src="resources/images/logo.png" class="logo"></a>
+				<c:if test="${not isLogin }">
 			<div id="loginjoin">
 				<input class="main_msg" type="image"  src="resources/images/login.png" onclick="#">
-				<input class="main_msg" type="image" src="resources/images/join.png">
+				<input class="main_msg" type="image" src="resources/images/join.png" onclick="location.href='/Findren/joinMember'">
 			</div>
+			</c:if>
+			<c:if test="${isLogin }">
+			<div id="mylogout">
+				<input class="main_msg" type="image"  src="resources/images/mypage.png" onclick="#">
+				<input class="main_msg" type="image" src="resources/images/logout.png">
+			</div>
+			</c:if>
 		</div>
 	</div>
 	    
@@ -91,40 +110,39 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">위챗서비스<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="#">위챗공중계정</a>
+                                <a href="/Findren/wechatidList">위챗공중계정</a>
                             </li>
                             <li>
-                                <a href="#">위챗페이</a>
+                                <a href="/Findren/wechatpay">위챗페이</a>
                             </li>
-                            <li>
-                                <a href="#">서비스신청</a>
-                            </li>
+<!--                             <li> -->
+<!--                                 <a href="#">서비스신청</a> -->
+<!--                             </li> -->
                         </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">중국인채용<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="#">구인/구직</a>
+                                <a href="/Findren/jobofferList">구인/구직</a>
                             </li>
                             <li>
-                                <a href="#">헤드헌팅</a>
+                                <a href="/Findren/headhuntingList">헤드헌팅</a>
                             </li>
                             <li>
-                                <a href="#">인력파견</a>
+                                <a href="/Findren/peopleList">인력파견</a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a href="#">광고신청</a>
+                        <a href="/Findren/promotionWrite">광고신청</a>
                     </li>
-                    <li>
-                        <a href="#">근태관리</a>
-                    </li>
+<!--                     <li> -->
+<!--                         <a href="#">근태관리</a> -->
+<!--                     </li> -->
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container -->
     </nav>
-    

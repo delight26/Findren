@@ -14,9 +14,6 @@ text-align: center;
 	<!-- 페이지 헤드라인 -->
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">
-				&nbsp;
-			</h1>
 			<ol class="breadcrumb">
 				<li>회사소개</li>
 				<li class="active">보도자료</li>
@@ -143,8 +140,6 @@ text-align: center;
 				<%-- 				<c:if test=""> --%>
 				
 				<a href = "#" id = "newsDelete"><button class="btn btn-default">선택삭제</button></a>
-				<a href = "#" id = "newsCopy"><button class="btn btn-default">선택복사</button></a>
-				<a href = "#" id = "newsMove"><button class="btn btn-default">선택이동</button></a>
 				<input type="button" class="btn btn-default" value="글쓰기" onclick="location.href='newsWrite'">
 				<%-- 				</c:if> --%>
 			</div>

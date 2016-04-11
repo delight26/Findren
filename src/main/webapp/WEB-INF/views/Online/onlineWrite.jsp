@@ -17,9 +17,6 @@ text-align: center;
 	<!-- 페이지 헤드라인 -->
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">
-				&nbsp;
-			</h1>
 			<ol class="breadcrumb">
 				<li>중국마케팅</li>
 				<li class="active">온라인마케팅</li>
@@ -39,19 +36,19 @@ text-align: center;
 		</div>
 		<!-- 온라인 이름 -->
 		<div class="col-md-9">
-			<h2><img src="resources/images/onlineMKT_01.png"></h2>
+			<h2><img src="resources/images/onlineMKT_01.png" class="table_name"></h2>
 		</div>
 		
 		<div class="findrenOnline col-md-9">
 			<form id="frm" action="onlineWriteResult" method="post" enctype="multipart/form-data">
-				<table class="table">
+				<table class="table inputForm">
 					<tr>
 						<td>제목</td>
 						<td><input type="text" name="title"/></td>
 					</tr>
 				   	<tr>
 					   	<td>내용</td>
-					   	<td style="width:766px;"><textarea name="content" id="ir1" rows="10" cols="100"></textarea></td>
+					   	<td id="input"><textarea name="content" id="ir1" rows="10" cols="100"></textarea></td>
 					<tr>
 						<td>링크 1</td>
 						<td><input type="text" name="link1"/></td>

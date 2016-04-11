@@ -17,9 +17,6 @@ text-align: center;
 	<!-- 페이지 헤드라인 -->
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">
-				&nbsp;
-			</h1>
 			<ol class="breadcrumb">
 				<li>회사소개</li>
 				<li class="active">공지사항</li>
@@ -46,28 +43,28 @@ text-align: center;
 		
 		<div class="findrenNotice col-md-9">
 		<form id="frm" action="noticeUpdateResult" method="post" enctype="multipart/form-data">
-			<table class="table">
+			<table class="table inputForm">
 				<tr>
 					<td>옵션</td>
 					<td>
 						<input type="checkbox" value="notice" name="type"/>공지
-						<input type="hidden" value="${ nb.wr_id }"  name="no"/>
+						<input type="hidden" value="${ notice.wr_id }"  name="no"/>
 					</td>
 				</tr>
 				<tr>
 					<td>제목</td>
-					<td><input type="text" name="title" value="${ nb.wr_subject }"/></td>
+					<td><input type="text" name="title" value="${ notice.wr_subject }"/></td>
 				</tr>
 			   	<tr>
 			   		<td>내용</td>
-			   		<td style="width:766px;"><textarea name="content" id="ir1" rows="10" cols="100">${ nb.wr_content }</textarea></td>
+			   		<td id="input"><textarea name="content" id="ir1" cols="100">${ notice.wr_content }</textarea></td>
 				<tr>
 					<td>링크 1</td>
-					<td><input type="text" name="link1" value="${ nb.wr_link1 }"/></td>
+					<td><input type="text" name="link1" value="${ notice.wr_link1 }"/></td>
 				</tr>
 				<tr>
 					<td>링크 2</td>
-					<td><input type="text" name="link2"/>${ nb.wr_link2 }</td>
+					<td><input type="text" name="link2"/>${ notice.wr_link2 }</td>
 				</tr>
 				<tr>
 					<td>파일 1</td>

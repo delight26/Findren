@@ -35,8 +35,9 @@ public class SeoController {
 	
 	//쓰기
 	@RequestMapping(value = "seoWrite")
-	public String seoWrite(){
-		return "SEO/seoWrite";
+	public String seoWrite(Model model){
+		model.addAttribute("content", "SEO/seoWrite");
+		return "home";
 	}
 	
 	//쓰기결과
@@ -50,33 +51,36 @@ public class SeoController {
 	
 	//보기
 	@RequestMapping(value="seoContent")
-	public String seoContent(HttpServletRequest request){
+	public String seoContent(HttpServletRequest request, Model model){
 		seoService.seoContent(request);
-		return "SEO/seoContent";
+		model.addAttribute("content", "SEO/seoContent");
+		return "home";
 	}
 	
 	//다음글
 	@RequestMapping(value="seonext")
-	public String seoNext(HttpServletRequest request){
+	public String seoNext(HttpServletRequest request, Model model){
 		seoService.seoNext(request);
-		if (request.getAttribute("nb") == null) {
+		model.addAttribute("content", "SEO/seoContent");
+		if (request.getAttribute("seo") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "SEO/seoContent";
+		return "home";
 	}
 	
 	//이전글
 	@RequestMapping(value="seopre")
-	public String seoPre(HttpServletRequest request){
+	public String seoPre(HttpServletRequest request, Model model){
 		seoService.seoPre(request);
-		if (request.getAttribute("nb") == null) {
+		model.addAttribute("content", "SEO/seoContent");
+		if (request.getAttribute("seo") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "SEO/seoContent";
+		return "home";
 	}
 	
 	//삭제
@@ -88,9 +92,10 @@ public class SeoController {
 	
 	//업데이트
 	@RequestMapping(value="seoUpdate")
-	public String seoUpdate(HttpServletRequest request){
+	public String seoUpdate(HttpServletRequest request, Model model){
+		model.addAttribute("content", "SEO/seoUpdate");
 		seoService.seoUpdate(request);
-		return "SEO/seoUpdate";
+		return "home";
 	}
 	
 	//업데이트결과

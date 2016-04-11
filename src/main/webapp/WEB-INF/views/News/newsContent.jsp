@@ -16,9 +16,6 @@ text-align: center;
 	<!-- 페이지 헤드라인 -->
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">
-				&nbsp;
-			</h1>
 			<ol class="breadcrumb">
 				<li>회사소개</li>
 				<li class="active">보도자료</li>
@@ -35,7 +32,7 @@ text-align: center;
 				<a href="/Findren/comMainCustomer" class="list-group-item">주요고객군</a>
 				<a href="/Findren/comMap" class="list-group-item">오시는길</a>
 				<a href="/Findren/noticeList" class="list-group-item">공지사항</a>
-				<a href="/Findren/news" class="list-group-item active">보도자료</a>
+				<a href="/Findren/newsList" class="list-group-item active">보도자료</a>
 			</div>
 		</div>
 		<!-- 공지사항 이름 -->
@@ -47,37 +44,33 @@ text-align: center;
 			<table class="table">
 		<tr>
 			<th>제목</th>
-			<td>${ nb.wr_subject }</td>
+			<td>${ news.wr_subject }</td>
 			<th>작성일</th>
-			<td>${ fn:substring(nb.wr_datetime, 0, 16) }</td>
+			<td>${ fn:substring(news.wr_datetime, 0, 16) }</td>
 		</tr>
 			<tr>
 			<th>글쓴이</th>
-			<td>${ nb.wr_name }</td>
+			<td>${ news.wr_name }</td>
 			<th>조회수</th>
-			<td>${ nb.wr_hit }</td>
+			<td>${ news.wr_hit }</td>
 		</tr>
 		<tr>
 			<td colspan="4">
-				<a href="http://${ nb.wr_link1 }" target=_blank>${ nb.wr_link1 }</a>조회수 : ${ nb.wr_link1_hit }<br/>
-				<a href="http://${ nb.wr_link2 }" target=_blank>${ nb.wr_link2 }</a>조회수 : ${ nb.wr_link1_hit }
-				${ nb.wr_content }
+				<a href="http://${ news.wr_link1 }" target=_blank>${ news.wr_link1 }</a>조회수 : ${ news.wr_link1_hit }<br/>
+				<a href="http://${ news.wr_link2 }" target=_blank>${ news.wr_link2 }</a>조회수 : ${ news.wr_link1_hit }
+				${ news.wr_content }
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" style="text-align: left;"><a href="newspre?no=${nb.wr_id }&pageNum=${pageNum }">이전글</a></td>
-			<td colspan="2" style="text-align: right;"><a href="newsnext?no=${nb.wr_id }&pageNum=${pageNum }">다음글</a></td>
+			<td colspan="2" style="text-align: left;"><a href="newspre?no=${news.wr_id }&pageNum=${pageNum }">이전글</a></td>
+			<td colspan="2" style="text-align: right;"><a href="newsnext?no=${news.wr_id }&pageNum=${pageNum }">다음글</a></td>
 		</tr>
 	</table>
 	
 			<div style="text-align: center;">
-				<input type="button" class="btn btn-default" value="수정" onclick="location.href='newsUpdate?no=${ nb.wr_id }'"/>
-				<input type="button" class="btn btn-default" value="삭제" onclick="location.href='newsOneDelete?no=${nb.wr_id}'"/>
-				<input type="button" class="btn btn-default" value="복사"/>
-				<input type="button" class="btn btn-default" value="이동"/>
-				
+				<input type="button" class="btn btn-default" value="수정" onclick="location.href='newsUpdate?no=${ news.wr_id }'"/>
+				<input type="button" class="btn btn-default" value="삭제" onclick="location.href='newsOneDelete?no=${news.wr_id}'"/>
 				<input type="button" class="btn btn-default" value="목록" onclick="location.href='newsList?pageNum=${pageNum }'"/>
-				<input type="button" class="btn btn-default" value="답변"/>
 				<input type="button" class="btn btn-default"value="글쓰기" onclick="location.href='newsWrite'"/>
 			</div>
 		</div>

@@ -62,7 +62,7 @@ public class OnlineController {
 	public String onlineNext(HttpServletRequest request, Model model){
 		onlineService.onlineNext(request);
 		model.addAttribute("content", "Online/onlineConetent");
-		if (request.getAttribute("nb") == null) {
+		if (request.getAttribute("online") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
@@ -75,7 +75,7 @@ public class OnlineController {
 	public String onlinePre(HttpServletRequest request, Model model){
 		onlineService.onlinePre(request);
 		model.addAttribute("content", "Online/onlineConetent");
-		if (request.getAttribute("nb") == null) {
+		if (request.getAttribute("online") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";

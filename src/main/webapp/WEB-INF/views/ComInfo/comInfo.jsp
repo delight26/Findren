@@ -8,9 +8,6 @@
 	<!-- 페이지 헤드라인 -->
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">
-				&nbsp;
-			</h1>
 			<ol class="breadcrumb">
 				<li><a href="/Findren/comInfo">회사소개</a></li>
 				<li class="active">회사소개</li>
@@ -32,14 +29,9 @@
 		</div>
 		<!-- 회사정보 내용 -->
 		<div class="col-md-9">
-			<h2><img src="resources/images/cominfo_00.png"></h2>
+			<img src="resources/images/cominfo_00.png" class="comInfo_name">
 			<div class="comInfo">
-				<div class="comInfo_img_01_03">
-					<img src="resources/images/cominfo_01.png">&nbsp;&nbsp;&nbsp;&nbsp;
-					<img src="resources/images/cominfo_02.png">&nbsp;&nbsp;&nbsp;&nbsp;
-					<img src="resources/images/cominfo_03.png">
-				</div><br><br>
-				<div class="comInfo_img_04"><img src="resources/images/cominfo_04.png"></div>
+				<img src="resources/images/cominfo_02.png">;
 			</div>
 		</div>
 	</div>

@@ -36,8 +36,9 @@ public class WechatpayController {
 	
 	//쓰기
 	@RequestMapping(value = "wechatpayWrite")
-	public String wechatpayWrite(){
-		return "WechatPay/wechatpayWrite";
+	public String wechatpayWrite(Model model){
+		model.addAttribute("content", "WechatPay/wechatpayWrite");
+		return "home";
 	}
 	
 	//쓰기결과
@@ -51,33 +52,36 @@ public class WechatpayController {
 	
 	//보기
 	@RequestMapping(value="wechatpayContent")
-	public String wechatpayContent(HttpServletRequest request){
+	public String wechatpayContent(HttpServletRequest request, Model model){
 		wpService.wechatpayContent(request);
-		return "WechatPay/wechatpayContent";
+		model.addAttribute("content", "WechatPay/wechatpayContent");
+		return "home";
 	}
 	
 	//다음글
 	@RequestMapping(value="wechatpaynext")
-	public String wechatpayNext(HttpServletRequest request){
+	public String wechatpayNext(HttpServletRequest request, Model model){
 		wpService.wechatpayNext(request);
-		if (request.getAttribute("nb") == null) {
+		model.addAttribute("content", "WechatPay/wechatpayContent");
+		if (request.getAttribute("wechatpay") == null) {
 			request.setAttribute("message", "마지막 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "WechatPay/wechatpayContent";
+		return "home";
 	}
 	
 	//이전글
 	@RequestMapping(value="wechatpaypre")
-	public String wechatpayPre(HttpServletRequest request){
+	public String wechatpayPre(HttpServletRequest request, Model model){
 		wpService.wechatpayPre(request);
-		if (request.getAttribute("nb") == null) {
+		model.addAttribute("content", "WechatPay/wechatpayContent");
+		if (request.getAttribute("wechatpay") == null) {
 			request.setAttribute("message", "최신 글 입니다.");
 			request.setAttribute("returnUrl", "javascript:history.back()");
 			return "alertAndRedirect";
 		}
-		return "WechatPay/wechatpayContent";
+		return "home";
 	}
 	
 	//삭제
@@ -89,9 +93,10 @@ public class WechatpayController {
 	
 	//업데이트
 	@RequestMapping(value="wechatpayUpdate")
-	public String wechatpayUpdate(HttpServletRequest request){
+	public String wechatpayUpdate(HttpServletRequest request, Model model){
+		model.addAttribute("content", "WechatPay/wechatpayUpdate");
 		wpService.wechatpayUpdate(request);
-		return "WechatPay/wechatpayUpdate";
+		return "home";
 	}
 	
 	//업데이트결과

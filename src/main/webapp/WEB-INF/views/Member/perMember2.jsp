@@ -2,11 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="utf-8">
-<title>Insert title here</title>
 			<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
 <script>
@@ -47,6 +42,9 @@ $(function(){
     	if(fhm_per_nation == "china" || fhm_per_nation == "etc"){
     		$("#addrsearch").hide();
 			$("#addrtext").show();    		
+    	} else{
+    		$("#addrsearch").show();
+			$("#addrtext").hide();    		
     	}
     });
     
@@ -56,7 +54,6 @@ $(function(){
     	var passconfirm = $("#passconfirm").val();
     	if(rechaptcha == "Success!"){
     		if(pass == passconfirm){
-    			alert($("#fhm_per_address"));
     			$("#joinform").submit();
     		}else{
     			event.preventDefault();
@@ -65,7 +62,7 @@ $(function(){
     	}
     });
     $.ajax({
-        url: "addrsearch",
+        url: "peraddrsearch",
         type:"post",
         dataType: "text",
         success: function(responseData, statusText, xhr){
@@ -79,15 +76,12 @@ $(function(){
 }); 
 </script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-</head>
-<body>
 	<form action = "joinPer" method = "post" id="joinform">
 	<table>
 		<tr>
 			<th>아이디</th>
 			<td>
 				<input type = "text" name = "fhm_id" id="id" required/>
-				<input type ="button" id="idcheck" value="아이디 중복 검사"/>
 			</td>
 		</tr>
 		<tr>
@@ -154,5 +148,3 @@ $(function(){
 	<input type="submit" value="회원가입" id="submit"/>
 	<a href="javascript:history.back()">취소</a>
 	</form>
-</body>
-</html>

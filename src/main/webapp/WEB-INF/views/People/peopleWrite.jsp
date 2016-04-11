@@ -17,12 +17,9 @@ text-align: center;
 	<!-- 페이지 헤드라인 -->
 	<div class="row">
 		<div class="col-lg-12">
-			<h1 class="page-header">
-				&nbsp;
-			</h1>
 			<ol class="breadcrumb">
-				<li>중국마케팅</li>
-				<li class="active">온라인마케팅</li>
+				<li>중국인채용</li>
+				<li class="active">인력파견</li>
 			</ol>
 		</div>
 	</div>
@@ -32,26 +29,26 @@ text-align: center;
 		<!-- 사이드 리스트 -->
 		<div class="col-md-3">
 			<div class="list-group">
-				<a href="/Findren/onlineList" class="list-group-item active">온라인마케팅</a>
-				<a href="/Findren/snsList" class="list-group-item">SNS마케팅</a>
-				<a href="/Findren/seoList" class="list-group-item">SEO마케팅</a>
+				<a href="/Findren/jobofferList" class="list-group-item">구인/구직</a>
+				<a href="/Findren/headhuntingList" class="list-group-item">헤드헌팅</a>
+				<a href="/Findren/peopleList" class="list-group-item active">인력파견</a>
 			</div>
 		</div>
-		<!-- 온라인 이름 -->
+		<!-- 인력파견 이름 -->
 		<div class="col-md-9">
-			<h2><img src="resources/images/onlineMKT_01.png"></h2>
+			<h2><img src="resources/images/people_01.png" class="table_name"></h2>
 		</div>
 		
-		<div class="findrenOnline col-md-9">
-			<form id="frm" action="onlineWriteResult" method="post" enctype="multipart/form-data">
-				<table class="table">
+		<div class="findrenPeople col-md-9">
+			<form id="frm" action="peopleWriteResult" method="post" enctype="multipart/form-data">
+				<table class="table inputForm">
 					<tr>
 						<td>제목</td>
 						<td><input type="text" name="title"/></td>
 					</tr>
 				   	<tr>
 					   	<td>내용</td>
-					   	<td style="width:766px;"><textarea name="content" id="ir1" rows="10" cols="100"></textarea></td>
+					   	<td id="input"><textarea name="content" id="ir1" rows="10" cols="100"></textarea></td>
 					<tr>
 						<td>링크 1</td>
 						<td><input type="text" name="link1"/></td>
